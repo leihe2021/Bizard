@@ -8,7 +8,7 @@
 <meta name="generator" content="quarto-1.8.26">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="[编辑] Copilot;">
-<meta name="author" content="[贡献]">
+<meta name="author" content="[贡献] 王诗翔">
 <title>骰子图 – 中文</title>
 <style>
 code{white-space: pre-wrap;}
@@ -610,6 +610,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Omics/GwasSnpPlot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GWAS Circos Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Omics/MotifPlot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MotifPlot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Omics/TextEnrichmentBarPlot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TextEnrichmentBarPlot</span></a>
   </div>
 </li>
       </ul>
@@ -1834,7 +1846,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title-meta-heading">作者</div>
     <div class="quarto-title-meta-contents">
              <p><strong>[编辑]</strong> <a href="https://github.com/">Copilot</a>; </p>
-             <p><strong>[贡献]</strong> </p>
+             <p><strong>[贡献]</strong> <a href="https://github.com/ShixiangWang">王诗翔</a> </p>
           </div>
   </div>
     
@@ -1842,7 +1854,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">修改于</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-01-05</p>
+      <p class="date-modified">2026-01-07</p>
     </div>
   </div>
     
@@ -1859,9 +1871,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>该骰子图显示了不同化合物和器官中 miRNA 表达变化。每个骰子表示 miRNA 在不同器官（肺、肝脏、大脑）中的存在和调控方向。点代表不同的器官，颜色表示 miRNA 是上调（红色）、下调（蓝色）还是不变（灰色）。</p>
 </section><section id="环境配置" class="level2"><h2 class="anchored" data-anchor-id="环境配置">环境配置</h2>
 <ul>
-<li><p>系统要求：跨平台（Linux/MacOS/Windows）</p></li>
-<li><p>编程语言：R</p></li>
-<li><p>依赖包：<code>ggplot2</code>; <code>ggdiceplot</code>; <code>dplyr</code></p></li>
+<li>系统要求：跨平台（Linux/MacOS/Windows）</li>
+<li>编程语言：R</li>
+<li>依赖包：<code>ggplot2</code>; <code>ggdiceplot</code>; <code>dplyr</code>
+</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
@@ -1899,7 +1912,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  collate  C.UTF-8
  ctype    C.UTF-8
  tz       UTC
- date     2026-01-06
+ date     2026-01-07
  pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
  quarto   1.8.26 @ /usr/local/bin/quarto
 
@@ -1959,8 +1972,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .. ..$ Organ   : chr [1:4] "Organ=Lung" "Organ=Liver" "Organ=Brain" "Organ=Kidney"</code></pre>
 </div>
 </div>
-<p>该数据集包含以下列： - <code>miRNA</code>：microRNA 标识符 - <code>Compound</code>：治疗化合物 - <code>Organ</code>：组织/器官类型 - <code>log2FC</code>：表达的 log2 倍数变化 - <code>direction</code>：调控方向（上调/下调/不变）</p>
-</section><section id="可视化" class="level2"><h2 class="anchored" data-anchor-id="可视化">可视化</h2>
+<p>该数据集包含以下列：</p>
+<ul>
+<li>
+<code>miRNA</code>：microRNA 标识符</li>
+<li>
+<code>Compound</code>：治疗化合物</li>
+<li>
+<code>Organ</code>：组织/器官类型</li>
+<li>
+<code>log2FC</code>：表达的 log2 倍数变化</li>
+<li>
+<code>direction</code>：调控方向（上调/下调/不变）</li>
+</ul></section><section id="可视化" class="level2"><h2 class="anchored" data-anchor-id="可视化">可视化</h2>
 <section id="基础骰子图" class="level3"><h3 class="anchored" data-anchor-id="基础骰子图">1. 基础骰子图</h3>
 <p>基础骰子图使用 <code>geom_dice()</code> 来表示多个分类变量。每个骰子方块可以使用传统的骰子点模式显示多达 6 个类别。</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -2145,8 +2169,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>该高级图显示分类学数据，其中： - <strong>点</strong>：不同疾病 - <strong>颜色</strong>：Log2 倍数变化（紫色 = 下调，绿色 = 上调） - <strong>大小</strong>：统计显著性（-log10 q-value）</p>
-</section><section id="自定义主题" class="level3"><h3 class="anchored" data-anchor-id="自定义主题">3. 自定义主题</h3>
+<p>该高级图显示分类学数据，其中：</p>
+<ul>
+<li>
+<strong>点</strong>：不同疾病</li>
+<li>
+<strong>颜色</strong>：Log2 倍数变化（紫色 = 下调，绿色 = 上调）</li>
+<li>
+<strong>大小</strong>：统计显著性（-log10 q-value）</li>
+</ul></section><section id="自定义主题" class="level3"><h3 class="anchored" data-anchor-id="自定义主题">3. 自定义主题</h3>
 <p>该包包含 <code>theme_dice()</code> 以实现更清晰的可视化：</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
@@ -2198,7 +2229,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 图 4: ZEBRA 基因表达多米诺图
 </figcaption></figure>
 </div>
-<p>该图显示了多种疾病（MS、AD、ASD、FTD、HD）和细胞类型中差异表达基因的多米诺图。每个骰子表示： - <strong>点</strong>：不同疾病条件 - <strong>颜色</strong>：Log 倍数变化（蓝色 = 下调，红色 = 上调） - <strong>大小</strong>：统计显著性（FDR）</p>
+<p>该图显示了多种疾病（MS、AD、ASD、FTD、HD）和细胞类型中差异表达基因的多米诺图。每个骰子表示：</p>
+<ul>
+<li>
+<strong>点</strong>：不同疾病条件</li>
+<li>
+<strong>颜色</strong>：Log 倍数变化（蓝色 = 下调，红色 = 上调）</li>
+<li>
+<strong>大小</strong>：统计显著性（FDR）</li>
+</ul>
 <p>多米诺图允许同时可视化多个维度的基因表达模式，使识别疾病特异性和细胞类型特异性失调模式变得容易。</p>
 </section><section id="分类学分析" class="level3"><h3 class="anchored" data-anchor-id="分类学分析">2. 分类学分析</h3>
 <div id="fig-TaxonomyApp" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="分类学骰子图">
@@ -2222,13 +2261,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>该示例显示了不同化合物和器官中 miRNA 表达变化，骰子点代表器官，颜色表示调控方向。这种可视化模式对于检查组织特异性药物效应的药理学研究特别有用。</p>
 </section></section><section id="参考文献" class="level2"><h2 class="anchored" data-anchor-id="参考文献">参考文献</h2>
 <ol type="1">
-<li><p>M. Flotho, P. Flotho, A. Keller, “Diceplot: A package for high dimensional categorical data visualization,” <em>arXiv preprint</em>, 2024. <a href="https://doi.org/10.48550/arXiv.2410.23897" class="uri">https://doi.org/10.48550/arXiv.2410.23897</a></p></li>
-<li><p>ggdiceplot GitHub 仓库：<a href="https://github.com/maflot/ggdiceplot" class="uri">https://github.com/maflot/ggdiceplot</a></p></li>
-<li><p>ggdiceplot CRAN 包：<a href="https://CRAN.R-project.org/package=ggdiceplot" class="uri">https://CRAN.R-project.org/package=ggdiceplot</a></p></li>
+<li>M. Flotho, P. Flotho, A. Keller, “Diceplot: A package for high dimensional categorical data visualization,” <em>arXiv preprint</em>, 2024. <a href="https://doi.org/10.48550/arXiv.2410.23897" class="uri">https://doi.org/10.48550/arXiv.2410.23897</a>
+</li>
+<li>ggdiceplot GitHub 仓库：<a href="https://github.com/maflot/ggdiceplot" class="uri">https://github.com/maflot/ggdiceplot</a>
+</li>
+<li>ggdiceplot CRAN 包：<a href="https://CRAN.R-project.org/package=ggdiceplot" class="uri">https://CRAN.R-project.org/package=ggdiceplot</a>
+</li>
 </ol></section><section id="贡献者" class="level2"><h2 class="anchored" data-anchor-id="贡献者">贡献者</h2>
 <ul>
 <li>
-<strong>编辑</strong>：GitHub Copilot。</li>
+<strong>编辑</strong>：GitHub Copilot</li>
+<li>
+<strong>[贡献]</strong> <a href="https://github.com/ShixiangWang">王诗翔</a>
+</li>
 </ul></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<link rel="alternate" hreflang="en" href="https://openbiox.github.io/Bizard/Hiplot/000-test-demo.html" />
-<link rel="alternate" hreflang="zh" href="https://openbiox.github.io/Bizard/zh/Hiplot/000-test-demo.zh.html" />
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<link rel="alternate" hreflang="en" href="https://openbiox.github.io/Bizard/Omics/MotifPlot.html" />
+<link rel="alternate" hreflang="zh" href="https://openbiox.github.io/Bizard/zh/Omics/MotifPlot.zh.html" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.26">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Norah Jones">
-<meta name="dcterms.date" content="2021-05-22">
-
-<title>ggplot2 demo – A Biomedical Visualization Atlas</title>
+<meta name="author" content="[Editor] Zilun Jin;">
+<meta name="author" content="[Contributors] Hu Zheng.">
+<title>Motif Plot – A Biomedical Visualization Atlas</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,25 +58,13 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+<link href="../Omics/TextEnrichmentBarPlot.html" rel="next">
+<link href="../Omics/GwasSnpPlot.html" rel="prev">
 <link href="../images/favicon.ico" rel="icon">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-35b2488c50700e22d6ccd520b8a342ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -106,40 +92,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-
-
+}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 <link rel="stylesheet" href="../styles.css">
 </head>
-
 <body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ggplot2 demo</li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../Omics/CollinearityPlot.html"><i class="fa-solid fa-dna"></i> 𝐎𝐌𝐈𝐂𝐒</a></li>
+<li class="breadcrumb-item"><a href="../Omics/MotifPlot.html">MotifPlot</a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Bizard_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../images/Bizard_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Bizard_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="../images/Bizard_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/openbiox/Bizard" title="Bizard GitHub website" class="quarto-navigation-tool px-1" aria-label="Bizard GitHub website"><i class="bi bi-github"></i></a>
     <a href="https://x.com/PengL_Robin" title="Peng Luo (Robin)" class="quarto-navigation-tool px-1" aria-label="Peng Luo (Robin)"><i class="bi bi-twitter"></i></a>
@@ -151,9 +127,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle babelquarto-languages-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i> English</button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://openbiox.github.io/Bizard/zh/Omics/MotifPlot.html" id="language-link-zh">中文</a></li></ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><i class="fa-solid fa-house"></i> Welcome</span></a>
@@ -183,8 +162,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Distribution/ViolinPlot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Violin Plot</span></a>
@@ -233,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
@@ -242,8 +221,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Correlation/Scatter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Scatter Plot</span></a>
@@ -310,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
@@ -319,8 +298,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Ranking/BarPlot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bar Plot</span></a>
@@ -375,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
@@ -384,8 +363,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Composition/GroupedBarplot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Grouped and Stacked Barplot</span></a>
@@ -434,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
@@ -443,8 +422,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../DataOverTime/LineChart.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Line Chart</span></a>
@@ -481,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
@@ -490,8 +469,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Proportion/ChordDiagram.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chord Diagram</span></a>
@@ -522,7 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
@@ -531,8 +510,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Animation/Animation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Animation</span></a>
@@ -545,17 +524,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
  <span class="menu-text"><i class="fa-solid fa-dna"></i> 𝐎𝐌𝐈𝐂𝐒</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Omics/CollinearityPlot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CollinearityPlot</span></a>
@@ -633,8 +612,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">GWAS Circos Plot</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Omics/MotifPlot.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">MotifPlot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Omics/TextEnrichmentBarPlot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TextEnrichmentBarPlot</span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
@@ -643,8 +634,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Clinics/Nomogram.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nomogram</span></a>
@@ -681,7 +672,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
  <span class="menu-text"><i class="fa-solid fa-cloud"></i> 𝐇𝐈𝐏𝐋𝐎𝐓</span></span>
@@ -694,8 +685,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Hiplot/001-area.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Area</span></a>
@@ -1290,7 +1281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
@@ -1299,8 +1290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Hiplot/004-barplot-color-group.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Barplot Color Group</span></a>
@@ -1505,7 +1496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
@@ -1514,8 +1505,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Hiplot/010-barplot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Barplot</span></a>
@@ -1660,7 +1651,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
@@ -1669,8 +1660,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Hiplot/096-map-africa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Africa Map</span></a>
@@ -1791,7 +1782,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ToolLinks.html" class="sidebar-item-text sidebar-link">
@@ -1805,25 +1796,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#air-quality" id="toc-air-quality" class="nav-link active" data-scroll-target="#air-quality">Air Quality</a></li>
+<li><a href="#example" id="toc-example" class="nav-link active" data-scroll-target="#example">Example</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li>
+<a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a>
+  <ul class="collapse">
+<li><a href="#basic-motif" id="toc-basic-motif" class="nav-link" data-scroll-target="#basic-motif">1. Basic Motif</a></li>
+  <li><a href="#multi-motif-plot" id="toc-multi-motif-plot" class="nav-link" data-scroll-target="#multi-motif-plot">2. Multi-motif plot</a></li>
+  <li><a href="#motif-plot-beautify" id="toc-motif-plot-beautify" class="nav-link" data-scroll-target="#motif-plot-beautify">3. Motif plot beautify</a></li>
+  <li><a href="#advanced-features" id="toc-advanced-features" class="nav-link" data-scroll-target="#advanced-features">4. Advanced features</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/openbiox/Bizard/blob/main/Hiplot/000-test-demo.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/openbiox/Bizard/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
-    </div>
+</li>
+  <li><a href="#application" id="toc-application" class="nav-link" data-scroll-target="#application">Application</a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
+  </ul>
+<div class="toc-actions"><ul>
+<li><a href="https://github.com/openbiox/Bizard/blob/main/Omics/MotifPlot.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li>
+<li><a href="https://github.com/openbiox/Bizard/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li>
+</ul></div></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">ggplot2 demo</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../Omics/CollinearityPlot.html"><i class="fa-solid fa-dna"></i> 𝐎𝐌𝐈𝐂𝐒</a></li>
+<li class="breadcrumb-item"><a href="../Omics/MotifPlot.html">MotifPlot</a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">Motif Plot</h1>
 </div>
 
 
@@ -1831,23 +1836,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
-             <p>Norah Jones </p>
+             <p><strong>[Editor]</strong> <a href="https://github.com/kintilin">Zilun Jin</a>; </p>
+             <p><strong>[Contributors]</strong> <a href="https://github.com/ZhengTiger">Hu Zheng</a>. </p>
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2021-05-22</p>
-    </div>
-  </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-01-05</p>
+      <p class="date-modified">2026-01-07</p>
     </div>
   </div>
     
@@ -1855,49 +1855,488 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installing necessary packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggplot2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<section id="air-quality" class="level2">
-<h2 class="anchored" data-anchor-id="air-quality">Air Quality</h2>
-<p><a href="#fig-airquality" class="quarto-xref">Figure&nbsp;1</a> further explores the impact of temperature on ozone level.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(Temp, Ozone)) <span class="sc">+</span> </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div id="fig-airquality" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-airquality-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="000-test-demo_files/figure-html/fig-airquality-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-airquality-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Temperature and ozone level.
-</figcaption>
+</header><p>For visualizing motif logos, ggseqlogo is an R package based on ggplot2 specifically designed for plotting logos from sequence motifs. Compared to other motif visualization tools, ggseqlogo boasts advantages such as concise syntax, flexible output formats, and full compatibility with the ggplot2 ecosystem. The package supports various sequence input formats, including position-frequency matrices (PFM), position-weight matrices (PWM), and sequence vectors, and provides rich customization options to adjust the appearance of the logo plot.</p>
+<section id="example" class="level2"><h2 class="anchored" data-anchor-id="example">Example</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../images/Omics/MotifPlot_demo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="MotifPlot DEMO1"></p>
 </figure>
 </div>
+<p>Motif logo images are graphics used to display conserved patterns in DNA, RNA, or protein sequences, using the size of the characters at each location to indicate the information content of that location.</p>
+</section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<ul>
+<li><p>System Requirements: Cross-platform (Linux/MacOS/Windows)</p></li>
+<li><p>Programming language: R</p></li>
+<li><p>Dependent packages: <code>ggplot2</code>, <code>ggseqlogo</code>, <code>cowplot</code>, <code>gridExtra</code></p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installing packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggplot2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggseqlogo"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"ggseqlogo"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"cowplot"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"cowplot"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"gridExtra"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"gridExtra"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggseqlogo)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>(<span class="st">"attached"</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.5.2 (2025-10-31)
+ os       Ubuntu 24.04.3 LTS
+ system   x86_64, linux-gnu
+ ui       X11
+ language (EN)
+ collate  C.UTF-8
+ ctype    C.UTF-8
+ tz       UTC
+ date     2026-01-07
+ pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
+ quarto   1.8.26 @ /usr/local/bin/quarto
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ package   * version date (UTC) lib source
+ cowplot   * 1.2.0   2025-07-07 [1] RSPM
+ ggplot2   * 4.0.1   2025-11-14 [1] RSPM
+ ggseqlogo * 0.2.2   2025-12-22 [1] RSPM
+ gridExtra * 2.3     2017-09-09 [1] RSPM
+
+ [1] /home/runner/work/_temp/Library
+ [2] /opt/R/4.5.2/lib/R/site-library
+ [3] /opt/R/4.5.2/lib/R/library
+ * ── Packages attached to the search path.
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+</section><section id="data-preparation" class="level2"><h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
+<p>Using the built-in dataset <code>ggseqlogo_sample</code>, which contains three variables and two different input formats: - seqs_dna: Binding sites of 12 transcription factors obtained from the JASPAR FASTA file. The format is a list of string vectors, with the list name representing the JASPAR ID. - seqs_aa: Phosphorylation sites of kinase substrates obtained from Wagih et al. The format is the same as seqs_dna. - pfms_dna: A list of position-frequency matrices of four transcription factors obtained from JASPAR, with the list name representing the JASPAR ID.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ggseqlogo_sample)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pfms_dna,<span class="at">n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$MA0018.2
+  [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+A    0    0   11    0    1    0    2    8
+C    1    1    0    9    0    3    7    0
+G    1   10    0    2   10    0    1    1
+T    9    0    0    0    0    8    1    2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(seqs_aa, <span class="at">n =</span> <span class="dv">1</span>)[[<span class="dv">1</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "VVGARRSSWRVVSSI" "GPRSRSRSRDRRRKE" "LLCLRRSSLKAYGNG"</code></pre>
+</div>
+</div>
+</section><section id="visualization" class="level2"><h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<section id="basic-motif" class="level3"><h3 class="anchored" data-anchor-id="basic-motif">1. Basic Motif</h3>
+<p>The ggseqlogo package can use the <code>geom_logo</code> function to plot data based on ggplot2 syntax, or it can use the encapsulated function <code>ggseqlogo</code> to plot data, and both share the same parameters.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using sequence vectors</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Using PFM matrix</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(pfms_dna<span class="sc">$</span>MA0018<span class="fl">.2</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting using ggplot syntax</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_logo</span>( seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span> ) <span class="sc">+</span> <span class="fu">theme_logo</span>()</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-1BasicMotif-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-1BasicMotif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-1BasicMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1BasicMotif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Basic Motif
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-1BasicMotif-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-1BasicMotif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-1BasicMotif-2.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1BasicMotif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: Basic Motif
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-1BasicMotif-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-1BasicMotif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-1BasicMotif-3.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1BasicMotif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: Basic Motif
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The image above shows the motif result of MA0001.1.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Key parameters: </strong></p>
+<ul>
+<li>data: Input data: sequence vector, matrix, or list</li>
+<li>method = “bits”: Calculation method: “bits” or “probability”</li>
+<li>seq_type = “auto”: Sequence type: “auto”, “dna”, “rna”, “aa”</li>
+<li>namespace = NULL: Custom character namespace</li>
+<li>font = “roboto_medium”: Font type</li>
+<li>stack_width = 0.95: Character stack width</li>
+<li>rev_stack_order = FALSE: Whether to reverse the stacking order</li>
+<li>col_scheme = “auto”: Color scheme</li>
+<li>low_col = ‘black’: Low-bits/probability color</li>
+<li>high_col = ‘yellow’: High-bits/probability color</li>
+<li>na_col = ‘grey20’: NA value color</li>
+<li>plot = TRUE: Whether to plot immediately</li>
+</ul>
+</div>
+</div>
+</section><section id="multi-motif-plot" class="level3"><h3 class="anchored" data-anchor-id="multi-motif-plot">2. Multi-motif plot</h3>
+<p>You can use <code>facet_wrap</code> or <code>facet_grid</code> to combine multiple logo images:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw multiple motifs</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_dna, <span class="at">ncol=</span><span class="dv">4</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent to</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_logo</span>(seqs_dna) <span class="sc">+</span> <span class="fu">theme_logo</span>() <span class="sc">+</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seq_group, <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">scales=</span><span class="st">'free_x'</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-2MultiMotif" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-2MultiMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-2MultiMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2MultiMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 4: Multi-motif plot
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="motif-plot-beautify" class="level3"><h3 class="anchored" data-anchor-id="motif-plot-beautify">3. Motif plot beautify</h3>
+<section id="adjust-color-scheme" class="level4"><h4 class="anchored" data-anchor-id="adjust-color-scheme">3.1 Adjust color scheme</h4>
+<p>ggseqlogo offers a variety of preset and custom color schemes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preset color scheme for DNA sequences</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>, <span class="at">col_scheme=</span><span class="st">'nucleotide'</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-3-1ColorMotif1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-3-1ColorMotif1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-3-1ColorMotif1-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-1ColorMotif1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 5: Adjust color scheme 1
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Color scheme of amino acid sequences</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_aa<span class="sc">$</span>AKT1, <span class="at">col_scheme=</span><span class="st">'chemistry'</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-3-1ColorMotif2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-3-1ColorMotif2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-3-1ColorMotif2-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-1ColorMotif2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 6: Adjust color scheme 2
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom discrete color scheme</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cs1 <span class="ot">&lt;-</span> <span class="fu">make_col_scheme</span>(<span class="at">chars=</span><span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'T'</span>, <span class="st">'C'</span>, <span class="st">'G'</span>), </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">groups=</span><span class="fu">c</span>(<span class="st">'gr1'</span>, <span class="st">'gr1'</span>, <span class="st">'gr2'</span>, <span class="st">'gr2'</span>), </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">cols=</span><span class="fu">c</span>(<span class="st">'purple'</span>, <span class="st">'purple'</span>, <span class="st">'blue'</span>, <span class="st">'blue'</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>, <span class="at">col_scheme=</span>cs1)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-3-1ColorMotif3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-3-1ColorMotif3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-3-1ColorMotif3-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-1ColorMotif3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 7: Adjust color scheme 3
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom continuous color scheme</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cs2 <span class="ot">&lt;-</span> <span class="fu">make_col_scheme</span>(<span class="at">chars=</span><span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'T'</span>, <span class="st">'C'</span>, <span class="st">'G'</span>), <span class="at">values=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>, <span class="at">col_scheme=</span>cs2)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-3-1ColorMotif4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-3-1ColorMotif4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-3-1ColorMotif4-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-1ColorMotif4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 8: Adjust color scheme 4
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="adjust-font-and-stacking" class="level4"><h4 class="anchored" data-anchor-id="adjust-font-and-stacking">3.2 Adjust font and stacking</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View all available fonts</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list_fonts</span>(F)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "helvetica_regular"   "helvetica_bold"      "helvetica_light"    
+ [4] "roboto_medium"       "roboto_bold"         "roboto_regular"     
+ [7] "akrobat_bold"        "akrobat_regular"     "roboto_slab_bold"   
+[10] "roboto_slab_regular" "roboto_slab_light"   "xkcd_regular"       </code></pre>
+</div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a specific font</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>, <span class="at">font=</span><span class="st">'helvetica_bold'</span>, <span class="at">stack_width=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-3-2FontMotif" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-3-2FontMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-3-2FontMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-2FontMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 9: Adjust font and stacking
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="adjust-the-axes-and-themes" class="level4"><h4 class="anchored" data-anchor-id="adjust-the-axes-and-themes">3.3 Adjust the axes and themes</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>) <span class="sc">+</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">45</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">'Position'</span>, <span class="at">y=</span><span class="st">'Bits'</span>, <span class="at">title=</span><span class="st">'Transcription Factor Binding Motif'</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-3-3ThemeMotif" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-3-3ThemeMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-3-3ThemeMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-3ThemeMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 10: Adjust the axes and themes
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="advanced-features" class="level3"><h3 class="anchored" data-anchor-id="advanced-features">4. Advanced features</h3>
+<p>Drawing method selection:</p>
+<p>ggseqlogo supports two sequence logo calculation methods:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>, <span class="at">method=</span><span class="st">'bits'</span>)  <span class="co"># Information content</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>, <span class="at">method=</span><span class="st">'prob'</span>)  <span class="co"># probability</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-4MethodMotif" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-4MethodMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-4MethodMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4MethodMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 11: Sequence logo calculation method
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Custom sequence types and namespaces:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numerical sequence</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>seqs_numeric <span class="ot">&lt;-</span> <span class="fu">chartr</span>(<span class="st">'ATGC'</span>, <span class="st">'1234'</span>, seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_numeric, <span class="at">method=</span><span class="st">'prob'</span>, <span class="at">namespace=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-4NamespaceMotif1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-4NamespaceMotif1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-4NamespaceMotif1-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4NamespaceMotif1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 12: Sequence types and namespaces 1
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Greek alphabet sequence</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>seqs_greek <span class="ot">&lt;-</span> <span class="fu">chartr</span>(<span class="st">'ATGC'</span>, <span class="st">'δεψλ'</span>, seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(seqs_greek, <span class="at">namespace=</span><span class="st">'δεψλ'</span>, <span class="at">method=</span><span class="st">'bits'</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-4NamespaceMotif2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-4NamespaceMotif2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-4NamespaceMotif2-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4NamespaceMotif2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 13: Sequence types and namespaces 2
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Custom height logo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a custom height matrix</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>custom_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>), <span class="at">nrow=</span><span class="dv">4</span>, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'T'</span>, <span class="st">'G'</span>, <span class="st">'C'</span>)))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseqlogo</span>(custom_mat, <span class="at">method=</span><span class="st">'custom'</span>, <span class="at">seq_type=</span><span class="st">'dna'</span>) <span class="sc">+</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'my custom height'</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-4CustomHeightMotif" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-4CustomHeightMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-4CustomHeightMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4CustomHeightMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 14: Custom height logo
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Sequence identifier:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">'rect'</span>, <span class="at">xmin=</span><span class="fl">0.5</span>, <span class="at">xmax=</span><span class="fl">3.5</span>, <span class="at">ymin=</span><span class="sc">-</span><span class="fl">0.05</span>, <span class="at">ymax=</span><span class="fl">1.9</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">col=</span><span class="st">'black'</span>, <span class="at">fill=</span><span class="st">'yellow'</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_logo</span>(seqs_dna<span class="sc">$</span>MA0001<span class="fl">.1</span>, <span class="at">stack_width=</span><span class="fl">0.90</span>) <span class="sc">+</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">'segment'</span>, <span class="at">x=</span><span class="dv">4</span>, <span class="at">xend=</span><span class="dv">8</span>, <span class="at">y=</span><span class="fl">1.2</span>, <span class="at">yend=</span><span class="fl">1.2</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span>  <span class="co"># Note that starting with ggplot2 version 3.4.0, the size parameter for adjusting line thickness has been changed to the linewidth parameter. Users of the new version of ggplot2 are advised to change size to linewidth.</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">'text'</span>, <span class="at">x=</span><span class="dv">6</span>, <span class="at">y=</span><span class="fl">1.3</span>, <span class="at">label=</span><span class="st">'Text annotation'</span>) <span class="sc">+</span> </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_logo</span>()</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-4LabelMotif" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-4LabelMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-4LabelMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4LabelMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 15: Sequence identifier
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Combining multiple plots:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate sequence logo</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggseqlogo</span>(seqs_dna<span class="sc">$</span>MA0008<span class="fl">.1</span>) <span class="sc">+</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_blank</span>())</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sequence alignment data</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>aln <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">letter=</span><span class="fu">strsplit</span>(<span class="st">'AGATAAGATGATAAAAAGATAAGA'</span>, <span class="st">''</span>)[[<span class="dv">1</span>]], </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">species=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>), <span class="at">each=</span><span class="dv">8</span>),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="dv">3</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>aln<span class="sc">$</span>mut <span class="ot">&lt;-</span> <span class="st">'no'</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>aln<span class="sc">$</span>mut[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">23</span>)] <span class="ot">&lt;-</span> <span class="st">'yes'</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate sequence alignment plot</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(aln, <span class="fu">aes</span>(x, species)) <span class="sc">+</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>letter, <span class="at">color=</span>mut, <span class="at">size=</span>mut)) <span class="sc">+</span> </span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">expand=</span><span class="fu">c</span>(<span class="fl">0.105</span>, <span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">''</span>) <span class="sc">+</span> </span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">'black'</span>, <span class="st">'red'</span>)) <span class="sc">+</span> </span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)) <span class="sc">+</span> </span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_logo</span>() <span class="sc">+</span> </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">'none'</span>, <span class="at">axis.text.x=</span><span class="fu">element_blank</span>())</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a conservative bar chart</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>bp_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">conservation=</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">8</span>))</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(bp_data, <span class="fu">aes</span>(x, conservation)) <span class="sc">+</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, <span class="at">fill=</span><span class="st">'grey'</span>) <span class="sc">+</span> </span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_logo</span>() <span class="sc">+</span> </span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">expand=</span><span class="fu">c</span>(<span class="fl">0.105</span>, <span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">''</span>)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Composite plots</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, p3, <span class="at">ncol=</span><span class="dv">1</span>, <span class="at">align=</span><span class="st">'v'</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="cell-output-display">
+<div id="fig-4CowplotMotif" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-4CowplotMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MotifPlot_files/figure-html/fig-4CowplotMotif-1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4CowplotMotif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 16: Combining multiple plots
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Integration with other tools:</p>
+<p>ggseqlogo can be used with other bioinformatics packages. For example, the ggmotif package can directly extract motifs from MEME result files and visualize them using ggseqlogo. The universalmotif package also provides integration functionality with ggseqlogo.</p>
+</section></section><section id="application" class="level2"><h2 class="anchored" data-anchor-id="application">Application</h2>
+<p>Motif maps are widely used in genomics and molecular biology research:</p>
+<ol type="1">
+<li><p><strong>Transcription factor binding site analysis:</strong> Displays conserved binding patterns of transcription factors in DNA sequences.</p></li>
+<li><p><strong>Protein domain analysis:</strong> Shows conserved amino acids in functional domains of protein sequences.</p></li>
+<li><p><strong>Multiple sequence alignment visualization:</strong> Displays conserved regions in multiple sequence alignments.</p></li>
+<li><p><strong>ChIP-seq analysis:</strong> Visualizes enriched motifs identified by ChIP-seq experiments.</p></li>
+<li><p><strong>Genomic feature analysis:</strong> Displays sequence features of specific regions of the genome.</p></li>
+</ol></section><section id="reference" class="level2"><h2 class="anchored" data-anchor-id="reference">Reference</h2>
+<p>[1] Wagih O. ggseqlogo: a versatile R package for drawing sequence logos. Bioinformatics. 2017;33(22):3645-3647. doi:10.1093/bioinformatics/btx469</p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -2296,10 +2735,7 @@ Figure&nbsp;1: Temperature and ozone level.
       }
     }
   });
-  </script>
-<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
-<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
-<script>
+  </script><input type="hidden" id="giscus-base-theme" value="preferred_color_scheme"><input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme"><script>
   function loadGiscus() {
     // Function to get the theme based on body class
     const getTheme = () => {
@@ -2325,23 +2761,33 @@ Figure&nbsp;1: Temperature and ozone level.
     document.getElementById("quarto-content").appendChild(script);
   }
   loadGiscus();
-</script>
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../Omics/GwasSnpPlot.html" class="pagination-link" aria-label="GWAS Circos Plot">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">GWAS Circos Plot</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Omics/TextEnrichmentBarPlot.html" class="pagination-link" aria-label="TextEnrichmentBarPlot">
+        <span class="nav-page-text">TextEnrichmentBarPlot</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>© CC-By-NC, Bizard Collaboration Group, Luo Lab, and Wang Lab, 2024-2025. All rights reserved.</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="https://clustrmaps.com/site/1c4xe" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&amp;w=a&amp;t=tt&amp;d=VK6_Uhjas4vA0CDps3EFeB0Fotb8hU50SYT4Fcq5nUI&amp;co=91c5eb&amp;ct=000000"></a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/openbiox/Bizard/blob/main/Hiplot/000-test-demo.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/openbiox/Bizard/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul>
+<li><a href="https://github.com/openbiox/Bizard/blob/main/Omics/MotifPlot.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li>
+<li><a href="https://github.com/openbiox/Bizard/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li>
+</ul></div>
+</div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
   </div>
 </footer>
-
-
-
-
-</body></html>
+</body>
+</html>
