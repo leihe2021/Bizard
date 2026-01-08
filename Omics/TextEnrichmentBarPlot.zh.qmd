@@ -11,7 +11,7 @@ author:
 
 ## Example
 
-![](../images/Omics/TextEnrichmentBarplot_demo.png){fig-alt="TextEnrichmentBarplot DEMO" fig-align="center" width="60%"}
+![](../images/Omics/TextEnrichmentBarPlot_demo.png){fig-alt="TextEnrichmentBarplot DEMO" fig-align="center" width="60%"}
 
 ## 环境配置
 
