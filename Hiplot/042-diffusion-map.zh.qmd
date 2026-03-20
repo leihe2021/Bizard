@@ -36,6 +36,9 @@ if (!requireNamespace("jsonlite", quietly = TRUE)) {
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
   install.packages("BiocManager")
 }
+if (!requireNamespace("smoother", quietly = TRUE)) {
+  remotes::install_github("cran/smoother")
+}
 if (!requireNamespace("destiny", quietly = TRUE)) {
   BiocManager::install("destiny")
 }
