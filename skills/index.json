@@ -1,0 +1,3446 @@
+[
+  {
+    "name": "About Us",
+    "category": "Misc",
+    "packages": [],
+    "use_when": "Visualize about us data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/About.html",
+    "source_file": "About.qmd"
+  },
+  {
+    "name": "Animation",
+    "category": "Animation",
+    "packages": [
+      "Cairo",
+      "babynames",
+      "dplyr",
+      "gapminder",
+      "gganimate",
+      "ggplot2",
+      "gifski",
+      "hrbrthemes",
+      "tidyr",
+      "viridis"
+    ],
+    "use_when": "Visualize animation data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Animation/Animation.html",
+    "source_file": "Animation/Animation.qmd"
+  },
+  {
+    "name": "Interactivity",
+    "category": "Animation",
+    "packages": [
+      "chorddiag",
+      "d3heatmap",
+      "dygraphs",
+      "gapminder",
+      "ggiraph",
+      "htmlwidgets",
+      "patchwork",
+      "plotly",
+      "streamgraph",
+      "tidyverse",
+      "webshot",
+      "xts"
+    ],
+    "use_when": "Interactive charts allow users to perform actions: zoom, hover the mouse over markers for tooltips, select variables to display, and so on. R provides a set of packages called HTML widgets: these allow you to build interactive data visualizations directly from R.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Animation/Interactivity.html",
+    "source_file": "Animation/Interactivity.qmd"
+  },
+  {
+    "name": "Kaplan Meier Plot",
+    "category": "Clinics",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "patchwork",
+      "survival",
+      "survminer",
+      "tidyr",
+      "zoo"
+    ],
+    "use_when": "Visualize kaplan meier plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Clinics/KaplanMeierPlot.html",
+    "source_file": "Clinics/KaplanMeierPlot.qmd"
+  },
+  {
+    "name": "Lollipop Plot",
+    "category": "Clinics",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "ggpubr",
+      "patchwork"
+    ],
+    "use_when": "Visualize lollipop plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Clinics/LollipopPlot.html",
+    "source_file": "Clinics/LollipopPlot.qmd"
+  },
+  {
+    "name": "Meta-Analysis Forest Plot",
+    "category": "Clinics",
+    "packages": [
+      "dplyr",
+      "forestplot",
+      "ggplot2",
+      "grid",
+      "meta",
+      "metafor",
+      "tidyr"
+    ],
+    "use_when": "Visualize meta-analysis forest plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Clinics/MetaForestPlot.html",
+    "source_file": "Clinics/MetaForestPlot.qmd"
+  },
+  {
+    "name": "Mosaic Plot",
+    "category": "Clinics",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "plyr",
+      "reshape2",
+      "tidyr",
+      "vcd",
+      "wesanderson"
+    ],
+    "use_when": "Visualize mosaic plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Clinics/MosaicPlot.html",
+    "source_file": "Clinics/MosaicPlot.qmd"
+  },
+  {
+    "name": "Nomogram",
+    "category": "Clinics",
+    "packages": [
+      "readr",
+      "regplot",
+      "rms",
+      "survival"
+    ],
+    "use_when": "Simply put, a nomogram graphically displays the results of logistic regression or Cox regression. It uses the regression coefficient of each independent variable to develop a scoring criteria, assigning a score to each independent variable value. A total score is then calculated…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Clinics/Nomogram.html",
+    "source_file": "Clinics/Nomogram.qmd"
+  },
+  {
+    "name": "Regression Analysis Table",
+    "category": "Clinics",
+    "packages": [
+      "broom.helpers",
+      "datawizard",
+      "dplyr",
+      "gtsummary",
+      "survival"
+    ],
+    "use_when": "The regression analysis table is used to display the results of the regression model. It provides statistical information about the variables in the model and helps explain the relationship between the variables.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Clinics/RegressionTable.html",
+    "source_file": "Clinics/RegressionTable.qmd"
+  },
+  {
+    "name": "Circular Packing Chart",
+    "category": "Composition",
+    "packages": [
+      "circlepackeR",
+      "cowplot",
+      "data.tree",
+      "dplyr",
+      "flare",
+      "ggiraph",
+      "ggplot2",
+      "ggraph",
+      "htmlwidgets",
+      "igraph",
+      "packcircles",
+      "tidyr",
+      "tidyverse",
+      "viridis"
+    ],
+    "use_when": "Circular Packing can be viewed as a special type of classification tree diagram, which is particularly suitable for displaying classification data with hierarchical relationships.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/CircularPacking.html",
+    "source_file": "Composition/CircularPacking.qmd"
+  },
+  {
+    "name": "Dendrogram",
+    "category": "Composition",
+    "packages": [
+      "collapsibleTree",
+      "dendextend",
+      "ggraph",
+      "igraph",
+      "tidyverse"
+    ],
+    "use_when": "A dendrogram is a graphical representation of hierarchical relationships between objects. It is widely used in cluster analysis, especially hierarchical clustering, to visualize the similarity or distance between data points.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/Dendrogram.html",
+    "source_file": "Composition/Dendrogram.qmd"
+  },
+  {
+    "name": "Donut Chart",
+    "category": "Composition",
+    "packages": [
+      "ggplot2"
+    ],
+    "use_when": "A donut chart is a circular plot divided into sectors, each sector representing a part of the whole. It is very similar to a pie chart and can be constructed in ggplot2 and basic R.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/Donut.html",
+    "source_file": "Composition/Donut.qmd"
+  },
+  {
+    "name": "Grouped and Stacked Barplot",
+    "category": "Composition",
+    "packages": [
+      "RColorBrewer",
+      "dplyr",
+      "ggplot2",
+      "hrbrthemes",
+      "streamgraph",
+      "tibble",
+      "tidyr",
+      "viridis"
+    ],
+    "use_when": "Grouped bar charts, or clustered bar charts, extend the functionality of univariate or single-category bar charts to multivariate bar charts. In these charts, bars are grouped according to their categories, and colors represent distinguishing factors for other categorical variabl…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/GroupedBarplot.html",
+    "source_file": "Composition/GroupedBarplot.qmd"
+  },
+  {
+    "name": "Part highlights the pie chart",
+    "category": "Composition",
+    "packages": [
+      "dplyr",
+      "ggforce",
+      "ggplot2",
+      "ggpubr",
+      "patchwork",
+      "plotrix"
+    ],
+    "use_when": "Visualize part highlights the pie chart data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/PartPieChart.html",
+    "source_file": "Composition/PartPieChart.qmd"
+  },
+  {
+    "name": "Pie Chart",
+    "category": "Composition",
+    "packages": [
+      "ggplot2"
+    ],
+    "use_when": "A pie chart is a basic chart in statistics, using sectors of different sizes to represent the magnitude of each item. A pie chart provides a visual understanding of the proportion of each data point within the overall data.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/PieChart.html",
+    "source_file": "Composition/PieChart.qmd"
+  },
+  {
+    "name": "Treemap",
+    "category": "Composition",
+    "packages": [
+      "DOSE",
+      "palmerpenguins",
+      "tidyverse",
+      "treemap"
+    ],
+    "use_when": "A treemap, also known as a rectangular tree structure diagram, is composed of multiple nested rectangles of varying areas. The sum of the areas of all rectangles represents the overall data. The area of each smaller rectangle represents the proportion of each sub-item; the larger…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/Treemap.html",
+    "source_file": "Composition/Treemap.qmd"
+  },
+  {
+    "name": "Waffle Chart",
+    "category": "Composition",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "waffle"
+    ],
+    "use_when": "A waffle chart visually represents categorical data using a grid of small squares that resemble waffles. Each category is assigned a unique color, and the number of squares assigned to each category corresponds to its proportion in the total data count.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Composition/Waffle.html",
+    "source_file": "Composition/Waffle.qmd"
+  },
+  {
+    "name": "Biplot",
+    "category": "Correlation",
+    "packages": [
+      "dplyr",
+      "ggbiplot"
+    ],
+    "use_when": "Visualize biplot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/Biplot.html",
+    "source_file": "Correlation/Biplot.qmd"
+  },
+  {
+    "name": "Bubble Plot",
+    "category": "Correlation",
+    "packages": [
+      "dplyr",
+      "gapminder",
+      "ggplot2",
+      "hrbrthemes",
+      "viridis"
+    ],
+    "use_when": "A bubble plot is a scatter plot in which a third numeric variable is mapped to the size of the circles. This article shows several ways to build bubble charts using R.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/Bubble.html",
+    "source_file": "Correlation/Bubble.qmd"
+  },
+  {
+    "name": "ComplexHeatmap",
+    "category": "Correlation",
+    "packages": [
+      "ComplexHeatmap",
+      "circlize",
+      "dendextend",
+      "gridExtra",
+      "pheatmap",
+      "tidyr"
+    ],
+    "use_when": "Visualize complexheatmap data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/ComplexHeatmap.html",
+    "source_file": "Correlation/ComplexHeatmap.qmd"
+  },
+  {
+    "name": "Connected Scatter",
+    "category": "Correlation",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "stringr"
+    ],
+    "use_when": "Connected scatter is a type of chart that builds upon scatter by adding lines to connect the data points in a certain order. It allows us to discern not only the correlation between independent variable and dependent variable but also the trend in the data points.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/ConnectedScatter.html",
+    "source_file": "Correlation/ConnectedScatter.qmd"
+  },
+  {
+    "name": "Correlogram",
+    "category": "Correlation",
+    "packages": [
+      "GGally",
+      "corrgram",
+      "corrplot",
+      "ggcorrplot"
+    ],
+    "use_when": "Correlogram or Correlation diagrams are often used to summarize the correlation information of various groups of data in the entire dataset.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/Correlogram.html",
+    "source_file": "Correlation/Correlogram.qmd"
+  },
+  {
+    "name": "2D Density",
+    "category": "Correlation",
+    "packages": [
+      "MASS",
+      "RColorBrewer",
+      "ggplot2",
+      "hexbin",
+      "mvtnorm",
+      "patchwork",
+      "plotly"
+    ],
+    "use_when": "A 2D density plot shows the distribution of a combination of two numerical variables, using color gradients (or contour lines) to indicate the number of observations within an area. This can be used to identify trends in a dataset and analyze relationships between two variables.…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/Density2D.html",
+    "source_file": "Correlation/Density2D.qmd"
+  },
+  {
+    "name": "Heatmap",
+    "category": "Correlation",
+    "packages": [
+      "ComplexHeatmap",
+      "RColorBrewer",
+      "circlize",
+      "cowplot",
+      "d3heatmap",
+      "dplyr",
+      "ggplot2",
+      "gridExtra",
+      "heatmaply",
+      "hrbrthemes",
+      "htmlwidgets",
+      "lattice",
+      "pheatmap",
+      "plotly",
+      "readr",
+      "tibble",
+      "tidyr",
+      "tidyverse",
+      "viridis"
+    ],
+    "use_when": "A heatmap is a powerful visualization tool that represents matrix values through color gradients. It is widely used to illustrate gene expression differences across sample groups, variations in compound concentrations, and pairwise sample similarities. More broadly, any tabular d…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/Heatmap.html",
+    "source_file": "Correlation/Heatmap.qmd"
+  },
+  {
+    "name": "PCA Plot",
+    "category": "Correlation",
+    "packages": [
+      "FactoMineR",
+      "dplyr",
+      "factoextra",
+      "ggfortify",
+      "ggplot2"
+    ],
+    "use_when": "Visualize pca plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/PCAplot.html",
+    "source_file": "Correlation/PCAplot.qmd"
+  },
+  {
+    "name": "Scatter Plot",
+    "category": "Correlation",
+    "packages": [
+      "dplyr",
+      "geomtextpath",
+      "ggExtra",
+      "ggplot2",
+      "ggpmisc",
+      "ggpubr",
+      "plotly"
+    ],
+    "use_when": "A scatter plot is a basic visualization chart used to represent the general trend of the dependent variable changing with the independent variable.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/Scatter.html",
+    "source_file": "Correlation/Scatter.qmd"
+  },
+  {
+    "name": "Ternary chart",
+    "category": "Correlation",
+    "packages": [
+      "ggtern",
+      "ggthemes"
+    ],
+    "use_when": "A ternary chart is a type of chart used to display the proportional relationship between three variables. These three variables typically represent a certain component (such as chemical composition, species ratio, nutritional structure, etc.), and their sum is a constant, with th…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/TernaryPlot.html",
+    "source_file": "Correlation/TernaryPlot.qmd"
+  },
+  {
+    "name": "UMAP Plot",
+    "category": "Correlation",
+    "packages": [
+      "RColorBrewer",
+      "Seurat",
+      "SeuratData",
+      "dplyr",
+      "ggplot2",
+      "mlbench",
+      "patchwork",
+      "umap"
+    ],
+    "use_when": "Visualize umap plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Correlation/UMAPplot.html",
+    "source_file": "Correlation/UMAPplot.qmd"
+  },
+  {
+    "name": "Area Chart",
+    "category": "DataOverTime",
+    "packages": [
+      "dygraphs",
+      "ggpattern",
+      "hrbrthemes",
+      "tidyverse",
+      "viridis",
+      "xts"
+    ],
+    "use_when": "An area chart is a line chart in which the area below the line is filled with color. It is mainly used to display values at continuous intervals or over a time span.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/DataOverTime/AreaChart.html",
+    "source_file": "DataOverTime/AreaChart.qmd"
+  },
+  {
+    "name": "Calend Highlight",
+    "category": "DataOverTime",
+    "packages": [
+      "calendR"
+    ],
+    "use_when": "Date highlighting marks are mainly used to display changes in data within certain specific date ranges in time series data, and can be used for an overview of activity frequencies and marking of special dates.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/DataOverTime/CalendHighlight.html",
+    "source_file": "DataOverTime/CalendHighlight.qmd"
+  },
+  {
+    "name": "Line Chart",
+    "category": "DataOverTime",
+    "packages": [
+      "dplyr",
+      "gghighlight",
+      "ggplot2",
+      "ggpmisc",
+      "patchwork",
+      "viridis"
+    ],
+    "use_when": "Drawing line segments in various charts is common, and this module will draw all kinds of line segments that may be used.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/DataOverTime/LineChart.html",
+    "source_file": "DataOverTime/LineChart.qmd"
+  },
+  {
+    "name": "Stacked Area Chart",
+    "category": "DataOverTime",
+    "packages": [
+      "babynames",
+      "dplyr",
+      "ggplot2",
+      "hrbrthemes",
+      "plotly",
+      "tidyverse",
+      "viridis"
+    ],
+    "use_when": "Stacked area charts are similar to basic area charts, except that each dataset in the chart starts from the previous dataset and is used to show the trend line of how the size of each value changes over time or category, demonstrating the relationship between the part and the who…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/DataOverTime/StackedArea.html",
+    "source_file": "DataOverTime/StackedArea.qmd"
+  },
+  {
+    "name": "Streamgraph",
+    "category": "DataOverTime",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "ggstream",
+      "htmlwidgets",
+      "streamgraph"
+    ],
+    "use_when": "A Streamgraph is a stacked area diagram. It represents the evolution of numerical variables across multiple groups. Typically, it displays areas around a central axis with rounded edges to create a flowing shape.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/DataOverTime/Streamgraph.html",
+    "source_file": "DataOverTime/Streamgraph.qmd"
+  },
+  {
+    "name": "Timeseries",
+    "category": "DataOverTime",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "patchwork"
+    ],
+    "use_when": "A time series graph is a statistical chart with time on the horizontal axis and the observed variable on the vertical axis, reflecting the trend of the observed variable over time.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/DataOverTime/Timeseries.html",
+    "source_file": "DataOverTime/Timeseries.qmd"
+  },
+  {
+    "name": "Beeswarm Plot",
+    "category": "Distribution",
+    "packages": [
+      "beeswarm",
+      "ggbeeswarm",
+      "ggsignif",
+      "plyr",
+      "readr",
+      "tidyverse"
+    ],
+    "use_when": "A beeswarm plot disperses data points slightly to prevent overlap, making distribution density and trends clearer. It is especially useful for visualizing categorical data in small datasets. This section presents examples using R and the `beeswarm` and `ggbeeswarm` packages.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/Beeswarm.html",
+    "source_file": "Distribution/Beeswarm.qmd"
+  },
+  {
+    "name": "Box Plot",
+    "category": "Distribution",
+    "packages": [
+      "dplyr",
+      "ggExtra",
+      "ggplot2",
+      "ggpmisc",
+      "ggpubr",
+      "ggtext",
+      "hrbrthemes",
+      "readr",
+      "rstatix",
+      "viridis"
+    ],
+    "use_when": "Boxplots visualize the central tendency and dispersion of one or more sets of continuous quantitative data. They incorporate statistical measures that not only compare differences across categories but also reveal dispersion, outliers, and distribution patterns.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/BoxPlot.html",
+    "source_file": "Distribution/BoxPlot.qmd"
+  },
+  {
+    "name": "Break Plot",
+    "category": "Distribution",
+    "packages": [
+      "RColorBrewer",
+      "dplyr",
+      "ggbreak",
+      "ggplot2",
+      "ggpubr",
+      "rstatix"
+    ],
+    "use_when": "Visualize break plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/BreakPlot.html",
+    "source_file": "Distribution/BreakPlot.qmd"
+  },
+  {
+    "name": "Density Plot",
+    "category": "Distribution",
+    "packages": [
+      "cowplot",
+      "dplyr",
+      "geomtextpath",
+      "ggExtra",
+      "ggplot2",
+      "ggpmisc",
+      "ggpubr",
+      "hrbrthemes",
+      "readr",
+      "tidyr",
+      "viridis"
+    ],
+    "use_when": "A density plot represents the distribution of a numerical variable using kernel density estimation to display the probability density function. It is a smoothed version of a histogram, sharing the same concept but providing a clearer representation of the overall trend and shape…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/Density.html",
+    "source_file": "Distribution/Density.qmd"
+  },
+  {
+    "name": "Histogram",
+    "category": "Distribution",
+    "packages": [
+      "cowplot",
+      "ggExtra",
+      "ggplot2",
+      "ggpmisc",
+      "ggpubr",
+      "readr",
+      "tidyverse",
+      "viridis"
+    ],
+    "use_when": "A histogram uses rectangular bars to represent the frequency of data within specific intervals, where the total area of the bars corresponds to the total frequency. It is primarily used to visualize the distribution of continuous variables.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/Histogram.html",
+    "source_file": "Distribution/Histogram.qmd"
+  },
+  {
+    "name": "Radial Column Chart",
+    "category": "Distribution",
+    "packages": [
+      "dplyr",
+      "ggforce",
+      "ggplot2",
+      "scales"
+    ],
+    "use_when": "Visualize radial column chart data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/RadialColumnChart.html",
+    "source_file": "Distribution/RadialColumnChart.qmd"
+  },
+  {
+    "name": "Ridgeline Plot",
+    "category": "Distribution",
+    "packages": [
+      "dplyr",
+      "ggplot2",
+      "ggridges",
+      "hrbrthemes",
+      "readr",
+      "viridis"
+    ],
+    "use_when": "A ridgeline plot, also known as a joyplot, visualizes the distribution of multiple numeric variables across different categories. This method is useful for comparing density distributions while preserving an overall view of trends and variations.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/Ridgeline.html",
+    "source_file": "Distribution/Ridgeline.qmd"
+  },
+  {
+    "name": "Violin Plot",
+    "category": "Distribution",
+    "packages": [
+      "dplyr",
+      "forcats",
+      "gghalves",
+      "ggplot2",
+      "ggpubr",
+      "ggstatsplot",
+      "hrbrthemes",
+      "palmerpenguins",
+      "readr",
+      "tidyr",
+      "viridis"
+    ],
+    "use_when": "A violin plot combines elements of a density plot and a box plot to visualize data distribution. It displays key statistical information, including the median, quartiles, minimum, and maximum values. Violin plots are particularly useful for comparing distributions across differen…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/ViolinPlot.html",
+    "source_file": "Distribution/ViolinPlot.qmd"
+  },
+  {
+    "name": "Graph Gallery",
+    "category": "Misc",
+    "packages": [
+      "crosstalk",
+      "dplyr",
+      "htmltools",
+      "jsonlite",
+      "reactable"
+    ],
+    "use_when": "👋 **Bizard** is a comprehensive repository of advanced visualization codes tailored for biomedical research. It currently includes approximately 750 graphics across more than 65 chart types. Below is the gallery for all graphics.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/GraphGallery.html",
+    "source_file": "GraphGallery.qmd"
+  },
+  {
+    "name": "Area Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/001-area.html",
+    "source_file": "Hiplot/001-area.qmd"
+  },
+  {
+    "name": "Barcode Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/002-barcode-plot.html",
+    "source_file": "Hiplot/002-barcode-plot.qmd"
+  },
+  {
+    "name": "3D Barplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "plot3D"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/003-barplot-3d.html",
+    "source_file": "Hiplot/003-barplot-3d.qmd"
+  },
+  {
+    "name": "Barplot Color Group",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "stringr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/004-barplot-color-group.html",
+    "source_file": "Hiplot/004-barplot-color-group.qmd"
+  },
+  {
+    "name": "Barplot (errorbar)",
+    "category": "Hiplot",
+    "packages": [
+      "Rmisc",
+      "data.table",
+      "ggplot2",
+      "ggpubr",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/005-barplot-errorbar.html",
+    "source_file": "Hiplot/005-barplot-errorbar.qmd"
+  },
+  {
+    "name": "Barplot (errorbar2)",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggpubr",
+      "grafify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/006-barplot-errorbar2.html",
+    "source_file": "Hiplot/006-barplot-errorbar2.qmd"
+  },
+  {
+    "name": "Barplot Gradient",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "stringr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/008-barplot-gradient.html",
+    "source_file": "Hiplot/008-barplot-gradient.qmd"
+  },
+  {
+    "name": "Multiple Barplot&Line",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite",
+      "reshape2"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/009-barplot-line-multiple.html",
+    "source_file": "Hiplot/009-barplot-line-multiple.qmd"
+  },
+  {
+    "name": "Barplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/010-barplot.html",
+    "source_file": "Hiplot/010-barplot.qmd"
+  },
+  {
+    "name": "Beanplot",
+    "category": "Hiplot",
+    "packages": [
+      "beanplot",
+      "data.table",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/011-beanplot.html",
+    "source_file": "Hiplot/011-beanplot.qmd"
+  },
+  {
+    "name": "Beeswarm",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggbeeswarm",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/012-beeswarm.html",
+    "source_file": "Hiplot/012-beeswarm.qmd"
+  },
+  {
+    "name": "Corrplot Big Data",
+    "category": "Hiplot",
+    "packages": [
+      "ComplexHeatmap",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/013-big-corrplot.html",
+    "source_file": "Hiplot/013-big-corrplot.qmd"
+  },
+  {
+    "name": "Bivariate Chart",
+    "category": "Hiplot",
+    "packages": [
+      "GGally",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/014-bivariate.html",
+    "source_file": "Hiplot/014-bivariate.qmd"
+  },
+  {
+    "name": "Boxplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/015-boxplot.html",
+    "source_file": "Hiplot/015-boxplot.qmd"
+  },
+  {
+    "name": "Bubble",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "stringr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/016-bubble.html",
+    "source_file": "Hiplot/016-bubble.qmd"
+  },
+  {
+    "name": "Bumpchart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggbump",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/017-bumpchart.html",
+    "source_file": "Hiplot/017-bumpchart.qmd"
+  },
+  {
+    "name": "Calibration Curve",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "rms",
+      "survival"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/018-calibration-curve.html",
+    "source_file": "Hiplot/018-calibration-curve.qmd"
+  },
+  {
+    "name": "Chi-square-fisher Test",
+    "category": "Hiplot",
+    "packages": [
+      "aplot",
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "visdat"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/019-chi-square-fisher.html",
+    "source_file": "Hiplot/019-chi-square-fisher.qmd"
+  },
+  {
+    "name": "Chord Plot",
+    "category": "Hiplot",
+    "packages": [
+      "circlize",
+      "data.table",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/020-chord.html",
+    "source_file": "Hiplot/020-chord.qmd"
+  },
+  {
+    "name": "Circle Packing",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "packcircles",
+      "viridis"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/021-circle-packing.html",
+    "source_file": "Hiplot/021-circle-packing.qmd"
+  },
+  {
+    "name": "Circular Barplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/023-circular-barplot.html",
+    "source_file": "Hiplot/023-circular-barplot.qmd"
+  },
+  {
+    "name": "Circular Pie Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/024-circular-pie-chart.html",
+    "source_file": "Hiplot/024-circular-pie-chart.qmd"
+  },
+  {
+    "name": "Complex Heatmap",
+    "category": "Hiplot",
+    "packages": [
+      "ComplexHeatmap",
+      "circlize",
+      "cowplot",
+      "data.table",
+      "ggplotify",
+      "hiplotlib",
+      "jsonlite",
+      "randomcoloR",
+      "stringr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/025-complex-heatmap.html",
+    "source_file": "Hiplot/025-complex-heatmap.qmd"
+  },
+  {
+    "name": "Connected Scatterplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "ggrepel",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/026-connected-scatterplot.html",
+    "source_file": "Hiplot/026-connected-scatterplot.qmd"
+  },
+  {
+    "name": "Contour (Matrix)",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "ggisoband",
+      "ggplot2",
+      "jsonlite",
+      "reshape2"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/027-contour-matrix.html",
+    "source_file": "Hiplot/027-contour-matrix.qmd"
+  },
+  {
+    "name": "Contour (XY)",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggisoband",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/028-contour-xy.html",
+    "source_file": "Hiplot/028-contour-xy.qmd"
+  },
+  {
+    "name": "Simplified Correlation Heatmap",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "sigminer"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/029-cor-heatmap-simple.html",
+    "source_file": "Hiplot/029-cor-heatmap-simple.qmd"
+  },
+  {
+    "name": "Correlation Heatmap",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggcorrplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/030-cor-heatmap.html",
+    "source_file": "Hiplot/030-cor-heatmap.qmd"
+  },
+  {
+    "name": "Corrplot",
+    "category": "Hiplot",
+    "packages": [
+      "corrplot",
+      "data.table",
+      "ggcorrplot",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/033-corrplot.html",
+    "source_file": "Hiplot/033-corrplot.qmd"
+  },
+  {
+    "name": "Custom Heatmap",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/034-custom-heat-map.html",
+    "source_file": "Hiplot/034-custom-heat-map.qmd"
+  },
+  {
+    "name": "Custom Icon Scatter",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "echarts4r",
+      "echarts4r.assets",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/035-custom-icon-scatter.html",
+    "source_file": "Hiplot/035-custom-icon-scatter.qmd"
+  },
+  {
+    "name": "D3 Wordcloud",
+    "category": "Hiplot",
+    "packages": [
+      "d3wordcloud",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/036-d3-wordcloud.html",
+    "source_file": "Hiplot/036-d3-wordcloud.qmd"
+  },
+  {
+    "name": "Dendrogram",
+    "category": "Hiplot",
+    "packages": [
+      "ape",
+      "data.table",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/037-dendrogram.html",
+    "source_file": "Hiplot/037-dendrogram.qmd"
+  },
+  {
+    "name": "Mirror Density & Histogram",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/038-density-hist-mirror.html",
+    "source_file": "Hiplot/038-density-hist-mirror.qmd"
+  },
+  {
+    "name": "Density-Histogram",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "grafify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/039-density-histogram.html",
+    "source_file": "Hiplot/039-density-histogram.qmd"
+  },
+  {
+    "name": "Density",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/040-density.html",
+    "source_file": "Hiplot/040-density.qmd"
+  },
+  {
+    "name": "Deviation Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/041-deviation-plot.html",
+    "source_file": "Hiplot/041-deviation-plot.qmd"
+  },
+  {
+    "name": "Diffusion Map",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "destiny",
+      "ggplotify",
+      "ggpubr",
+      "jsonlite",
+      "scatterplot3d",
+      "smoother"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/042-diffusion-map.html",
+    "source_file": "Hiplot/042-diffusion-map.qmd"
+  },
+  {
+    "name": "Diverging Scale",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggcharts",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/043-diverging-scale.html",
+    "source_file": "Hiplot/043-diverging-scale.qmd"
+  },
+  {
+    "name": "DIY GSEA",
+    "category": "Hiplot",
+    "packages": [
+      "clusterProfiler",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/044-diy-gsea.html",
+    "source_file": "Hiplot/044-diy-gsea.qmd"
+  },
+  {
+    "name": "Donut",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/045-donut.html",
+    "source_file": "Hiplot/045-donut.qmd"
+  },
+  {
+    "name": "Dotchart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/046-dotchart.html",
+    "source_file": "Hiplot/046-dotchart.qmd"
+  },
+  {
+    "name": "Dual Y Axis Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/047-dual-y-axis.html",
+    "source_file": "Hiplot/047-dual-y-axis.qmd"
+  },
+  {
+    "name": "Dumbbell Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggalt",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/048-dumbbell.html",
+    "source_file": "Hiplot/048-dumbbell.qmd"
+  },
+  {
+    "name": "Easy Pairs",
+    "category": "Hiplot",
+    "packages": [
+      "GGally",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/049-easy-pairs.html",
+    "source_file": "Hiplot/049-easy-pairs.qmd"
+  },
+  {
+    "name": "Easy SOM",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "jsonlite",
+      "kohonen"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/050-easy-som.html",
+    "source_file": "Hiplot/050-easy-som.qmd"
+  },
+  {
+    "name": "Eulerr Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "eulerr",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/051-eulerr.html",
+    "source_file": "Hiplot/051-eulerr.qmd"
+  },
+  {
+    "name": "Extended Scatter",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggExtra",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/052-extended-scatter.html",
+    "source_file": "Hiplot/052-extended-scatter.qmd"
+  },
+  {
+    "name": "Cox Models Forest",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ezcox",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/053-ezcox.html",
+    "source_file": "Hiplot/053-ezcox.qmd"
+  },
+  {
+    "name": "Fan Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "plotrix"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/054-fan.html",
+    "source_file": "Hiplot/054-fan.qmd"
+  },
+  {
+    "name": "Fishplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "fishplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/055-fishplot.html",
+    "source_file": "Hiplot/055-fishplot.qmd"
+  },
+  {
+    "name": "Flower plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "flowerplot",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/056-flowerplot.html",
+    "source_file": "Hiplot/056-flowerplot.qmd"
+  },
+  {
+    "name": "Funnel Plot (metafor)",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "metafor"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/057-funnel-plot-metafor.html",
+    "source_file": "Hiplot/057-funnel-plot-metafor.qmd"
+  },
+  {
+    "name": "Funnel Plot",
+    "category": "Hiplot",
+    "packages": [
+      "FunnelPlotR",
+      "data.table",
+      "gridExtra",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/058-funnel-plot.html",
+    "source_file": "Hiplot/058-funnel-plot.qmd"
+  },
+  {
+    "name": "Gantt",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggthemes",
+      "jsonlite",
+      "tidyverse"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/059-gantt.html",
+    "source_file": "Hiplot/059-gantt.qmd"
+  },
+  {
+    "name": "Gene Density",
+    "category": "Hiplot",
+    "packages": [
+      "ComplexHeatmap",
+      "RColorBrewer",
+      "circlize",
+      "data.table",
+      "ggplotify",
+      "gtrellis",
+      "jsonlite",
+      "tidyverse"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/060-gene-density.html",
+    "source_file": "Hiplot/060-gene-density.qmd"
+  },
+  {
+    "name": "Gene Ranking Dotplot",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "ggrepel",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/061-gene-rank.html",
+    "source_file": "Hiplot/061-gene-rank.qmd"
+  },
+  {
+    "name": "Gene Cluster Trend",
+    "category": "Hiplot",
+    "packages": [
+      "Mfuzz",
+      "RColorBrewer",
+      "data.table",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/062-gene-trend.html",
+    "source_file": "Hiplot/062-gene-trend.qmd"
+  },
+  {
+    "name": "Barstats",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "ggplot2",
+      "ggstatsplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/063-ggbarstats.html",
+    "source_file": "Hiplot/063-ggbarstats.qmd"
+  },
+  {
+    "name": "Betweenstats",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "ggplot2",
+      "ggstatsplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/064-ggbetweenstats.html",
+    "source_file": "Hiplot/064-ggbetweenstats.qmd"
+  },
+  {
+    "name": "Directed Acyclic Graphs",
+    "category": "Hiplot",
+    "packages": [
+      "ggdag"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/065-ggdag.html",
+    "source_file": "Hiplot/065-ggdag.qmd"
+  },
+  {
+    "name": "Dist Plot",
+    "category": "Hiplot",
+    "packages": [
+      "broom",
+      "data.table",
+      "ggdist",
+      "ggplot2",
+      "jsonlite",
+      "modelr",
+      "tidyr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/066-ggdist.html",
+    "source_file": "Hiplot/066-ggdist.qmd"
+  },
+  {
+    "name": "Histostats",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggstatsplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/067-gghistostats.html",
+    "source_file": "Hiplot/067-gghistostats.qmd"
+  },
+  {
+    "name": "GGPIE",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "dplyr",
+      "ggpie",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/068-ggpie.html",
+    "source_file": "Hiplot/068-ggpie.qmd"
+  },
+  {
+    "name": "Piestats Group",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "ggplot2",
+      "ggstatsplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/069-ggpiestats-group.html",
+    "source_file": "Hiplot/069-ggpiestats-group.qmd"
+  },
+  {
+    "name": "Piestats",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggstatsplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/071-ggpiestats.html",
+    "source_file": "Hiplot/071-ggpiestats.qmd"
+  },
+  {
+    "name": "GGPubr Boxplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/072-ggpubr-boxplot.html",
+    "source_file": "Hiplot/072-ggpubr-boxplot.qmd"
+  },
+  {
+    "name": "Scatterstats",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggstatsplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/073-ggscatterstats.html",
+    "source_file": "Hiplot/073-ggscatterstats.qmd"
+  },
+  {
+    "name": "Seqlogo",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggseqlogo",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/074-ggseqlogo.html",
+    "source_file": "Hiplot/074-ggseqlogo.qmd"
+  },
+  {
+    "name": "Complex-Violin",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "ggplot2",
+      "ggstatsplot",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/075-ggwithinstats.html",
+    "source_file": "Hiplot/075-ggwithinstats.qmd"
+  },
+  {
+    "name": "ggwordcloud",
+    "category": "Hiplot",
+    "packages": [
+      "curl",
+      "data.table",
+      "ggwordcloud",
+      "jsonlite",
+      "png"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/076-ggwordcloud.html",
+    "source_file": "Hiplot/076-ggwordcloud.qmd"
+  },
+  {
+    "name": "GOBar Plot",
+    "category": "Hiplot",
+    "packages": [
+      "GOplot",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/077-gobar.html",
+    "source_file": "Hiplot/077-gobar.qmd"
+  },
+  {
+    "name": "GOBubble Plot",
+    "category": "Hiplot",
+    "packages": [
+      "GOplot",
+      "data.table",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/078-gobubble.html",
+    "source_file": "Hiplot/078-gobubble.qmd"
+  },
+  {
+    "name": "GOCircle Plot",
+    "category": "Hiplot",
+    "packages": [
+      "GOplot",
+      "data.table",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/079-gocircle.html",
+    "source_file": "Hiplot/079-gocircle.qmd"
+  },
+  {
+    "name": "Group Rank Dotplot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "sigminer"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/080-grdotplot.html",
+    "source_file": "Hiplot/080-grdotplot.qmd"
+  },
+  {
+    "name": "Group Bubble",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/081-group-bubble.html",
+    "source_file": "Hiplot/081-group-bubble.qmd"
+  },
+  {
+    "name": "Group-comparison Heatmap",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "jsonlite",
+      "sigminer"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/082-group-comparison.html",
+    "source_file": "Hiplot/082-group-comparison.qmd"
+  },
+  {
+    "name": "Group Dumbbell",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggalt",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/083-group-dumbbell.html",
+    "source_file": "Hiplot/083-group-dumbbell.qmd"
+  },
+  {
+    "name": "Group Line",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/084-group-line.html",
+    "source_file": "Hiplot/084-group-line.qmd"
+  },
+  {
+    "name": "Half Violin",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "ggpubr",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/085-half-violin.html",
+    "source_file": "Hiplot/085-half-violin.qmd"
+  },
+  {
+    "name": "Heatmap",
+    "category": "Hiplot",
+    "packages": [
+      "ComplexHeatmap",
+      "data.table",
+      "genefilter",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/086-heatmap.html",
+    "source_file": "Hiplot/086-heatmap.qmd"
+  },
+  {
+    "name": "Hi-C Heatmap",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/087-hic-heatmap.html",
+    "source_file": "Hiplot/087-hic-heatmap.qmd"
+  },
+  {
+    "name": "Histogram",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/088-histogram.html",
+    "source_file": "Hiplot/088-histogram.qmd"
+  },
+  {
+    "name": "Interval Area Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/089-interval-area-chart.html",
+    "source_file": "Hiplot/089-interval-area-chart.qmd"
+  },
+  {
+    "name": "Interval Bar Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/090-interval-bar-chart.html",
+    "source_file": "Hiplot/090-interval-bar-chart.qmd"
+  },
+  {
+    "name": "Likert Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "likert"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/091-likert.html",
+    "source_file": "Hiplot/091-likert.qmd"
+  },
+  {
+    "name": "Line (Color Dot)",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "grafify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/092-line-color-dot.html",
+    "source_file": "Hiplot/092-line-color-dot.qmd"
+  },
+  {
+    "name": "Line (errorbar)",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/093-line-errorbar.html",
+    "source_file": "Hiplot/093-line-errorbar.qmd"
+  },
+  {
+    "name": "Line Regression",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggrepel",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/094-line-regression.html",
+    "source_file": "Hiplot/094-line-regression.qmd"
+  },
+  {
+    "name": "Line",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/095-line.html",
+    "source_file": "Hiplot/095-line.qmd"
+  },
+  {
+    "name": "Africa Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/096-map-africa.html",
+    "source_file": "Hiplot/096-map-africa.qmd"
+  },
+  {
+    "name": "Americas Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/097-map-americas.html",
+    "source_file": "Hiplot/097-map-americas.qmd"
+  },
+  {
+    "name": "China Map (City)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/098-map-china-city.html",
+    "source_file": "Hiplot/098-map-china-city.qmd"
+  },
+  {
+    "name": "China Map (County)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/099-map-china-county.html",
+    "source_file": "Hiplot/099-map-china-county.qmd"
+  },
+  {
+    "name": "China Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/100-map-china.html",
+    "source_file": "Hiplot/100-map-china.qmd"
+  },
+  {
+    "name": "China Map 2",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/101-map-china2.html",
+    "source_file": "Hiplot/101-map-china2.qmd"
+  },
+  {
+    "name": "Europe Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/102-map-europe.html",
+    "source_file": "Hiplot/102-map-europe.qmd"
+  },
+  {
+    "name": "France Map (Town)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/103-map-france-town.html",
+    "source_file": "Hiplot/103-map-france-town.qmd"
+  },
+  {
+    "name": "France Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/104-map-france.html",
+    "source_file": "Hiplot/104-map-france.qmd"
+  },
+  {
+    "name": "Germany Map (Town)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/106-map-germany-town.html",
+    "source_file": "Hiplot/106-map-germany-town.qmd"
+  },
+  {
+    "name": "Germany Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/107-map-germany.html",
+    "source_file": "Hiplot/107-map-germany.qmd"
+  },
+  {
+    "name": "North America Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/108-map-north-america.html",
+    "source_file": "Hiplot/108-map-north-america.qmd"
+  },
+  {
+    "name": "Oceania/Antarc Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/109-map-oceania-antarc.html",
+    "source_file": "Hiplot/109-map-oceania-antarc.qmd"
+  },
+  {
+    "name": "South America Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/111-map-south-america.html",
+    "source_file": "Hiplot/111-map-south-america.qmd"
+  },
+  {
+    "name": "UK Map (City)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/112-map-uk-city.html",
+    "source_file": "Hiplot/112-map-uk-city.qmd"
+  },
+  {
+    "name": "UK Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/113-map-uk.html",
+    "source_file": "Hiplot/113-map-uk.qmd"
+  },
+  {
+    "name": "USA Map (County)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/114-map-usa-county.html",
+    "source_file": "Hiplot/114-map-usa-county.qmd"
+  },
+  {
+    "name": "USA Map (States)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/115-map-usa.html",
+    "source_file": "Hiplot/115-map-usa.qmd"
+  },
+  {
+    "name": "World Map",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/116-map-world.html",
+    "source_file": "Hiplot/116-map-world.qmd"
+  },
+  {
+    "name": "World Map 2",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/117-map-world2.html",
+    "source_file": "Hiplot/117-map-world2.qmd"
+  },
+  {
+    "name": "Matrix Bubble",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggalluvial",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/118-matrix-bubble.html",
+    "source_file": "Hiplot/118-matrix-bubble.qmd"
+  },
+  {
+    "name": "Meta-analysis of Binary Data",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "meta"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/119-meta-bin.html",
+    "source_file": "Hiplot/119-meta-bin.qmd"
+  },
+  {
+    "name": "Meta-analysis of Continuous Data",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "meta"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/120-meta-cont.html",
+    "source_file": "Hiplot/120-meta-cont.qmd"
+  },
+  {
+    "name": "Meta-Subgroup Analysis",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "jsonlite",
+      "metawho"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/121-metawho.html",
+    "source_file": "Hiplot/121-metawho.qmd"
+  },
+  {
+    "name": "Moon charts",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "gggibbous",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/122-moon-charts.html",
+    "source_file": "Hiplot/122-moon-charts.qmd"
+  },
+  {
+    "name": "Mosaic Ratio Plot",
+    "category": "Hiplot",
+    "packages": [
+      "DescTools",
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "vcd"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/123-mosaic.html",
+    "source_file": "Hiplot/123-mosaic.qmd"
+  },
+  {
+    "name": "Multiple Histograms",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/125-multiple-histograms.html",
+    "source_file": "Hiplot/125-multiple-histograms.qmd"
+  },
+  {
+    "name": "Network (igraph)",
+    "category": "Hiplot",
+    "packages": [
+      "RColorBrewer",
+      "data.table",
+      "ggplotify",
+      "igraph",
+      "jsonlite",
+      "stringr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/127-network-igraph.html",
+    "source_file": "Hiplot/127-network-igraph.qmd"
+  },
+  {
+    "name": "Neural Network",
+    "category": "Hiplot",
+    "packages": [
+      "NeuralNetTools",
+      "data.table",
+      "jsonlite",
+      "nnet"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/129-neural-network.html",
+    "source_file": "Hiplot/129-neural-network.qmd"
+  },
+  {
+    "name": "Nomogram (Logistic)",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "rms"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/130-nomogram-logistic.html",
+    "source_file": "Hiplot/130-nomogram-logistic.qmd"
+  },
+  {
+    "name": "Nomogram",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "rms",
+      "survival"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/131-nomogram.html",
+    "source_file": "Hiplot/131-nomogram.qmd"
+  },
+  {
+    "name": "Parallel Coordinate",
+    "category": "Hiplot",
+    "packages": [
+      "GGally",
+      "data.table",
+      "ggthemes",
+      "hrbrthemes",
+      "jsonlite",
+      "viridis"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/132-parallel-coordinate.html",
+    "source_file": "Hiplot/132-parallel-coordinate.qmd"
+  },
+  {
+    "name": "Pareto Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/133-pareto-chart.html",
+    "source_file": "Hiplot/133-pareto-chart.qmd"
+  },
+  {
+    "name": "Parliament",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggpol",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/134-parliament.html",
+    "source_file": "Hiplot/134-parliament.qmd"
+  },
+  {
+    "name": "PCA2",
+    "category": "Hiplot",
+    "packages": [
+      "FactoMineR",
+      "data.table",
+      "factoextra",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/135-pca2.html",
+    "source_file": "Hiplot/135-pca2.qmd"
+  },
+  {
+    "name": "PCAtools",
+    "category": "Hiplot",
+    "packages": [
+      "PCAtools",
+      "cowplot",
+      "data.table",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/136-pcatools.html",
+    "source_file": "Hiplot/136-pcatools.qmd"
+  },
+  {
+    "name": "Perspective",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "shape"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/137-perspective.html",
+    "source_file": "Hiplot/137-perspective.qmd"
+  },
+  {
+    "name": "3D Pie",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "plotrix"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/138-pie-3d.html",
+    "source_file": "Hiplot/138-pie-3d.qmd"
+  },
+  {
+    "name": "Pie Group",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "patchwork"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/139-pie-group.html",
+    "source_file": "Hiplot/139-pie-group.qmd"
+  },
+  {
+    "name": "Pie Matrix",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "jsonlite",
+      "stringr",
+      "tidyr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/140-pie-matrix.html",
+    "source_file": "Hiplot/140-pie-matrix.qmd"
+  },
+  {
+    "name": "Pie",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/141-pie.html",
+    "source_file": "Hiplot/141-pie.qmd"
+  },
+  {
+    "name": "Point (SD)",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "grafify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/142-point-sd.html",
+    "source_file": "Hiplot/142-point-sd.qmd"
+  },
+  {
+    "name": "EnhancedMA",
+    "category": "Hiplot",
+    "packages": [
+      "EnhancedVolcano",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/143-pseudo-enhanced-ma.html",
+    "source_file": "Hiplot/143-pseudo-enhanced-ma.qmd"
+  },
+  {
+    "name": "Pyramid Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggcharts",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/144-pyramid-chart.html",
+    "source_file": "Hiplot/144-pyramid-chart.qmd"
+  },
+  {
+    "name": "Pyramid Chart 2",
+    "category": "Hiplot",
+    "packages": [
+      "apyramid",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/145-pyramid-chart2.html",
+    "source_file": "Hiplot/145-pyramid-chart2.qmd"
+  },
+  {
+    "name": "Pyramid Stack",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/146-pyramid-stack.html",
+    "source_file": "Hiplot/146-pyramid-stack.qmd"
+  },
+  {
+    "name": "Pyramid Stack2",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "plotrix"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/147-pyramid-stack2.html",
+    "source_file": "Hiplot/147-pyramid-stack2.qmd"
+  },
+  {
+    "name": "QQ Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "grafify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/148-qqplot.html",
+    "source_file": "Hiplot/148-qqplot.qmd"
+  },
+  {
+    "name": "R Script Flow",
+    "category": "Hiplot",
+    "packages": [
+      "flow"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/149-r-code-flow.html",
+    "source_file": "Hiplot/149-r-code-flow.qmd"
+  },
+  {
+    "name": "Radar",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "ggradar",
+      "jsonlite",
+      "scales",
+      "tibble"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/150-radar.html",
+    "source_file": "Hiplot/150-radar.qmd"
+  },
+  {
+    "name": "RCS-COX",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "rms",
+      "stringr",
+      "survival"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/151-rcs-cox.html",
+    "source_file": "Hiplot/151-rcs-cox.qmd"
+  },
+  {
+    "name": "RCS-LRM",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "rms",
+      "stringr",
+      "survival"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/152-rcs-lrm.html",
+    "source_file": "Hiplot/152-rcs-lrm.qmd"
+  },
+  {
+    "name": "Ribbon",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/153-ribbon.html",
+    "source_file": "Hiplot/153-ribbon.qmd"
+  },
+  {
+    "name": "Ridge",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggridges",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/154-ridge.html",
+    "source_file": "Hiplot/154-ridge.qmd"
+  },
+  {
+    "name": "Risk Factor Analysis",
+    "category": "Hiplot",
+    "packages": [
+      "cowplot",
+      "cutoff",
+      "data.table",
+      "fastStat",
+      "ggplot2",
+      "jsonlite",
+      "survminer"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/155-risk-plot.html",
+    "source_file": "Hiplot/155-risk-plot.qmd"
+  },
+  {
+    "name": "ROC",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "pROC"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/156-roc.html",
+    "source_file": "Hiplot/156-roc.qmd"
+  },
+  {
+    "name": "Rose Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/157-rose-chart.html",
+    "source_file": "Hiplot/157-rose-chart.qmd"
+  },
+  {
+    "name": "Sankey",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggalluvial",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/158-sankey.html",
+    "source_file": "Hiplot/158-sankey.qmd"
+  },
+  {
+    "name": "3D-Scatter",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "plot3D"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/159-scatter-3d.html",
+    "source_file": "Hiplot/159-scatter-3d.qmd"
+  },
+  {
+    "name": "Gradient Scatter",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "grafify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/160-scatter-gradient.html",
+    "source_file": "Hiplot/160-scatter-gradient.qmd"
+  },
+  {
+    "name": "Scatter",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/161-scatter.html",
+    "source_file": "Hiplot/161-scatter.qmd"
+  },
+  {
+    "name": "Scatter2",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "grafify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/162-scatter2.html",
+    "source_file": "Hiplot/162-scatter2.qmd"
+  },
+  {
+    "name": "Scatterpie",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "jsonlite",
+      "scatterpie"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/163-scatterpie.html",
+    "source_file": "Hiplot/163-scatterpie.qmd"
+  },
+  {
+    "name": "Simple Funnel Diagram",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "echarts4r",
+      "jsonlite",
+      "magrittr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/164-simple-funnel-diagram.html",
+    "source_file": "Hiplot/164-simple-funnel-diagram.qmd"
+  },
+  {
+    "name": "Slopegraph",
+    "category": "Hiplot",
+    "packages": [
+      "CGPfunctions",
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/165-slopegraph.html",
+    "source_file": "Hiplot/165-slopegraph.qmd"
+  },
+  {
+    "name": "Stack Violin",
+    "category": "Hiplot",
+    "packages": [
+      "Seurat",
+      "ggplot2",
+      "limma",
+      "readr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/166-stack-violin.html",
+    "source_file": "Hiplot/166-stack-violin.qmd"
+  },
+  {
+    "name": "Percentsge Stacked Bar Chart",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "jsonlite",
+      "scales",
+      "tidyr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/167-stacked-percentage-bar-chart.html",
+    "source_file": "Hiplot/167-stacked-percentage-bar-chart.qmd"
+  },
+  {
+    "name": "Streamgraph",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "jsonlite",
+      "streamgraph"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/168-streamgraph.html",
+    "source_file": "Hiplot/168-streamgraph.qmd"
+  },
+  {
+    "name": "Survival Analysis",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "survival",
+      "survminer"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/169-survival.html",
+    "source_file": "Hiplot/169-survival.qmd"
+  },
+  {
+    "name": "Taylor Diagram",
+    "category": "Hiplot",
+    "packages": [
+      "openair"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/170-taylor-diagram.html",
+    "source_file": "Hiplot/170-taylor-diagram.qmd"
+  },
+  {
+    "name": "Time ROC",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "grid",
+      "jsonlite",
+      "plotROC",
+      "survivalROC"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/171-time-roc.html",
+    "source_file": "Hiplot/171-time-roc.qmd"
+  },
+  {
+    "name": "Treeheatr",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplotify",
+      "jsonlite",
+      "treeheatr"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/172-treeheatr.html",
+    "source_file": "Hiplot/172-treeheatr.qmd"
+  },
+  {
+    "name": "Treemap",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "jsonlite",
+      "treemap"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/173-treemap.html",
+    "source_file": "Hiplot/173-treemap.qmd"
+  },
+  {
+    "name": "Tricolor Histogram",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/174-tricolor-histogram.html",
+    "source_file": "Hiplot/174-tricolor-histogram.qmd"
+  },
+  {
+    "name": "tSNE",
+    "category": "Hiplot",
+    "packages": [
+      "Rtsne",
+      "data.table",
+      "ggpubr",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/175-tsne.html",
+    "source_file": "Hiplot/175-tsne.qmd"
+  },
+  {
+    "name": "UMAP",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "jsonlite",
+      "umap"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/176-umap.html",
+    "source_file": "Hiplot/176-umap.qmd"
+  },
+  {
+    "name": "Upset Plot",
+    "category": "Hiplot",
+    "packages": [
+      "ComplexHeatmap",
+      "VennDiagram",
+      "data.table",
+      "ggplot2",
+      "ggplotify",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/177-upset-plot.html",
+    "source_file": "Hiplot/177-upset-plot.qmd"
+  },
+  {
+    "name": "Venn",
+    "category": "Hiplot",
+    "packages": [
+      "VennDiagram",
+      "data.table",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/178-venn.html",
+    "source_file": "Hiplot/178-venn.qmd"
+  },
+  {
+    "name": "Venn2",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "jsonlite",
+      "venn"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/179-venn2.html",
+    "source_file": "Hiplot/179-venn2.qmd"
+  },
+  {
+    "name": "Violin Group",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/180-violin-group.html",
+    "source_file": "Hiplot/180-violin-group.qmd"
+  },
+  {
+    "name": "Violin",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "ggthemes",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/181-violin.html",
+    "source_file": "Hiplot/181-violin.qmd"
+  },
+  {
+    "name": "Visdat",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "dplyr",
+      "ggplot2",
+      "jsonlite",
+      "patchwork",
+      "visdat"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/182-visdat.html",
+    "source_file": "Hiplot/182-visdat.qmd"
+  },
+  {
+    "name": "Volcano",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggpubr",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/183-volcano.html",
+    "source_file": "Hiplot/183-volcano.qmd"
+  },
+  {
+    "name": "Waffle Plot",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "jsonlite",
+      "waffle"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/184-waffle.html",
+    "source_file": "Hiplot/184-waffle.qmd"
+  },
+  {
+    "name": "Waterfalls Plot2",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "waterfalls"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/185-waterfalls-plot.html",
+    "source_file": "Hiplot/185-waterfalls-plot.qmd"
+  },
+  {
+    "name": "Waterfalls",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "jsonlite",
+      "waterfalls"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/186-waterfalls.html",
+    "source_file": "Hiplot/186-waterfalls.qmd"
+  },
+  {
+    "name": "PCA",
+    "category": "Hiplot",
+    "packages": [
+      "data.table",
+      "ggplot2",
+      "ggpubr",
+      "gmodels",
+      "jsonlite"
+    ],
+    "use_when": "::: callout-note\n**Hiplot website**",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/187-pca.html",
+    "source_file": "Hiplot/187-pca.qmd"
+  },
+  {
+    "name": "Cell-Cell Communication Circle Plot",
+    "category": "Omics",
+    "packages": [
+      "BiocManager",
+      "CellChat",
+      "Seurat",
+      "circlize",
+      "devtools",
+      "ggplot2"
+    ],
+    "use_when": "The Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html",
+    "source_file": "Omics/CellChatCirclePlot.qmd"
+  },
+  {
+    "name": "Chromosome Plot",
+    "category": "Omics",
+    "packages": [
+      "RIdeogram"
+    ],
+    "use_when": "An chromosome plot (ideogram) is a graphical tool used to visualize chromosome structure and various genomic features on chromosomes. It typically represents each chromosome individually, drawing the length and structures such as the centromere to scale. Additionally, it can anno…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/ChromosomePlot.html",
+    "source_file": "Omics/ChromosomePlot.qmd"
+  },
+  {
+    "name": "Collinearity Plot",
+    "category": "Omics",
+    "packages": [
+      "RIdeogram"
+    ],
+    "use_when": "Collinearity plot is often used to compare genome sequences of different species, identify conserved homologous gene blocks and their arrangement order, and reveal changes in chromosome structure during evolution. This plot is widely used in the study of genome evolution, functio…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/CollinearityPlot.html",
+    "source_file": "Omics/CollinearityPlot.qmd"
+  },
+  {
+    "name": "Gene Structure Plot",
+    "category": "Omics",
+    "packages": [
+      "gggenes",
+      "ggtree",
+      "tidyverse"
+    ],
+    "use_when": "In biology, especially in molecular biology research, analyzing the expression and regulation patterns of genes has always been a research focus. In this process, it is inevitable that there will be a need to draw the structure of a gene or the upstream and downstream relationshi…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/GeneStructurePlot.html",
+    "source_file": "Omics/GeneStructurePlot.qmd"
+  },
+  {
+    "name": "GWAS Circos Plot",
+    "category": "Omics",
+    "packages": [
+      "CMplot"
+    ],
+    "use_when": "The visualization of Genome-Wide Association Study (GWAS) results mainly includes SNP circular plots displayed by chromosome positions, SNP density plots, Manhattan plots for significance screening, QQ plots comparing the distribution of observed p-values with expected p-values,…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/GwasSnpPlot.html",
+    "source_file": "Omics/GwasSnpPlot.qmd"
+  },
+  {
+    "name": "KEGG Pathway Plot",
+    "category": "Omics",
+    "packages": [
+      "dbplyr",
+      "pathview"
+    ],
+    "use_when": "Visualize kegg pathway plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/KeggPathwayPlot.html",
+    "source_file": "Omics/KeggPathwayPlot.qmd"
+  },
+  {
+    "name": "Manhattan Plot",
+    "category": "Omics",
+    "packages": [
+      "aplot",
+      "qqman",
+      "tidyverse"
+    ],
+    "use_when": "Manhattan plot is a graph used to describe the relationship between mutations on chromosomes and traits. It is named Manhattan plot because it resembles the urban landscape of Manhattan, USA. Manhattan plot is generally drawn in the form of scatter plot, but it can also be displa…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/ManhattanPlot.html",
+    "source_file": "Omics/ManhattanPlot.qmd"
+  },
+  {
+    "name": "MEBOCOST Metabolic Flow Plot",
+    "category": "Omics",
+    "packages": [
+      "MEBOCOST",
+      "devtools",
+      "dplyr",
+      "ggplot2",
+      "ggraph",
+      "igraph",
+      "patchwork",
+      "scales",
+      "tidygraph"
+    ],
+    "use_when": "The MEBOCOST Metabolic Flow Plot (流图) is an innovative visualization developed within the **MEBOCOST** (Metabolite-mediated Cell Communication Prediction) framework. It depicts metabolite-mediated intercellular communication by rendering directed flow arrows between cell types, w…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/MebocostFlowPlot.html",
+    "source_file": "Omics/MebocostFlowPlot.qmd"
+  },
+  {
+    "name": "Motif Plot",
+    "category": "Omics",
+    "packages": [
+      "cowplot",
+      "ggplot2",
+      "ggseqlogo",
+      "gridExtra"
+    ],
+    "use_when": "For visualizing motif logos, ggseqlogo is an R package based on ggplot2 specifically designed for plotting logos from sequence motifs. Compared to other motif visualization tools, ggseqlogo boasts advantages such as concise syntax, flexible output formats, and full compatibility…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/MotifPlot.html",
+    "source_file": "Omics/MotifPlot.qmd"
+  },
+  {
+    "name": "Multiple Sequences Alignment",
+    "category": "Omics",
+    "packages": [
+      "ggmsa"
+    ],
+    "use_when": "Multiple Sequence Alignment (MSA) is a fundamental and crucial technique in bioinformatics. It is used to align three or more biological sequences (DNA, RNA, or proteins) based on their evolutionary or structural similarities, so that homologous sites (i.e., sites derived from a…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/MultiSeqsAlignment.html",
+    "source_file": "Omics/MultiSeqsAlignment.qmd"
+  },
+  {
+    "name": "Multiple Volcano Plot",
+    "category": "Omics",
+    "packages": [
+      "corrplot",
+      "scRNAtoolVis"
+    ],
+    "use_when": "Multiple Volcano Plot is a graph used for differential expression analysis of high-throughput data (such as transcriptomes and proteomes). Compared with the traditional volcano plot, the multi-group volcano plot can display the results of multiple groups at the same time, making…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/MultiVolcanoPlot.html",
+    "source_file": "Omics/MultiVolcanoPlot.qmd"
+  },
+  {
+    "name": "Network Plot",
+    "category": "Omics",
+    "packages": [
+      "MetaNet",
+      "dplyr",
+      "igraph",
+      "pcutils"
+    ],
+    "use_when": "In microbiome research, it is crucial to understand the interactions between microorganisms. Network analysis is a powerful method that can help us visualize and quantify these complex relationships. Next, we will introduce the network operation and annotation functions of the `M…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/NetworkPlot.html",
+    "source_file": "Omics/NetworkPlot.qmd"
+  },
+  {
+    "name": "Population Map Plot",
+    "category": "Omics",
+    "packages": [
+      "doParallel",
+      "dplyr",
+      "ggfx",
+      "ggnewscale",
+      "ggplot2",
+      "ggrepel",
+      "ggspatial",
+      "gstat",
+      "rnaturalearth",
+      "rnaturalearthdata",
+      "sf",
+      "viridis"
+    ],
+    "use_when": "Visualize population map plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/PopulationMapPlot.html",
+    "source_file": "Omics/PopulationMapPlot.qmd"
+  },
+  {
+    "name": "Sankey Bubble plot",
+    "category": "Omics",
+    "packages": [
+      "ggalluvial",
+      "patchwork",
+      "readr",
+      "tidyverse"
+    ],
+    "use_when": "Visualize sankey bubble plot data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/SankeyBubblePlot.html",
+    "source_file": "Omics/SankeyBubblePlot.qmd"
+  },
+  {
+    "name": "Synteny Blocks Plot",
+    "category": "Omics",
+    "packages": [
+      "syntR"
+    ],
+    "use_when": "Collinearity is widely used in the study of complex genomes. This tutorial, based on the R package syntR, summarizes the identification of shared collinearity blocks between two genetic maps, chromosomal rearrangements, and their mapping.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/SyntenyBlocksPlot.html",
+    "source_file": "Omics/SyntenyBlocksPlot.qmd"
+  },
+  {
+    "name": "Text-Overlaid Enrichment Barplot",
+    "category": "Omics",
+    "packages": [
+      "clusterProfiler",
+      "ggprism",
+      "gground",
+      "org.Hs.eg.db",
+      "tidyverse"
+    ],
+    "use_when": "The Text-Overlaid Enrichment Barplot is a visualization tool designed for the high-density display of functional enrichment analysis results (e.g., GO, KEGG). It typically maps enrichment significance (adjusted p-value) to the length of rounded bars and utilizes the internal spac…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/TextEnrichmentBarPlot.html",
+    "source_file": "Omics/TextEnrichmentBarPlot.qmd"
+  },
+  {
+    "name": "Volcano Plot",
+    "category": "Omics",
+    "packages": [
+      "ggrepel",
+      "readxl",
+      "tidyverse"
+    ],
+    "use_when": "The volcano plot is used to compare the two groups and obtain the up-regulation/down-regulation between the two groups. The screening basis is the p value and FC value, which are converted to -logP value and log2(FC) value. The imported data can be the OTU table or ASV table of t…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/VolcanoPlot.html",
+    "source_file": "Omics/VolcanoPlot.qmd"
+  },
+  {
+    "name": "Arc Diagram",
+    "category": "Proportion",
+    "packages": [
+      "colormap",
+      "ggraph",
+      "igraph",
+      "patchwork",
+      "tidyverse",
+      "viridis"
+    ],
+    "use_when": "The arc diagram is a diagram connected by arcs, showing the relationships between nodes.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Proportion/ArcDiagram.html",
+    "source_file": "Proportion/ArcDiagram.qmd"
+  },
+  {
+    "name": "Chord Diagram",
+    "category": "Proportion",
+    "packages": [
+      "chorddiag",
+      "circlize",
+      "dplyr",
+      "ggraph",
+      "htmlwidgets",
+      "igraph",
+      "readr",
+      "readxl",
+      "tidygraph",
+      "tidyverse",
+      "viridis"
+    ],
+    "use_when": "Chord diagrams can use connecting lines or bars to represent the relationships between different objects. The connections in a chord diagram directly show the relationships between different objects; the width of the connection is proportional to the strength of the relationship,…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Proportion/ChordDiagram.html",
+    "source_file": "Proportion/ChordDiagram.qmd"
+  },
+  {
+    "name": "Dice Plot",
+    "category": "Proportion",
+    "packages": [
+      "dplyr",
+      "ggdiceplot",
+      "ggplot2"
+    ],
+    "use_when": "Dice plots are a visualization technique for representing high-dimensional categorical data. The ggdiceplot package provides ggplot2 extensions for creating dice-based visualizations where each dot position on a dice represents a specific categorical variable. This allows intuiti…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Proportion/DicePlot.html",
+    "source_file": "Proportion/DicePlot.qmd"
+  },
+  {
+    "name": "Hierarchical Edge Bundling",
+    "category": "Proportion",
+    "packages": [],
+    "use_when": "Visualize hierarchical edge bundling data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Proportion/EdgeBundling.html",
+    "source_file": "Proportion/EdgeBundling.qmd"
+  },
+  {
+    "name": "Network Graph",
+    "category": "Proportion",
+    "packages": [
+      "RColorBrewer",
+      "cowplot",
+      "igraph",
+      "networkD3"
+    ],
+    "use_when": "A network graph is a graphical model that resembles a network and consists of nodes and links, where links can be directed or undirected.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Proportion/Network.html",
+    "source_file": "Proportion/Network.qmd"
+  },
+  {
+    "name": "Sankey Diagram",
+    "category": "Proportion",
+    "packages": [
+      "dplyr",
+      "ggalluvial",
+      "ggplot2",
+      "networkD3",
+      "openxlsx",
+      "readxl",
+      "tidyverse",
+      "webshot"
+    ],
+    "use_when": "A [Sankey diagram](https://www.data-to-viz.com/graph/sankey.html) allows to study flows. Entities (nodes) are represented by rectangles or text. Arrows or arcs are used to show flows between them. In `R`, the `networkD3` package is the best way to build them.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Proportion/Sankey.html",
+    "source_file": "Proportion/Sankey.qmd"
+  },
+  {
+    "name": "Bar Plot",
+    "category": "Ranking",
+    "packages": [
+      "cowplot",
+      "dplyr",
+      "forcats",
+      "ggpattern",
+      "ggplot2",
+      "ggpubr",
+      "hrbrthemes",
+      "magrittr",
+      "palmerpenguins",
+      "rstatix",
+      "tidyr"
+    ],
+    "use_when": "A bar plot is a graph that uses the height or length of the bars to represent the amount of data.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/BarPlot.html",
+    "source_file": "Ranking/BarPlot.qmd"
+  },
+  {
+    "name": "Circular Barplot",
+    "category": "Ranking",
+    "packages": [
+      "tidyverse"
+    ],
+    "use_when": "Circular Barplot is a variation of the well-known bar chart where bars are displayed along a circle instead of a straight line. Note that while visually appealing, circular bar charts must be used with caution because the groups do not share the same Y-axis. However, they are wel…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/CircularBarplot.html",
+    "source_file": "Ranking/CircularBarplot.qmd"
+  },
+  {
+    "name": "Lollipop Plot",
+    "category": "Ranking",
+    "packages": [
+      "cowplot",
+      "ggalt",
+      "ggplot2",
+      "ggpubr",
+      "hrbrthemes",
+      "palmerpenguins",
+      "rstatix",
+      "tidyr"
+    ],
+    "use_when": "A lollipop plot is a variation of a bar chart and a scatter plot. It consists of a line segment and a point, which can clearly display data while reducing the amount of graphics. At the same time, the lollipop plot can help align values with categories and is very suitable for co…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/Lollipop.html",
+    "source_file": "Ranking/Lollipop.qmd"
+  },
+  {
+    "name": "Parallel Coordinates Plot",
+    "category": "Ranking",
+    "packages": [
+      "GGally",
+      "MASS",
+      "RColorBrewer",
+      "dplyr",
+      "ggbump",
+      "hrbrthemes",
+      "patchwork",
+      "tibble",
+      "tidyr",
+      "viridis"
+    ],
+    "use_when": "Parallel coordinate plots are a common method for visualizing high-dimensional multivariate data. To display a set of objects in a multidimensional space, multiple parallel and equally spaced axes are drawn, and the objects in the multidimensional space are represented as broken…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/Parallel.html",
+    "source_file": "Ranking/Parallel.qmd"
+  },
+  {
+    "name": "Radar/Spider Plot",
+    "category": "Ranking",
+    "packages": [
+      "fmsb"
+    ],
+    "use_when": "A radar chart, spider chart, or web chart is a two-dimensional chart type used to plot a series of values over one or more quantitative variables. The fmsb library is an excellent tool for building this type of chart in R.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/Radar.html",
+    "source_file": "Ranking/Radar.qmd"
+  },
+  {
+    "name": "Table",
+    "category": "Ranking",
+    "packages": [
+      "dplyr",
+      "gt",
+      "gtExtras",
+      "readr"
+    ],
+    "use_when": "Tables are both a visual communication mode and a means of organizing and collating data.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/Table.html",
+    "source_file": "Ranking/Table.qmd"
+  },
+  {
+    "name": "Upset Plot",
+    "category": "Ranking",
+    "packages": [
+      "UpSetR",
+      "ggupset"
+    ],
+    "use_when": "The Upset diagram is similar to the Venn diagram, mainly showing the number of elements in the intersection of different sets. However, when the number of sets in the Venn diagram reaches 5, the readability begins to drop sharply. The Upset diagram can well solve the problem of p…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/UpsetPlot.html",
+    "source_file": "Ranking/UpsetPlot.qmd"
+  },
+  {
+    "name": "Veen Plot",
+    "category": "Ranking",
+    "packages": [
+      "VennDiagram",
+      "ggVennDiagram",
+      "ggplot2"
+    ],
+    "use_when": "For the visualization of Venn diagrams, the commonly used R packages are ggVennDiagram and VennDiagram. Compared with the VennDiagram package, ggVennDiagram has the advantages of being applicable to more groups, adapting to ggplot2 syntax, and flexibly setting output formats, and…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/VennPlot.html",
+    "source_file": "Ranking/VennPlot.qmd"
+  },
+  {
+    "name": "Wordcloud",
+    "category": "Ranking",
+    "packages": [
+      "dplyr",
+      "htmlwidgets",
+      "jiebaR",
+      "jiebaRD",
+      "tidyverse",
+      "webshot2",
+      "wordcloud2"
+    ],
+    "use_when": "A word cloud is a visual representation of text words, which allows you to clearly see the keywords (high-frequency words) in a large amount of text data.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Ranking/Wordcloud.html",
+    "source_file": "Ranking/Wordcloud.qmd"
+  },
+  {
+    "name": "Bizard Skills",
+    "category": "Misc",
+    "packages": [
+      "CellChat",
+      "FactoMineR",
+      "dplyr",
+      "factoextra",
+      "ggplot2",
+      "ggprism",
+      "ggpubr",
+      "ggraph",
+      "ggrepel",
+      "gground",
+      "igraph",
+      "pheatmap",
+      "survival",
+      "survminer",
+      "tidygraph"
+    ],
+    "use_when": "Visualize bizard skills data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Skills.html",
+    "source_file": "Skills.qmd"
+  },
+  {
+    "name": "Tool Links",
+    "category": "Misc",
+    "packages": [
+      "pixture"
+    ],
+    "use_when": "Visualize tool links data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/ToolLinks.html",
+    "source_file": "ToolLinks.qmd"
+  },
+  {
+    "name": "Tutorial",
+    "category": "Misc",
+    "packages": [],
+    "use_when": "As a comprehensive visual code repository for community collaboration, Bizard is a platform based on GitHub that integrates **Discussion Questions**, **Graphics Collection**, **Collaborative Development**, and **Automated Deployment**. Community members can discuss problems throu…",
+    "tutorial_url": "https://openbiox.github.io/Bizard/Tutorial.html",
+    "source_file": "Tutorial.qmd"
+  },
+  {
+    "name": "Bizard",
+    "category": "Misc",
+    "packages": [],
+    "use_when": "Visualize bizard data in a biomedical context.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/index.html",
+    "source_file": "index.qmd"
+  }
+]
