@@ -13,14 +13,7 @@ Manhattan plot is a graph used to describe the relationship between mutations on
 
 ## Minimal reproducible code
 ```r
-#| label: fig-1.1Basicmanhattan
-#| fig-cap: "Basic manhattan plot"
-#| out.width: "95%"
-#| warning: false
-#| message: false
-
-# Basic manhattan plot
-manhattan(gwasResults)
+sessioninfo::session_info("attached")
 ```
 
 ## Full tutorial

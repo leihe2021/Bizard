@@ -3270,7 +3270,7 @@
     ],
     "use_when": "Manhattan plot is a graph used to describe the relationship between mutations on chromosomes and traits. It is named Manhattan plot because it resembles the urban landscape of Manhattan, USA. Manhattan plot is generally drawn in the form of scatter plot, but it can also be displa…",
     "tutorial_url": "https://openbiox.github.io/Bizard/Omics/ManhattanPlot.html",
-    "skill": "# Skill: Manhattan Plot (R)\n\n## Category\nOmics\n\n## When to use\nManhattan plot is a graph used to describe the relationship between mutations on chromosomes and traits. It is named Manhattan plot because it resembles the urban landscape of Manhattan, USA. Manhattan plot is generally drawn in the form of scatter plot, but it can also be displa…\n\n## Required R packages\n- aplot\n- qqman\n- tidyverse\n\n## Minimal reproducible code\n```r\n#| label: fig-1.1Basicmanhattan\n#| fig-cap: \"Basic manhattan plot\"\n#| out.width: \"95%\"\n#| warning: false\n#| message: false\n\n# Basic manhattan plot\nmanhattan(gwasResults)\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/ManhattanPlot.html\n",
+    "skill": "# Skill: Manhattan Plot (R)\n\n## Category\nOmics\n\n## When to use\nManhattan plot is a graph used to describe the relationship between mutations on chromosomes and traits. It is named Manhattan plot because it resembles the urban landscape of Manhattan, USA. Manhattan plot is generally drawn in the form of scatter plot, but it can also be displa…\n\n## Required R packages\n- aplot\n- qqman\n- tidyverse\n\n## Minimal reproducible code\n```r\nsessioninfo::session_info(\"attached\")\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/ManhattanPlot.html\n",
     "source_file": "Omics/ManhattanPlot.qmd"
   },
   {
