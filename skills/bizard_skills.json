@@ -3193,12 +3193,13 @@
       "CellChat",
       "Seurat",
       "circlize",
-      "devtools",
-      "ggplot2"
+      "ggplot2",
+      "igraph",
+      "remotes"
     ],
     "use_when": "The Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…",
     "tutorial_url": "https://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html",
-    "skill": "# Skill: Cell-Cell Communication Circle Plot (R)\n\n## Category\nOmics\n\n## When to use\nThe Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…\n\n## Required R packages\n- BiocManager\n- CellChat\n- Seurat\n- circlize\n- devtools\n- ggplot2\n\n## Minimal reproducible code\n```r\n#| label: fig-1-overall-circle\n#| fig-cap: \"Overall Cell-Cell Communication Circle Plot\"\n#| out.width: \"95%\"\n\npar(mfrow = c(1, 2), xpd = TRUE)\n\n# Panel A: Number of interactions\nnetVisual_circle(\n  net_count,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Number of interactions\"\n)\n\n# Panel B: Interaction strength (weights)\nnetVisual_circle(\n  net_weight,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Interaction weights/strength\"\n)\n\npar(mfrow = c(1, 1))\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html\n",
+    "skill": "# Skill: Cell-Cell Communication Circle Plot (R)\n\n## Category\nOmics\n\n## When to use\nThe Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…\n\n## Required R packages\n- BiocManager\n- CellChat\n- Seurat\n- circlize\n- ggplot2\n- igraph\n- remotes\n\n## Minimal reproducible code\n```r\n#| label: fig-1-overall-circle\n#| fig-cap: \"Overall Cell-Cell Communication Circle Plot\"\n#| out.width: \"95%\"\n\npar(mfrow = c(1, 2), xpd = TRUE)\n\n# Panel A: Number of interactions\nnetVisual_circle(\n  net_count,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Number of interactions\"\n)\n\n# Panel B: Interaction strength (weights)\nnetVisual_circle(\n  net_weight,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Interaction weights/strength\"\n)\n\npar(mfrow = c(1, 1))\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html\n",
     "source_file": "Omics/CellChatCirclePlot.qmd"
   },
   {
@@ -3632,23 +3633,19 @@
     "packages": [
       "CellChat",
       "FactoMineR",
-      "dplyr",
       "factoextra",
       "ggplot2",
       "ggprism",
       "ggpubr",
-      "ggraph",
       "ggrepel",
       "gground",
-      "igraph",
       "pheatmap",
       "survival",
-      "survminer",
-      "tidygraph"
+      "survminer"
     ],
     "use_when": "Visualize bizard skills data in a biomedical context.",
     "tutorial_url": "https://openbiox.github.io/Bizard/Skills.html",
-    "skill": "# Skill: Bizard Skills (R)\n\n## Category\nMisc\n\n## When to use\nVisualize bizard skills data in a biomedical context.\n\n## Required R packages\n- CellChat\n- FactoMineR\n- dplyr\n- factoextra\n- ggplot2\n- ggprism\n- ggpubr\n- ggraph\n- ggrepel\n- gground\n\n## Minimal reproducible code\n(See full tutorial for code)\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Skills.html\n",
+    "skill": "# Skill: Bizard Skills (R)\n\n## Category\nMisc\n\n## When to use\nVisualize bizard skills data in a biomedical context.\n\n## Required R packages\n- CellChat\n- FactoMineR\n- factoextra\n- ggplot2\n- ggprism\n- ggpubr\n- ggrepel\n- gground\n- pheatmap\n- survival\n\n## Minimal reproducible code\n(See full tutorial for code)\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Skills.html\n",
     "source_file": "Skills.qmd"
   },
   {
