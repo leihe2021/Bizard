@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35b2488c50700e22d6ccd520b8a342ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-868f8e587f2c84a243dd509b740aa308.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -148,6 +148,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../GraphGallery.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><i class="fa-solid fa-panorama"></i> Graph Gallery</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Skills</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -622,6 +628,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Omics/TextEnrichmentBarPlot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TextEnrichmentBarPlot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Omics/CellChatCirclePlot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CellChatCirclePlot</span></a>
   </div>
 </li>
       </ul>
@@ -1836,7 +1848,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">修改于</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-02-04</p>
+      <p class="date-modified">2026-03-20</p>
     </div>
   </div>
     
@@ -1886,7 +1898,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
- version  R version 4.5.2 (2025-10-31)
+ version  R version 4.5.3 (2026-03-11)
  os       Ubuntu 24.04.3 LTS
  system   x86_64, linux-gnu
  ui       X11
@@ -1894,7 +1906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  collate  C.UTF-8
  ctype    C.UTF-8
  tz       UTC
- date     2026-02-04
+ date     2026-03-20
  pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
  quarto   1.8.27 @ /usr/local/bin/quarto
 
@@ -1903,8 +1915,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  ggdag   * 0.2.13  2024-07-22 [1] RSPM
 
  [1] /home/runner/work/_temp/Library
- [2] /opt/R/4.5.2/lib/R/site-library
- [3] /opt/R/4.5.2/lib/R/library
+ [2] /opt/R/4.5.3/lib/R/site-library
+ [3] /opt/R/4.5.3/lib/R/library
  * ── Packages attached to the search path.
 
 ──────────────────────────────────────────────────────────────────────────────</code></pre>
@@ -1933,19 +1945,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # A tibble: 13 × 8
    name       x       y direction to      xend   yend circular
    &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;   
- 1 v      1.50   0.0485 -&gt;        z1     0.545 -0.994 FALSE   
- 2 v      1.50   0.0485 -&gt;        z2     0.469  1.02  FALSE   
- 3 w1    -0.299 -0.475  -&gt;        x     -0.909 -0.619 FALSE   
- 4 w1    -0.299 -0.475  -&gt;        y     -0.963  0.552 FALSE   
- 5 w1    -0.299 -0.475  -&gt;        z1     0.545 -0.994 FALSE   
- 6 w1    -0.299 -0.475  &lt;-&gt;       w2    -0.339  0.465 FALSE   
- 7 w2    -0.339  0.465  -&gt;        x     -0.909 -0.619 FALSE   
- 8 w2    -0.339  0.465  -&gt;        y     -0.963  0.552 FALSE   
- 9 w2    -0.339  0.465  -&gt;        z2     0.469  1.02  FALSE   
-10 x     -0.909 -0.619  -&gt;        y     -0.963  0.552 FALSE   
-11 y     -0.963  0.552  &lt;NA&gt;      &lt;NA&gt;  NA     NA     FALSE   
-12 z1     0.545 -0.994  -&gt;        x     -0.909 -0.619 FALSE   
-13 z2     0.469  1.02   -&gt;        y     -0.963  0.552 FALSE   
+ 1 v     -1.50  -0.0324 -&gt;        z1    -0.486 -1.02  FALSE   
+ 2 v     -1.50  -0.0324 -&gt;        z2    -0.530  0.998 FALSE   
+ 3 w1     0.950 -0.576  -&gt;        x      0.332 -0.457 FALSE   
+ 4 w1     0.950 -0.576  -&gt;        y      0.310  0.476 FALSE   
+ 5 w1     0.950 -0.576  -&gt;        z1    -0.486 -1.02  FALSE   
+ 6 w1     0.950 -0.576  &lt;-&gt;       w2     0.925  0.607 FALSE   
+ 7 w2     0.925  0.607  -&gt;        x      0.332 -0.457 FALSE   
+ 8 w2     0.925  0.607  -&gt;        y      0.310  0.476 FALSE   
+ 9 w2     0.925  0.607  -&gt;        z2    -0.530  0.998 FALSE   
+10 x      0.332 -0.457  -&gt;        y      0.310  0.476 FALSE   
+11 y      0.310  0.476  &lt;NA&gt;      &lt;NA&gt;  NA     NA     FALSE   
+12 z1    -0.486 -1.02   -&gt;        x      0.332 -0.457 FALSE   
+13 z2    -0.530  0.998  -&gt;        y      0.310  0.476 FALSE   
 
 $dag
 dag {

@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35b2488c50700e22d6ccd520b8a342ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-868f8e587f2c84a243dd509b740aa308.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -93,7 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script><link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="../site_libs/echarts4r-4.8.0/echarts-en.min.js"></script><script src="../site_libs/echarts4r-4.8.0/ecStat.min.js"></script><script src="../site_libs/echarts4r-4.8.0/dataTool.min.js"></script><script src="../site_libs/echarts4r-binding-0.4.6/echarts4r.js"></script><script src="../site_libs/macarons-1.0.0/macarons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="../site_libs/echarts4r-6.0.0/echarts.min.js"></script><script src="../site_libs/echarts4r-6.0.0/ecStat.min.js"></script><script src="../site_libs/echarts4r-6.0.0/dataTool.min.js"></script><script src="../site_libs/echarts4r-binding-0.5.0/echarts4r.js"></script><script src="../site_libs/macarons-1.0.0/macarons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body class="nav-sidebar docked quarto-light">
@@ -149,6 +149,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../GraphGallery.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><i class="fa-solid fa-panorama"></i> Graph Gallery</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Skills</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -623,6 +629,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Omics/TextEnrichmentBarPlot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TextEnrichmentBarPlot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Omics/CellChatCirclePlot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CellChatCirclePlot</span></a>
   </div>
 </li>
       </ul>
@@ -1837,7 +1849,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-02-03</p>
+      <p class="date-modified">2026-03-20</p>
     </div>
   </div>
     
@@ -1898,7 +1910,7 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
- version  R version 4.5.2 (2025-10-31)
+ version  R version 4.5.3 (2026-03-11)
  os       Ubuntu 24.04.3 LTS
  system   x86_64, linux-gnu
  ui       X11
@@ -1906,20 +1918,20 @@ Note
  collate  C.UTF-8
  ctype    C.UTF-8
  tz       UTC
- date     2026-02-03
+ date     2026-03-20
  pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
  quarto   1.8.27 @ /usr/local/bin/quarto
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package    * version  date (UTC) lib source
  data.table * 1.18.2.1 2026-01-27 [1] RSPM
- echarts4r  * 0.4.6    2025-09-11 [1] RSPM
+ echarts4r  * 0.5.0    2026-02-10 [1] RSPM
  jsonlite   * 2.0.0    2025-03-27 [1] RSPM
  magrittr   * 2.0.4    2025-09-12 [1] RSPM
 
  [1] /home/runner/work/_temp/Library
- [2] /opt/R/4.5.2/lib/R/site-library
- [3] /opt/R/4.5.2/lib/R/library
+ [2] /opt/R/4.5.3/lib/R/site-library
+ [3] /opt/R/4.5.3/lib/R/library
  * ── Packages attached to the search path.
 
 ──────────────────────────────────────────────────────────────────────────────</code></pre>
@@ -1958,8 +1970,8 @@ Note
 </div>
 <div id="fig-1simple-funnel-diagram" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-1simple-funnel-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="echarts4r html-widget html-fill-item" id="htmlwidget-e61ebc3a4d307ecf7e87" style="width:100%;height:500px;"></div>
-<script type="application/json" data-for="htmlwidget-e61ebc3a4d307ecf7e87">{"x":{"theme":"macarons","tl":false,"draw":true,"renderer":"canvas","events":[],"buttons":[],"opts":{"legend":{"data":["view","click","purchase"]},"series":[{"data":[{"value":60,"name":"view"},{"value":30,"name":"click"},{"value":20,"name":"purchase"}],"name":null,"type":"funnel"}],"title":[{"text":"Funnel"}]},"dispose":true},"evals":[],"jsHooks":[]}</script>
+<div class="echarts4r html-widget html-fill-item" id="htmlwidget-4fde4cfc8b362342bc14" style="width:100%;height:500px;"></div>
+<script type="application/json" data-for="htmlwidget-4fde4cfc8b362342bc14">{"x":{"theme":"macarons","tl":false,"draw":true,"renderer":"canvas","events":[],"buttons":[],"opts":{"legend":{"data":["view","click","purchase"]},"series":[{"data":[{"value":60,"name":"view"},{"value":30,"name":"click"},{"value":20,"name":"purchase"}],"name":null,"type":"funnel"}],"title":[{"text":"Funnel"}]},"dispose":true},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1simple-funnel-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 1: Simple Funnel Diagram

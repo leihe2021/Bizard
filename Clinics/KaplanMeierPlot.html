@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35b2488c50700e22d6ccd520b8a342ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-868f8e587f2c84a243dd509b740aa308.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -148,6 +148,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../GraphGallery.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><i class="fa-solid fa-panorama"></i> Graph Gallery</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Skills</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -622,6 +628,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Omics/TextEnrichmentBarPlot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TextEnrichmentBarPlot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Omics/CellChatCirclePlot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CellChatCirclePlot</span></a>
   </div>
 </li>
       </ul>
@@ -1845,7 +1857,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-02-03</p>
+      <p class="date-modified">2026-03-20</p>
     </div>
   </div>
     
@@ -1909,7 +1921,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
- version  R version 4.5.2 (2025-10-31)
+ version  R version 4.5.3 (2026-03-11)
  os       Ubuntu 24.04.3 LTS
  system   x86_64, linux-gnu
  ui       X11
@@ -1917,24 +1929,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  collate  C.UTF-8
  ctype    C.UTF-8
  tz       UTC
- date     2026-02-04
+ date     2026-03-20
  pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
  quarto   1.8.27 @ /usr/local/bin/quarto
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package   * version date (UTC) lib source
- dplyr     * 1.1.4   2023-11-17 [1] RSPM
- ggplot2   * 4.0.1   2025-11-14 [1] RSPM
- ggpubr    * 0.6.2   2025-10-17 [1] RSPM
+ dplyr     * 1.2.0   2026-02-03 [1] RSPM
+ ggplot2   * 4.0.2   2026-02-03 [1] RSPM
+ ggpubr    * 0.6.3   2026-02-24 [1] RSPM
  patchwork * 1.3.2   2025-08-25 [1] RSPM
- survival  * 3.8-3   2024-12-17 [3] CRAN (R 4.5.2)
- survminer * 0.5.1   2025-09-02 [1] RSPM
+ survival  * 3.8-6   2026-01-16 [3] CRAN (R 4.5.3)
+ survminer * 0.5.2   2026-02-25 [1] RSPM
  tidyr     * 1.3.2   2025-12-19 [1] RSPM
  zoo       * 1.8-15  2025-12-15 [1] RSPM
 
  [1] /home/runner/work/_temp/Library
- [2] /opt/R/4.5.2/lib/R/site-library
- [3] /opt/R/4.5.2/lib/R/library
+ [2] /opt/R/4.5.3/lib/R/site-library
+ [3] /opt/R/4.5.3/lib/R/library
  * ── Packages attached to the search path.
 
 ──────────────────────────────────────────────────────────────────────────────</code></pre>
@@ -1970,7 +1982,7 @@ $ ph.karno  &lt;dbl&gt; 90, 90, 90, 90, 100, 50, 70, 60, 70, 70, 80, 70, 90, 60,
 $ pat.karno &lt;dbl&gt; 100, 90, 90, 60, 90, 80, 60, 80, 80, 70, 80, 70, 90, 70, 70,…
 $ meal.cal  &lt;dbl&gt; 1175, 1225, NA, 1150, NA, 513, 384, 538, 825, 271, 1025, NA,…
 $ wt.loss   &lt;dbl&gt; NA, 15, 15, 11, 0, 0, 10, 1, 16, 34, 27, 23, 5, 32, 60, 15, …
-$ group     &lt;chr&gt; "Treatment", "Treatment", "Placebo", "Treatment", "Treatment…</code></pre>
+$ group     &lt;chr&gt; "Treatment", "Placebo", "Treatment", "Treatment", "Placebo",…</code></pre>
 </div>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Survival time distribution</span></span>
@@ -2234,7 +2246,7 @@ Figure 2: Basic survival curve
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </div>
-<div id="fig-Fig2-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig2-1">
+<div id="fig-Fig2-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig2-1" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/Clinics/KaplanMeierPlot_fig2-1.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="Fig2-1">
 </div>
@@ -2243,7 +2255,7 @@ Figure 3: Beautified survival curve
 </figcaption></figure>
 </div>
 </section></section><section id="application" class="level2"><h2 class="anchored" data-anchor-id="application">Application</h2>
-<div id="fig-KaplanMeierPlotApplications1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="KaplanMeierPlotApp1">
+<div id="fig-KaplanMeierPlotApplications1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="KaplanMeierPlotApp1" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-KaplanMeierPlotApplications1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/Clinics/KaplanMeierPlot_app1.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="KaplanMeierPlotApp1">
 </div>
