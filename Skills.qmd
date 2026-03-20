@@ -1,6 +1,8 @@
 ---
 title: "Bizard Skills"
 subtitle: "AI-Ready Visualization Skills for Biomedical Research"
+author: "Bizard Team"
+date: "2026-03-20"
 from: markdown+emoji
 ---
 
