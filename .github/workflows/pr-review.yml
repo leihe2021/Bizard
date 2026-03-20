@@ -12,8 +12,161 @@ env:
   RUST_BACKTRACE: 1
 
 jobs:
+  # ── Job 1: Format check ────────────────────────────────────────────────────
+  # Security note: Uses only the GitHub API to read changed file contents;
+  # NO checkout of untrusted PR code occurs in this job.
+  format-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Detect changed QMD files and run format check
+        id: format-check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // ── Get list of changed files in the PR ───────────────────────
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner:       context.repo.owner,
+              repo:        context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page:    100,
+            });
+
+            const qmdFiles = files.filter(f =>
+              (f.filename.endsWith('.qmd') || f.filename.endsWith('.Qmd')) &&
+              !f.filename.endsWith('.zh.qmd') &&
+              f.status !== 'removed'
+            );
+
+            if (qmdFiles.length === 0) {
+              core.setOutput('summary', 'No new QMD tutorial files to check.');
+              core.setOutput('has_errors', 'false');
+              return;
+            }
+
+            // ── Validation helpers ────────────────────────────────────────
+            const REQUIRED_YAML_FIELDS = ['title', 'author'];
+            const REQUIRED_SECTIONS    = ['## Example', '## Setup', '## Data Preparation', '## Visualization'];
+
+            const errors   = {};
+            const warnings = {};
+
+            for (const f of qmdFiles) {
+              let content;
+              try {
+                const { data: blob } = await github.rest.repos.getContent({
+                  owner:   context.repo.owner,
+                  repo:    context.repo.repo,
+                  path:    f.filename,
+                  ref:     context.payload.pull_request.head.sha,
+                });
+                content = Buffer.from(blob.content, 'base64').toString('utf8');
+              } catch (e) {
+                console.log(`Could not fetch ${f.filename}: ${e.message}`);
+                continue;
+              }
+
+              const fp = f.filename;
+              const fileErrors   = [];
+              const fileWarnings = [];
+
+              // 1. YAML frontmatter
+              const yamlMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+              if (!yamlMatch) {
+                fileErrors.push('Missing YAML frontmatter (expected `---` block at top)');
+              } else {
+                const yaml = yamlMatch[1];
+                for (const field of REQUIRED_YAML_FIELDS) {
+                  if (!new RegExp(`^${field}\\s*:`, 'm').test(yaml)) {
+                    fileErrors.push(`Missing required YAML field: \`${field}\``);
+                  }
+                }
+              }
+
+              // 2. Required sections
+              for (const section of REQUIRED_SECTIONS) {
+                if (!content.includes(section)) {
+                  fileWarnings.push(`Missing recommended section: \`${section}\``);
+                }
+              }
+
+              // 3. Figure code blocks should have labels
+              const codeBlockRe = /```\{r([^}]*)\}([\s\S]*?)```/g;
+              let m;
+              while ((m = codeBlockRe.exec(content)) !== null) {
+                const opts = m[1], body = m[2];
+                if (body.includes('fig-cap') && !opts.includes('label')) {
+                  const lineNo = content.slice(0, m.index).split('\n').length;
+                  fileWarnings.push(`Code block near line ${lineNo} has \`fig-cap\` but no \`label\``);
+                }
+              }
+
+              // 4. Demo image
+              if (!content.includes('![')) {
+                fileWarnings.push('No demo image found (recommended: `![](../images/...)`)');
+              }
+
+              if (fileErrors.length)   errors[fp]   = fileErrors;
+              if (fileWarnings.length) warnings[fp] = fileWarnings;
+            }
+
+            // ── Build summary ──────────────────────────────────────────────
+            const hasErrors = Object.keys(errors).length > 0;
+            const lines = [];
+
+            if (hasErrors) {
+              lines.push('### ❌ Format Errors (must fix)');
+              for (const [fp, errs] of Object.entries(errors)) {
+                lines.push(`\n**\`${fp}\`**`);
+                errs.forEach(e => lines.push(`- ${e}`));
+              }
+            }
+            if (Object.keys(warnings).length > 0) {
+              lines.push('\n### ⚠️ Format Warnings (recommended)');
+              for (const [fp, warns] of Object.entries(warnings)) {
+                lines.push(`\n**\`${fp}\`**`);
+                warns.forEach(w => lines.push(`- ${w}`));
+              }
+            }
+            if (!hasErrors && Object.keys(warnings).length === 0) {
+              lines.push(`### ✅ All ${qmdFiles.length} checked QMD file(s) pass format validation!`);
+            }
+
+            const summary = lines.join('\n');
+            core.setOutput('summary',    summary);
+            core.setOutput('has_errors', String(hasErrors));
+
+            if (hasErrors) core.setFailed('QMD format errors found');
+
+      - name: Post format check comment on PR
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          FORMAT_SUMMARY: ${{ steps.format-check.outputs.summary }}
+          HAS_ERRORS: ${{ steps.format-check.outputs.has_errors }}
+        with:
+          script: |
+            const summary   = process.env.FORMAT_SUMMARY || '(no output)';
+            const hasErrors = process.env.HAS_ERRORS === 'true';
+            const icon      = hasErrors ? '❌' : '✅';
+
+            const body = `## ${icon} QMD Format Check\n\n${summary}\n\n` +
+              `> Automated check by the [PR Review workflow]` +
+              `(${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).\n` +
+              `> See [contribution guidance](../blob/main/Template/visualization_guidance_EN.qmd) for the expected tutorial format.`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, body
+            });
+
+  # ── Job 2: Render preview ──────────────────────────────────────────────────
   build-deploy:
     runs-on: ubuntu-latest
+    needs: format-check
+    if: "!failure()"
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
