@@ -1219,6 +1219,7 @@
     "name": "Diffusion Map",
     "category": "Hiplot",
     "packages": [
+      "BiocManager",
       "data.table",
       "destiny",
       "ggplotify",
@@ -1229,7 +1230,7 @@
     ],
     "use_when": "::: callout-note\n**Hiplot website**",
     "tutorial_url": "https://openbiox.github.io/Bizard/Hiplot/042-diffusion-map.html",
-    "skill": "# Skill: Diffusion Map (R)\n\n## Category\nHiplot\n\n## When to use\n::: callout-note\n**Hiplot website**\n\n## Required R packages\n- data.table\n- destiny\n- ggplotify\n- ggpubr\n- jsonlite\n- scatterplot3d\n- smoother\n\n## Minimal reproducible code\n```r\n#| label: fig-1Diffusion-map2D\n#| fig-cap: \"2D Diffusion Map\"\n#| out.width: \"95%\"\n#| fig-height: 4\n#| fig-width: 5\n#| warning: false\n#| message: false\n\n# 2D Diffusion Map\np <- ggscatter(data = dm_data,  x = \"DC1\", y = \"DC2\", color = \"colorBy\",\n               size = 2, palette = \"lancet\", alpha = 1) +\n  labs(color = \"Group\") +\n  ggtitle(\"Diffusion Map\") +\n  scale_color_manual(values = c(\"#3B4992FF\",\"#EE0000FF\",\"#008B45FF\")) +\n  theme_classic() +\n  theme(text = element_text(family = \"Arial\"),\n        plot.title = element_text(size = 12,hjust = 0.5),\n        axis.title = element_text(size = 12),\n        axis.text = element_text(size = 10),\n        axis.text.x = element_text(angle = 0, hjust = 0.5,vjust = 1),\n        legend.position = \"right\",\n        legend.direction = \"vertical\",\n        legend.title = element_text(size = 10),\n        legend.text = element_text(size = 10))\n\np\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Hiplot/042-diffusion-map.html\n",
+    "skill": "# Skill: Diffusion Map (R)\n\n## Category\nHiplot\n\n## When to use\n::: callout-note\n**Hiplot website**\n\n## Required R packages\n- BiocManager\n- data.table\n- destiny\n- ggplotify\n- ggpubr\n- jsonlite\n- scatterplot3d\n- smoother\n\n## Minimal reproducible code\n```r\n#| label: fig-1Diffusion-map2D\n#| fig-cap: \"2D Diffusion Map\"\n#| out.width: \"95%\"\n#| fig-height: 4\n#| fig-width: 5\n#| warning: false\n#| message: false\n\n# 2D Diffusion Map\np <- ggscatter(data = dm_data,  x = \"DC1\", y = \"DC2\", color = \"colorBy\",\n               size = 2, palette = \"lancet\", alpha = 1) +\n  labs(color = \"Group\") +\n  ggtitle(\"Diffusion Map\") +\n  scale_color_manual(values = c(\"#3B4992FF\",\"#EE0000FF\",\"#008B45FF\")) +\n  theme_classic() +\n  theme(text = element_text(family = \"Arial\"),\n        plot.title = element_text(size = 12,hjust = 0.5),\n        axis.title = element_text(size = 12),\n        axis.text = element_text(size = 10),\n        axis.text.x = element_text(angle = 0, hjust = 0.5,vjust = 1),\n        legend.position = \"right\",\n        legend.direction = \"vertical\",\n        legend.title = element_text(size = 10),\n        legend.text = element_text(size = 10))\n\np\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Hiplot/042-diffusion-map.html\n",
     "source_file": "Hiplot/042-diffusion-map.qmd"
   },
   {

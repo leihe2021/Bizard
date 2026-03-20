@@ -8,6 +8,7 @@ Hiplot
 **Hiplot website**
 
 ## Required R packages
+- BiocManager
 - data.table
 - destiny
 - ggplotify
