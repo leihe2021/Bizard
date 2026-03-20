@@ -31,8 +31,13 @@ if (!requireNamespace("data.table", quietly = TRUE)) {
 if (!requireNamespace("jsonlite", quietly = TRUE)) {
   install.packages("jsonlite")
 }
+
+# Install Bioconductor manager if needed
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
 if (!requireNamespace("destiny", quietly = TRUE)) {
-  install.packages("https://github.com/theislab/destiny/archive/refs/tags/v3.1.1.tar.gz")
+  BiocManager::install("destiny")
 }
 if (!requireNamespace("ggplotify", quietly = TRUE)) {
   install.packages("ggplotify")

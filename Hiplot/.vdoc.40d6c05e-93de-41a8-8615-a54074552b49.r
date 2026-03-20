@@ -1,29 +1,29 @@
----
-title: "扩散映射图"
-author:
-  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
-  - "**[审核]** ."
----
-
-::: callout-note
-**Hiplot 网站**
-
-本页面为 Hiplot `Diffusion Map` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
-
-<https://hiplot.cn/basic/diffusion-map?lang=zh_cn>
-:::
-
-扩散映射（diffusion-map）是一种非线性降维算法，可以用于可视化发育轨迹。
-
-## 环境配置
-
--   系统: Cross-platform (Linux/MacOS/Windows)
-
--   编程语言: R
-
--   依赖包: `data.table`; `jsonlite`; `destiny`; `ggplotify`; `scatterplot3d`; `ggpubr`
-
-```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 # 安装包
 if (!requireNamespace("data.table", quietly = TRUE)) {
   install.packages("data.table")
@@ -56,15 +56,15 @@ library(destiny)
 library(ggplotify)
 library(scatterplot3d)
 library(ggpubr)
-```
-
-```{r}
+#
+#
+#
 sessioninfo::session_info("attached")
-```
-
-## 数据准备
-
-```{r load data, message=FALSE, warning=FALSE}
+#
+#
+#
+#
+#
 # 加载数据
 data1 <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/diffusion-map/data.json")$exampleData[[1]]$textarea[[1]])
 data1 <- as.data.frame(data1)
@@ -90,13 +90,13 @@ dm_data$colorBy = colorBy
 
 # 查看数据
 head(dm_data)
-```
-
-## 可视化
-
-### 1. 2D
-
-```{r fig-1Diffusion-map2D}
+#
+#
+#
+#
+#
+#
+#
 #| label: fig-1Diffusion-map2D
 #| fig-cap: "2D 扩散映射图"
 #| out.width: "95%"
@@ -123,12 +123,12 @@ p <- ggscatter(data = dm_data,  x = "DC1", y = "DC2", color = "colorBy",
         legend.text = element_text(size = 10))
 
 p
-```
-
-
-### 2. 3D
-
-```{r fig-2Diffusion-map3D}
+#
+#
+#
+#
+#
+#
 #| label: fig-2Diffusion-map3D
 #| fig-cap: "3D 扩散映射图"
 #| out.width: "95%"
@@ -163,6 +163,9 @@ p <- as.ggplot(function(){
 p <- p + theme_classic()
 
 p
-```
-
-
+#
+#
+#
+#
+#
+#
