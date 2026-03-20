@@ -3193,12 +3193,13 @@
       "CellChat",
       "Seurat",
       "circlize",
-      "devtools",
-      "ggplot2"
+      "ggplot2",
+      "igraph",
+      "remotes"
     ],
     "use_when": "The Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…",
     "tutorial_url": "https://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html",
-    "skill": "# Skill: Cell-Cell Communication Circle Plot (R)\n\n## Category\nOmics\n\n## When to use\nThe Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…\n\n## Required R packages\n- BiocManager\n- CellChat\n- Seurat\n- circlize\n- devtools\n- ggplot2\n\n## Minimal reproducible code\n```r\n#| label: fig-1-overall-circle\n#| fig-cap: \"Overall Cell-Cell Communication Circle Plot\"\n#| out.width: \"95%\"\n\npar(mfrow = c(1, 2), xpd = TRUE)\n\n# Panel A: Number of interactions\nnetVisual_circle(\n  net_count,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Number of interactions\"\n)\n\n# Panel B: Interaction strength (weights)\nnetVisual_circle(\n  net_weight,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Interaction weights/strength\"\n)\n\npar(mfrow = c(1, 1))\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html\n",
+    "skill": "# Skill: Cell-Cell Communication Circle Plot (R)\n\n## Category\nOmics\n\n## When to use\nThe Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…\n\n## Required R packages\n- BiocManager\n- CellChat\n- Seurat\n- circlize\n- ggplot2\n- igraph\n- remotes\n\n## Minimal reproducible code\n```r\n#| label: fig-1-overall-circle\n#| fig-cap: \"Overall Cell-Cell Communication Circle Plot\"\n#| out.width: \"95%\"\n\npar(mfrow = c(1, 2), xpd = TRUE)\n\n# Panel A: Number of interactions\nnetVisual_circle(\n  net_count,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Number of interactions\"\n)\n\n# Panel B: Interaction strength (weights)\nnetVisual_circle(\n  net_weight,\n  vertex.weight = group_size,\n  weight.scale  = TRUE,\n  label.edge    = FALSE,\n  title.name    = \"Interaction weights/strength\"\n)\n\npar(mfrow = c(1, 1))\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html\n",
     "source_file": "Omics/CellChatCirclePlot.qmd"
   },
   {
@@ -3271,25 +3272,6 @@
     "tutorial_url": "https://openbiox.github.io/Bizard/Omics/ManhattanPlot.html",
     "skill": "# Skill: Manhattan Plot (R)\n\n## Category\nOmics\n\n## When to use\nManhattan plot is a graph used to describe the relationship between mutations on chromosomes and traits. It is named Manhattan plot because it resembles the urban landscape of Manhattan, USA. Manhattan plot is generally drawn in the form of scatter plot, but it can also be displa…\n\n## Required R packages\n- aplot\n- qqman\n- tidyverse\n\n## Minimal reproducible code\n```r\n#| label: fig-1.1Basicmanhattan\n#| fig-cap: \"Basic manhattan plot\"\n#| out.width: \"95%\"\n#| warning: false\n#| message: false\n\n# Basic manhattan plot\nmanhattan(gwasResults)\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/ManhattanPlot.html\n",
     "source_file": "Omics/ManhattanPlot.qmd"
-  },
-  {
-    "name": "MEBOCOST Metabolic Flow Plot",
-    "category": "Omics",
-    "packages": [
-      "MEBOCOST",
-      "devtools",
-      "dplyr",
-      "ggplot2",
-      "ggraph",
-      "igraph",
-      "patchwork",
-      "scales",
-      "tidygraph"
-    ],
-    "use_when": "The MEBOCOST Metabolic Flow Plot (流图) is an innovative visualization developed within the **MEBOCOST** (Metabolite-mediated Cell Communication Prediction) framework. It depicts metabolite-mediated intercellular communication by rendering directed flow arrows between cell types, w…",
-    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/MebocostFlowPlot.html",
-    "skill": "# Skill: MEBOCOST Metabolic Flow Plot (R)\n\n## Category\nOmics\n\n## When to use\nThe MEBOCOST Metabolic Flow Plot (流图) is an innovative visualization developed within the **MEBOCOST** (Metabolite-mediated Cell Communication Prediction) framework. It depicts metabolite-mediated intercellular communication by rendering directed flow arrows between cell types, w…\n\n## Required R packages\n- MEBOCOST\n- devtools\n- dplyr\n- ggplot2\n- ggraph\n- igraph\n- patchwork\n- scales\n- tidygraph\n\n## Minimal reproducible code\n```r\n#| label: fig-1-flow-basic\n#| fig-cap: \"Basic MEBOCOST Metabolic Flow Plot\"\n#| out.width: \"85%\"\n\n# Build graph object\ng_basic <- graph_from_data_frame(\n  d        = agg_comm %>% rename(weight = total_score),\n  directed = TRUE,\n  vertices = data.frame(name = unique(c(agg_comm$sender, agg_comm$receiver)))\n)\n\nset.seed(42)\np1 <- ggraph(g_basic, layout = \"circle\") +\n  geom_edge_arc(\n    aes(width = weight, alpha = weight),\n    arrow       = arrow(length = unit(3, \"mm\"), type = \"closed\"),\n    end_cap     = circle(6, \"mm\"),\n    start_cap   = circle(6, \"mm\"),\n    color       = \"#3a86ff\",\n    curvature   = 0.2\n  ) +\n  geom_node_point(size = 12, color = \"#ffbe0b\", shape = 21,\n                  fill = \"#fb5607\", stroke = 1.5) +\n  geom_node_label(aes(label = name), repel = FALSE, size = 3.2,\n                  fontface = \"bold\", color = \"white\",\n                  fill = NA, label.size = 0) +\n  scale_edge_width_continuous(range = c(0.5, 4), name = \"Total Score\") +\n  scale_edge_alpha_continuous(range = c(0.3, 1), guide = \"none\") +\n  labs(\n    title    = \"Metabolic Cell-Cell Communication Flow\",\n    subtitle = \"Arrow width = aggregated communication score\"\n  ) +\n  theme_graph(base_family = \"sans\") +\n  theme(\n    plot.title    = element_text(size = 14, face = \"bold\", hjust = 0.5),\n    plot.subtitle = element_text(size = 10, hjust = 0.5),\n    legend.position = \"bottom\"\n  )\n\np1\n```\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Omics/MebocostFlowPlot.html\n",
-    "source_file": "Omics/MebocostFlowPlot.qmd"
   },
   {
     "name": "Motif Plot",
@@ -3651,23 +3633,19 @@
     "packages": [
       "CellChat",
       "FactoMineR",
-      "dplyr",
       "factoextra",
       "ggplot2",
       "ggprism",
       "ggpubr",
-      "ggraph",
       "ggrepel",
       "gground",
-      "igraph",
       "pheatmap",
       "survival",
-      "survminer",
-      "tidygraph"
+      "survminer"
     ],
     "use_when": "Visualize bizard skills data in a biomedical context.",
     "tutorial_url": "https://openbiox.github.io/Bizard/Skills.html",
-    "skill": "# Skill: Bizard Skills (R)\n\n## Category\nMisc\n\n## When to use\nVisualize bizard skills data in a biomedical context.\n\n## Required R packages\n- CellChat\n- FactoMineR\n- dplyr\n- factoextra\n- ggplot2\n- ggprism\n- ggpubr\n- ggraph\n- ggrepel\n- gground\n\n## Minimal reproducible code\n(See full tutorial for code)\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Skills.html\n",
+    "skill": "# Skill: Bizard Skills (R)\n\n## Category\nMisc\n\n## When to use\nVisualize bizard skills data in a biomedical context.\n\n## Required R packages\n- CellChat\n- FactoMineR\n- factoextra\n- ggplot2\n- ggprism\n- ggpubr\n- ggrepel\n- gground\n- pheatmap\n- survival\n\n## Minimal reproducible code\n(See full tutorial for code)\n\n## Full tutorial\nhttps://openbiox.github.io/Bizard/Skills.html\n",
     "source_file": "Skills.qmd"
   },
   {

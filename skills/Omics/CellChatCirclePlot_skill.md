@@ -11,8 +11,9 @@ The Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a s
 - CellChat
 - Seurat
 - circlize
-- devtools
 - ggplot2
+- igraph
+- remotes
 
 ## Minimal reproducible code
 ```r

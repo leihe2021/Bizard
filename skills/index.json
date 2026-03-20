@@ -2973,8 +2973,9 @@
       "CellChat",
       "Seurat",
       "circlize",
-      "devtools",
-      "ggplot2"
+      "ggplot2",
+      "igraph",
+      "remotes"
     ],
     "use_when": "The Cell-Cell Communication Circle Plot (细胞-细胞通讯网络圈图) is a specialized visualization for depicting intercellular signaling interactions inferred from single-cell RNA sequencing (scRNA-seq) data. Using the **CellChat** R package, this plot presents a circular network where nodes r…",
     "tutorial_url": "https://openbiox.github.io/Bizard/Omics/CellChatCirclePlot.html",
@@ -3044,24 +3045,6 @@
     "use_when": "Manhattan plot is a graph used to describe the relationship between mutations on chromosomes and traits. It is named Manhattan plot because it resembles the urban landscape of Manhattan, USA. Manhattan plot is generally drawn in the form of scatter plot, but it can also be displa…",
     "tutorial_url": "https://openbiox.github.io/Bizard/Omics/ManhattanPlot.html",
     "source_file": "Omics/ManhattanPlot.qmd"
-  },
-  {
-    "name": "MEBOCOST Metabolic Flow Plot",
-    "category": "Omics",
-    "packages": [
-      "MEBOCOST",
-      "devtools",
-      "dplyr",
-      "ggplot2",
-      "ggraph",
-      "igraph",
-      "patchwork",
-      "scales",
-      "tidygraph"
-    ],
-    "use_when": "The MEBOCOST Metabolic Flow Plot (流图) is an innovative visualization developed within the **MEBOCOST** (Metabolite-mediated Cell Communication Prediction) framework. It depicts metabolite-mediated intercellular communication by rendering directed flow arrows between cell types, w…",
-    "tutorial_url": "https://openbiox.github.io/Bizard/Omics/MebocostFlowPlot.html",
-    "source_file": "Omics/MebocostFlowPlot.qmd"
   },
   {
     "name": "Motif Plot",
@@ -3399,19 +3382,15 @@
     "packages": [
       "CellChat",
       "FactoMineR",
-      "dplyr",
       "factoextra",
       "ggplot2",
       "ggprism",
       "ggpubr",
-      "ggraph",
       "ggrepel",
       "gground",
-      "igraph",
       "pheatmap",
       "survival",
-      "survminer",
-      "tidygraph"
+      "survminer"
     ],
     "use_when": "Visualize bizard skills data in a biomedical context.",
     "tutorial_url": "https://openbiox.github.io/Bizard/Skills.html",
