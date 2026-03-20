@@ -1139,6 +1139,7 @@
     "name": "Diffusion Map",
     "category": "Hiplot",
     "packages": [
+      "BiocManager",
       "data.table",
       "destiny",
       "ggplotify",
