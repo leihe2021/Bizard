@@ -231,11 +231,12 @@ Imports:
     ggmsa,
     gground,
     ggdiceplot,
-    ggprism
+    ggprism,
+    CellChat
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Remotes:
+Remotes: 
     talgalili/d3heatmap,
     ropensci-review-tools/babelquarto,
     hiplot/hiplotlib,
@@ -265,4 +266,5 @@ Remotes:
     haleyjeppson/ggmosaic,
     ibecav/CGPfunctions,
     davidsjoberg/ggstream,
-    dxsbiocc/gground
+    dxsbiocc/gground,
+    jinworks/CellChat
