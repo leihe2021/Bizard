@@ -3,17 +3,33 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Verify whether a set of data comes from a certain distribution or whether two sets of data come from the same (family) distribution.
 
-## Required R packages
+## Required R Packages
 - data.table
 - grafify
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(grafify)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/qqplot/data.json")$exampleData[[1]]$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+data[, "Genotype"] <- factor(data[, "Genotype"], levels = unique(data[, "Genotype"]))
+
+# View data
+head(data)
+
+# Create visualization
 # QQ Plot
 p <- plot_qqline(data = data, ycol = Cytokine, group = Genotype,
                  symsize = 2, symthick = 0.5, s_alpha = 1) +
@@ -34,5 +50,16 @@ p <- plot_qqline(data = data, ycol = Cytokine, group = Genotype,
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `alpha`: Controls transparency (0 = fully transparent, 1 = opaque)
+- `position`: Position adjustment (identity, dodge, stack, fill)
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Customize color scales with `scale_fill_manual()` or `scale_color_brewer()`
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/148-qqplot.html

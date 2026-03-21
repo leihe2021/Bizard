@@ -3,18 +3,40 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+The color group barplot can be used to display data values in groups, and to label different colors in sequence.
 
-## Required R packages
+## Required R Packages
 - data.table
 - ggplot2
 - jsonlite
 - stringr
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(ggplot2)
+library(jsonlite)
+library(stringr)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/barplot-color-group/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+colnames(data) <- c("term", "count", "type")
+data[,"term"] <- str_to_sentence(str_remove(data[,"term"], pattern = "\\w+:\\d+\\W"))
+data[,"term"] <- factor(data[,"term"], 
+                        levels =  data[,"term"][length(data[,"term"]):1])
+data[,"type"] <- factor(data[,"type"], 
+                        levels = data[!duplicated(data[,"type"]), "type"])
+
+# View data
+data
+
+# Create visualization
 # Barplot Color Group
 p <- ggplot(data = data, aes(x = term, y = count, fill = type)) +
   geom_bar(stat = "identity", width = 0.8) + 
@@ -39,5 +61,19 @@ p <- ggplot(data = data, aes(x = term, y = count, fill = type)) +
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `x`: Maps `term` to the x aesthetic
+- `y`: Maps `count` to the y aesthetic
+- `fill`: Maps `type` to the fill aesthetic
+- `width`: Controls element width
+- `position`: Position adjustment (identity, dodge, stack, fill)
+- `stat`: Statistical transformation to use
+- `theme`: Plot theme; tutorial uses `theme_bw()`
+
+## Tips
+- Use `theme_minimal()` or `theme_bw()` for clean, publication-ready plots
+- Use `coord_flip()` for horizontal orientation when labels are long
+- Customize color scales with `scale_fill_manual()` or `scale_color_brewer()`
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/004-barplot-color-group.html

@@ -3,18 +3,40 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Use density plots or histograms to show data distribution.
 
-## Required R packages
+## Required R Packages
 - data.table
 - dplyr
 - grafify
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(dplyr)
+library(grafify)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/density-histogram/data.json")$exampleData[[1]]$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+y <- "Doubling_time"
+group <- "Student"
+data[, group] <- factor(data[, group], levels = unique(data[, group]))
+data <- data %>% 
+  mutate(median = median(get(y), na.rm = TRUE),
+         mean = mean(get(y), na.rm = TRUE))
+
+# View data
+head(data)
+
+# Create visualization
 # Density Plot
 p <- plot_density(
   data = data, 
@@ -41,5 +63,15 @@ p <- plot_density(
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `alpha`: Controls transparency (0 = fully transparent, 1 = opaque)
+- `position`: Position adjustment (identity, dodge, stack, fill)
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/039-density-histogram.html

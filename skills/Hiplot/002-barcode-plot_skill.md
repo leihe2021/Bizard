@@ -3,17 +3,30 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Barcode Plot is Suitable for displaying the distribution of large amounts of data.
 
-## Required R packages
+## Required R Packages
 - data.table
 - ggplot2
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(ggplot2)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/barcode-plot/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# View data
+head(data)
+
+# Create visualization
 # Barcode Plot
 p <- ggplot(data, aes(x = sales, y = region)) +
   geom_tile(width = 0.01, height = 0.9, fill = "#606fcc") + # Control the width and height of the Barcode
@@ -32,5 +45,17 @@ p <- ggplot(data, aes(x = sales, y = region)) +
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `x`: Maps `sales` to the x aesthetic
+- `y`: Maps `region` to the y aesthetic
+- `width`: Controls element width
+- `position`: Position adjustment (identity, dodge, stack, fill)
+- `theme`: Plot theme; tutorial uses `theme_bw()`
+
+## Tips
+- Use `theme_minimal()` or `theme_bw()` for clean, publication-ready plots
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/002-barcode-plot.html

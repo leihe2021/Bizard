@@ -3,18 +3,36 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Sopegraph can be used to display the change of values.
 
-## Required R packages
+## Required R Packages
 - CGPfunctions
 - data.table
 - ggplot2
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(CGPfunctions)
+library(data.table)
+library(ggplot2)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/slopegraph/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+data[, "country"] <- factor(data[ ,"country"], levels = unique(data[ ,"country"]))
+data[, "year"] <- factor(data[ ,"year"], levels = unique(data[ ,"year"]))
+
+# View data
+head(data)
+
+# Create visualization
 # Slopegraph
 p <- newggslopegraph(data, year, lifeExp, country) +
   labs(subtitle = "", title = "Slope Graph", x = "Life Expectancy (years)",
@@ -27,5 +45,15 @@ p <- newggslopegraph(data, year, lifeExp, country) +
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `theme`: Plot theme; tutorial uses `theme_minimal()`
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Use `theme_minimal()` or `theme_bw()` for clean, publication-ready plots
+- Customize color scales with `scale_fill_manual()` or `scale_color_brewer()`
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/165-slopegraph.html

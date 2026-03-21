@@ -3,17 +3,30 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Sliding bead chart is a graph of beads sliding on a column. It is the superposition of bar chart and scatter chart.
 
-## Required R packages
+## Required R Packages
 - data.table
 - ggpubr
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(ggpubr)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/dotchart/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# View data
+head(data)
+
+# Create visualization
 # Dotchart
 p <- ggdotchart(data, x = "Name", y = "Value", group = "Group", color = "Group",
                 rotate = T, sorting = "descending",
@@ -36,5 +49,16 @@ p <- ggdotchart(data, x = "Name", y = "Value", group = "Group", color = "Group",
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `position`: Position adjustment (identity, dodge, stack, fill)
+- `theme`: Plot theme; tutorial uses `theme_classic()`
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Customize color scales with `scale_fill_manual()` or `scale_color_brewer()`
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/046-dotchart.html

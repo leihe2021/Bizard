@@ -3,11 +3,10 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+The dist plot is a visual diagram using a confidence distribution.
 
-## Required R packages
+## Required R Packages
 - broom
 - data.table
 - ggdist
@@ -16,8 +15,32 @@ Hiplot
 - modelr
 - tidyr
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(broom)
+library(data.table)
+library(ggdist)
+library(ggplot2)
+library(jsonlite)
+library(modelr)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/ggdist/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+data[, 1] <- factor(data[, 1], levels = rev(unique(data[, 1])))
+data <- tibble(data)
+data2 = lm(response ~ condition, data = data)
+data3 <- data_grid(data, condition) %>%
+  augment(data2, newdata = ., se_fit = TRUE)
+
+# View data
+head(data)
+
+# Create visualization
 # Dist Plot
 p <- ggplot(data3, aes_(y = as.name(colnames(data[1])))) +
   stat_dist_halfeye(aes(dist = "student_t", arg1 = df.residual(data2),
@@ -42,5 +65,14 @@ p <- ggplot(data3, aes_(y = as.name(colnames(data[1])))) +
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `position`: Position adjustment (identity, dodge, stack, fill)
+- `stat`: Statistical transformation to use
+- `theme`: Plot theme; tutorial uses `theme_ggdist()`
+
+## Tips
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/066-ggdist.html

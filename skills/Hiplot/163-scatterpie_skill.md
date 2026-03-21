@@ -3,17 +3,30 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Scatter Pie can be used to visualize data fraction in different space coordinates.
 
-## Required R packages
+## Required R Packages
 - data.table
 - jsonlite
 - scatterpie
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(jsonlite)
+library(scatterpie)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/scatterpie/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# View data
+head(data)
+
+# Create visualization
 # Scatterpie
 p <- ggplot() +
   geom_scatterpie(data = data, aes(x = x, y = y), cols = colnames(data)[-c(1, 2)]) +
@@ -33,5 +46,16 @@ p <- ggplot() +
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `x`: Maps `x` to the x aesthetic
+- `y`: Maps `y` to the y aesthetic
+- `position`: Position adjustment (identity, dodge, stack, fill)
+- `theme`: Plot theme; tutorial uses `theme_minimal()`
+
+## Tips
+- Use `theme_minimal()` or `theme_bw()` for clean, publication-ready plots
+- Customize color scales with `scale_fill_manual()` or `scale_color_brewer()`
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/163-scatterpie.html

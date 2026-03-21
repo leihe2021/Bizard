@@ -3,17 +3,39 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Create a Pareto Chart using R with the Hiplot platform's approach. Suitable for biomedical data visualization with publication-quality output.
 
-## Required R packages
+## Required R Packages
 - data.table
 - ggplot2
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(ggplot2)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/pareto-chart/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+data <- data[order(-data[["sales"]]), ]
+data[["channel"]] <- factor(data[["channel"]], levels = data[["channel"]])
+## Calculate percentage number
+data$accumulating <- cumsum(data[["sales"]])
+max_y <- max(data[["sales"]])
+cal_num <- sum(data[["sales"]]) / max_y
+data$accumulating <- data$accumulating / cal_num
+
+# View data
+head(data)
+
+# Create visualization
 # Pareto Chart
 p <- ggplot(data, aes(x = channel, y = sales, fill = channel)) +
   geom_bar(stat = "identity") +
@@ -27,5 +49,17 @@ p <- ggplot(data, aes(x = channel, y = sales, fill = channel)) +
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `x`: Maps `channel` to the x aesthetic
+- `y`: Maps `accumulating` to the y aesthetic
+- `fill`: Maps `channel` to the fill aesthetic
+- `stat`: Statistical transformation to use
+- `theme`: Plot theme; tutorial uses `theme_bw()`
+
+## Tips
+- Use `theme_minimal()` or `theme_bw()` for clean, publication-ready plots
+- Customize color scales with `scale_fill_manual()` or `scale_color_brewer()`
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/133-pareto-chart.html

@@ -3,17 +3,34 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Display data distribution and inference.
 
-## Required R packages
+## Required R Packages
 - data.table
 - ggstatsplot
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(ggstatsplot)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/gghistostats/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+axis <- c("budget", "genre")
+data[, axis[2]] <- factor(data[, axis[2]], levels = unique(data[, axis[2]]))
+
+# View data
+head(data)
+
+# Create visualization
 # Histostats
 p <- grouped_gghistostats(
   data = data, x = budget, grouping.var = genre,
@@ -33,5 +50,14 @@ p <- grouped_gghistostats(
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `stat`: Statistical transformation to use
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/067-gghistostats.html

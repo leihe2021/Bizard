@@ -3,18 +3,32 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+The waterfall chart is used to display the cumulative effect of sequentially introduced positive or negative values . These intermediate values can either be time based or category based.
 
-## Required R packages
+## Required R Packages
 - data.table
 - ggplot2
 - jsonlite
 - waterfalls
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(ggplot2)
+library(jsonlite)
+library(waterfalls)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/waterfalls/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# View data
+head(data)
+
+# Create visualization
 # Waterfalls
 p <- waterfall(data, rect_text_labels = data$value, rect_text_size = 1,
     rect_text_labels_anchor = "centre", calc_total = T,
@@ -33,5 +47,16 @@ p <- waterfall(data, rect_text_labels = data$value, rect_text_size = 1,
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `width`: Controls element width
+- `theme`: Plot theme; tutorial uses `theme_bw()`
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Use `theme_minimal()` or `theme_bw()` for clean, publication-ready plots
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/186-waterfalls.html

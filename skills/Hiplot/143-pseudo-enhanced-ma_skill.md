@@ -3,17 +3,35 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Visualization of differentially expressed genes.
 
-## Required R packages
+## Required R Packages
 - EnhancedVolcano
 - data.table
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(EnhancedVolcano)
+library(data.table)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/pseudo-enhanced-ma/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+row.names(data) <- data[,1]
+data <- data[,-1]
+data$baseMeanNew <- 1 / (10^log(data$baseMean + 1))
+
+# View data
+head(data)
+
+# Create visualization
 # EnhancedMA
 p <- EnhancedVolcano(
   data, lab = rownames(data), title = "MA plot", subtitle = "EnhancedMA",
@@ -39,5 +57,14 @@ p <- EnhancedVolcano(
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Use `coord_flip()` for horizontal orientation when labels are long
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/143-pseudo-enhanced-ma.html

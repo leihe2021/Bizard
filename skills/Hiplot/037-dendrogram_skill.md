@@ -3,18 +3,35 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+The dendrogram is a diagram representing a tree. This diagrammatic representation is frequently used in different contexts:In hierarchical clustering, it illustrates the arrangement of the clusters produced by the corresponding analyses.
 
-## Required R packages
+## Required R Packages
 - ape
 - data.table
 - ggplotify
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(ape)
+library(data.table)
+library(ggplotify)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/dendrogram/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+data <- data[, -1]
+
+# View data
+head(data)
+
+# Create visualization
 # Dendrogram
 d <- dist(t(data), method = "euclidean")
 hc <- hclust(d, method = "complete")
@@ -34,5 +51,13 @@ p <- as.ggplot(function() {
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `fill`: Maps a variable to fill color for group comparison
+- `color`: Maps a variable to outline/point color
+
+## Tips
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/037-dendrogram.html

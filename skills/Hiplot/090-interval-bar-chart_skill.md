@@ -3,17 +3,33 @@
 ## Category
 Hiplot
 
-## When to use
-::: callout-note
-**Hiplot website**
+## When to Use
+Create a Interval Bar Chart using R with the Hiplot platform's approach. Suitable for biomedical data visualization with publication-quality output.
 
-## Required R packages
+## Required R Packages
 - data.table
 - ggplot2
 - jsonlite
 
-## Minimal reproducible code
+## Minimal Reproducible Code
 ```r
+# Load packages
+library(data.table)
+library(ggplot2)
+library(jsonlite)
+
+# Prepare data
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/interval-bar-chart/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+data$name_num <- match(data[["month"]], unique(data[["month"]]))
+
+# View data
+head(data)
+
+# Create visualization
 # Interval Bar Chart
 p <- ggplot(data, aes(x = month, y = max_temperature)) +
   geom_rect(aes(xmin = name_num - 0.4, xmax = name_num + 0.4,
@@ -27,5 +43,16 @@ p <- ggplot(data, aes(x = month, y = max_temperature)) +
 p
 ```
 
-## Full tutorial
+## Key Parameters
+- `x`: Maps `name_num` to the x aesthetic
+- `y`: Maps `mean` to the y aesthetic
+- `alpha`: Controls transparency (0 = fully transparent, 1 = opaque)
+- `theme`: Plot theme; tutorial uses `theme_bw()`
+
+## Tips
+- Use `theme_minimal()` or `theme_bw()` for clean, publication-ready plots
+- Adjust text size with `theme(text = element_text(size = 14))` for presentations
+- See the full tutorial for additional customization options and advanced examples
+
+## Full Tutorial
 https://openbiox.github.io/Bizard/Hiplot/090-interval-bar-chart.html
