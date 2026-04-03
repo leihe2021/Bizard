@@ -19,106 +19,58 @@ env:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    # Use pre-built GHCR image with all R/Python/Julia/Quarto dependencies.
+    # The image is built by the "Build CI Environment Image" workflow.
+    container:
+      image: ghcr.io/openbiox/bizard-env:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     timeout-minutes: 120
     concurrency:
       group: quarto-publish-${{ github.event_name != 'pull_request' || github.run_id }}
       cancel-in-progress: true
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      TMP_DIR: /mnt/TMP
+      TMP_DIR: /tmp/bizard-render
     permissions:
       contents: write
       pages: write
       id-token: write
+      packages: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tinytex: true
+      - name: Configure git safe directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      # ── R Setup ──────────────────────────────────────────────
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
+      # ── Differential dependency updates ──────────────────────
+      # These are fast no-ops when the image already has everything.
+      - name: Install any new R dependencies
+        run: Rscript -e 'pak::local_install_deps(dependencies = TRUE)'
 
-      - name: Cache R packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.local/share/renv
-            ~/.cache/R/renv
-            /usr/local/lib/R/site-library
-            ~/R
-          key: r-packages-${{ runner.os }}-${{ hashFiles('DESCRIPTION') }}
-          restore-keys: |
-            r-packages-${{ runner.os }}-
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
-
-      # ── Python Setup ─────────────────────────────────────────
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pip'
-
-      - name: Install Python dependencies
+      - name: Install any new Python dependencies
         run: |
-          python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
 
-      # ── Julia Setup ──────────────────────────────────────────
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v2
-        with:
-          version: '1'
-
-      - name: Cache Julia packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.julia
-            ~/.local/share/quarto/julia
-          key: julia-packages-${{ runner.os }}-${{ hashFiles('Julia/Project.toml') }}
-          restore-keys: |
-            julia-packages-${{ runner.os }}-
-
-      - name: Install Julia packages
+      - name: Install any new Julia dependencies
         run: |
-          # Pre-create the Quarto-managed QuartoNotebookRunner environment so that
-          # Quarto's ensureQuartoNotebookRunnerEnvironment succeeds at render time.
-          JULIA_VERSION=$(julia -e 'print(VERSION.major, ".", VERSION.minor)')
-          QUARTO_JULIA_ENV="${HOME}/.local/share/quarto/julia/environments/v${JULIA_VERSION}"
-          mkdir -p "${QUARTO_JULIA_ENV}"
-          julia --project="${QUARTO_JULIA_ENV}" -e '
-            using Pkg
-            Pkg.add("QuartoNotebookRunner")
-            Pkg.instantiate()
-            using QuartoNotebookRunner
-          '
-          # Pre-instantiate the tutorial project environment (Julia/Project.toml)
-          # Pkg.resolve() ensures the manifest is consistent before instantiation.
           julia --project=Julia -e '
             using Pkg
             Pkg.resolve()
             Pkg.instantiate()
-            using CairoMakie, DataFrames, Statistics
           '
 
       # ── Dependency Scanning ──────────────────────────────────
       - name: Scan and update dependencies
         run: |
           Rscript update-dependencies.R
-          python manage-dependencies.py --update
+          python3 manage-dependencies.py --update
 
       - name: Commit updated dependency files
         if: github.event_name != 'pull_request'
@@ -140,9 +92,7 @@ jobs:
 
       # ── Render ───────────────────────────────────────────────
       - name: Create temporary directory
-        run: |
-          sudo mkdir -p ${{ env.TMP_DIR }}
-          sudo chown -R $USER:$USER ${{ env.TMP_DIR }}
+        run: mkdir -p ${{ env.TMP_DIR }}
 
       - name: Render website with Babelquarto
         env:
@@ -172,10 +122,9 @@ jobs:
 
       - name: Deploy to GitHub Pages
         if: github.event_name != 'pull_request'
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-          render: false
+        run: |
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          quarto publish gh-pages --no-render --no-browser
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -183,9 +132,9 @@ jobs:
         if: always()
         run: |
           TMP_PATH="${{ env.TMP_DIR }}"
-          if [ -n "$TMP_PATH" ] && [[ "$TMP_PATH" =~ ^/mnt/TMP ]] && [ -d "$TMP_PATH" ]; then
-            sudo rm -rf "$TMP_PATH"
+          if [ -n "$TMP_PATH" ] && [ -d "$TMP_PATH" ]; then
+            rm -rf "$TMP_PATH"
             echo "Removed $TMP_PATH directory"
           else
-            echo "Skipping cleanup - validation failed (path: $TMP_PATH)"
+            echo "Skipping cleanup (path: $TMP_PATH)"
           fi

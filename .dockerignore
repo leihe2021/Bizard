@@ -1,0 +1,12 @@
+_site/
+_freeze/
+.git/
+.github/
+.quarto/
+.Rproj.user/
+__pycache__/
+*.quarto_ipynb
+.DS_Store
+.Rhistory
+.radian_history
+node_modules/

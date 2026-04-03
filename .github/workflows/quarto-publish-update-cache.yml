@@ -17,47 +17,40 @@ env:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    # Use pre-built GHCR image with all R/Python/Julia/Quarto dependencies.
+    container:
+      image: ghcr.io/openbiox/bizard-env:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     # Only restrict concurrency for non-PR jobs
     concurrency:
       group: quarto-publish-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      TMP_DIR: /mnt/TMP
+      TMP_DIR: /tmp/bizard-render
     permissions:
       contents: write
+      packages: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Configure git safe directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Clean Freeze Cache
         run: |
           rm -rf _freeze
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tinytex: true
+      # ── Differential dependency updates ──────────────────────
+      - name: Install any new R dependencies
+        run: Rscript -e 'pak::local_install_deps(dependencies = TRUE)'
 
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
-
-      # ── Python Setup ─────────────────────────────────────────
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pip'
-
-      - name: Install Python dependencies
+      - name: Install any new Python dependencies
         run: |
-          python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
@@ -65,37 +58,23 @@ jobs:
       - name: Scan .qmd for dependencies and update
         run: |
           Rscript update-dependencies.R
-          python manage-dependencies.py --update
+          python3 manage-dependencies.py --update
 
       - name: Commit the updated dependency files
         if: github.event_name != 'pull_request'
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git add DESCRIPTION requirements.txt
+          git add DESCRIPTION requirements.txt Julia/Project.toml
           git commit -m 'chore: Update dependencies' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      # Install any newly discovered R dependencies
+      - name: Install newly discovered R dependencies
+        run: Rscript -e 'pak::local_install_deps(dependencies = TRUE)'
 
-    #  - name: Render Quarto Project
-    #    uses: quarto-dev/quarto-actions/render@v2
-    #    env:
-    #      QUARTO_PROFILE: preview
-
-      - name: Create temporary directory at /mnt/TMP
-        run: |
-          sudo mkdir -p ${{ env.TMP_DIR }}
-          sudo chown -R $USER:$USER ${{ env.TMP_DIR }}
-          echo "Created ${{ env.TMP_DIR }} directory"
-
-      - name: Check disk usage before rendering
-        run: |
-          echo "=== Initial Disk Usage ==="
-          df -h
-          echo ""
-          echo "=== Working Directory ==="
-          pwd
+      - name: Create temporary directory
+        run: mkdir -p ${{ env.TMP_DIR }}
 
       - name: Render website with Babelquarto
         env:
@@ -103,14 +82,6 @@ jobs:
           TMP: ${{ env.TMP_DIR }}
           TEMP: ${{ env.TMP_DIR }}
         run: Rscript -e 'babelquarto::render_website()'
-
-      - name: Check disk usage after rendering
-        run: |
-          echo "=== Final Disk Usage ==="
-          df -h
-          echo ""
-          echo "=== Working Directory ==="
-          pwd
 
       - name: Upload Quarto artifacts
         if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
@@ -131,10 +102,9 @@ jobs:
 
       - name: Deploy to GitHub Pages
         if: github.event_name != 'pull_request'
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-          render: false
+        run: |
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          quarto publish gh-pages --no-render --no-browser
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -142,10 +112,9 @@ jobs:
         if: always()
         run: |
           TMP_PATH="${{ env.TMP_DIR }}"
-          # Validate path is non-empty, matches expected pattern, and directory exists
-          if [ -n "$TMP_PATH" ] && [[ "$TMP_PATH" =~ ^/mnt/TMP ]] && [ -d "$TMP_PATH" ]; then
-            sudo rm -rf "$TMP_PATH"
+          if [ -n "$TMP_PATH" ] && [ -d "$TMP_PATH" ]; then
+            rm -rf "$TMP_PATH"
             echo "Removed $TMP_PATH directory"
           else
-            echo "Skipping cleanup - validation failed (path: $TMP_PATH)"
+            echo "Skipping cleanup (path: $TMP_PATH)"
           fi
