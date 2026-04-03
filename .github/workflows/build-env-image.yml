@@ -37,6 +37,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Tags: "latest" on default branch, short commit SHA for traceability,
+      # and date-based tags (YYYYMMDD) for scheduled builds.
       - name: Extract metadata for Docker
         id: meta
         uses: docker/metadata-action@v5

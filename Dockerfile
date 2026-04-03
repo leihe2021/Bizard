@@ -48,11 +48,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # ── Quarto (latest release) ─────────────────────────────────────
 RUN QUARTO_VER=$(curl -s https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest \
       | grep '"tag_name"' | sed 's/.*"v\([^"]*\)".*/\1/') && \
+    if [ -z "$QUARTO_VER" ]; then \
+      echo "ERROR: Failed to determine latest Quarto version from GitHub API"; exit 1; \
+    fi && \
+    echo "Installing Quarto ${QUARTO_VER}..." && \
     curl -fLo quarto.deb \
       "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VER}/quarto-${QUARTO_VER}-linux-amd64.deb" && \
     dpkg -i quarto.deb && \
-    rm quarto.deb && \
-    echo "Installed Quarto ${QUARTO_VER}"
+    rm quarto.deb
 
 # ── TinyTeX (for LaTeX rendering) ───────────────────────────────
 RUN quarto install tinytex --no-prompt
@@ -92,8 +95,8 @@ RUN JULIA_MAJOR_MINOR=$(echo "${JULIA_VERSION}" | cut -d. -f1-2) && \
 COPY Julia/Project.toml /tmp/bizard/Julia/Project.toml
 
 # Pre-create the Quarto-managed QuartoNotebookRunner environment
-RUN JULIA_SHORT=$(julia -e 'print(VERSION.major, ".", VERSION.minor)') && \
-    QUARTO_JULIA_ENV="${HOME}/.local/share/quarto/julia/environments/v${JULIA_SHORT}" && \
+RUN JULIA_MAJOR_MINOR=$(julia -e 'print(VERSION.major, ".", VERSION.minor)') && \
+    QUARTO_JULIA_ENV="${HOME}/.local/share/quarto/julia/environments/v${JULIA_MAJOR_MINOR}" && \
     mkdir -p "${QUARTO_JULIA_ENV}" && \
     julia --project="${QUARTO_JULIA_ENV}" -e ' \
       using Pkg; \
