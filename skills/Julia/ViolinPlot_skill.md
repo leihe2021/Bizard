@@ -33,13 +33,12 @@ fig = Figure(size=(700, 500))
 ax = Axis(fig[1,1], xlabel="Group", ylabel="Expression Level",
           title="Gene Expression Distribution",
           xticks=(1:3, ["Tumor", "Normal", "Adjacent"]))
-violin!(ax, df.GroupIdx, df.Expression, color=:steelblue, alpha=0.7)
+violin!(ax, df.GroupIdx, df.Expression, color=(:steelblue, 0.7))
 fig
 ```
 
 ## Key Parameters
 - `markersize`: Size of scatter plot markers
-- `alpha`: Transparency level (0–1)
 - `color`: Color of plot elements
 
 ## Tips
