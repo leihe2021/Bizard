@@ -35,3 +35,11 @@ Bizard brings together powerful visualization tools, curated code, and collabora
 
 -   **Future Vision**: Committed to expanding international collaborations and delivering innovative, refined solutions to address the growing complexity of biomedical data visualization and analysis.
 
+## Citation
+
+If you use Bizard in your research, please cite our paper:
+
+```
+Li, K., Zheng, H., Huang, K., Chai, Y., Peng, Y., Wang, C., ... & Wang, S. (2026). Bizard: A Community‐Driven Platform for Accelerating and Enhancing Biomedical Data Visualization. iMetaMed, e70038. https://doi.org/10.1002/imm3.70038
+```
+
