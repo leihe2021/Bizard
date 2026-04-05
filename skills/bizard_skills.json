@@ -4218,5 +4218,16 @@
     "skill": "# Skill: Bizard Skills (R)\n\n## Category\nMisc\n\n## When to Use\nCreate a Bizard Skills visualization in R for biomedical data analysis and research publications.\n\n## Required R Packages\n- (see tutorial)\n\n## Minimal Reproducible Code\n(See full tutorial for code)\n\n## Key Parameters\n- `fill`: Maps a variable to fill color for group comparison\n- `color`: Maps a variable to outline/point color\n\n## Tips\n- Adjust text size with `theme(text = element_text(size = 14))` for presentations\n- See the full tutorial for additional customization options and advanced examples\n\n## Full Tutorial\nhttps://openbiox.github.io/Bizard/Skills.html\n",
     "source_file": "Skills.qmd",
     "skill_file": "skills/Misc/Skills_skill.md"
+  },
+  {
+    "name": "About Us",
+    "category": "Misc",
+    "language": "R",
+    "packages": [],
+    "use_when": "Create a About Us visualization in R for biomedical data analysis and research publications.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/About.html",
+    "skill": "# Skill: About Us (R)\n\n## Category\nMisc\n\n## When to Use\nCreate a About Us visualization in R for biomedical data analysis and research publications.\n\n## Required R Packages\n- (see tutorial)\n\n## Minimal Reproducible Code\n(See full tutorial for code)\n\n## Key Parameters\n- `fill`: Maps a variable to fill color for group comparison\n- `color`: Maps a variable to outline/point color\n\n## Tips\n- Adjust text size with `theme(text = element_text(size = 14))` for presentations\n- See the full tutorial for additional customization options and advanced examples\n\n## Full Tutorial\nhttps://openbiox.github.io/Bizard/About.html\n",
+    "source_file": "About.qmd",
+    "skill_file": "skills/Misc/About_skill.md"
   }
 ]

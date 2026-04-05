@@ -3961,5 +3961,15 @@
     "tutorial_url": "https://openbiox.github.io/Bizard/Skills.html",
     "source_file": "Skills.qmd",
     "skill_file": "skills/Misc/Skills_skill.md"
+  },
+  {
+    "name": "About Us",
+    "category": "Misc",
+    "language": "R",
+    "packages": [],
+    "use_when": "Create a About Us visualization in R for biomedical data analysis and research publications.",
+    "tutorial_url": "https://openbiox.github.io/Bizard/About.html",
+    "source_file": "About.qmd",
+    "skill_file": "skills/Misc/About_skill.md"
   }
 ]
