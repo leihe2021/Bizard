@@ -270,8 +270,12 @@ def qmd_to_skill_offline(filepath: Path, base_url: str = DEFAULT_BASE_URL) -> Di
     tips = _generate_tips(content, language, category, headings, all_blocks)
     tips_text = "\n".join(f"- {t}" for t in tips)
 
+    # Build the skill title: strip any existing language tag from the QMD title to avoid
+    # duplication (e.g., QMD title "Scatter Plot (Python)" + "(Python)" = "Scatter Plot (Python) (Python)")
+    skill_title = re.sub(r'\s*\((R|Python|Julia)\)\s*$', '', title, flags=re.IGNORECASE).strip()
+
     skill_text = (
-        f"# Skill: {title} ({lang_display})\n\n"
+        f"# Skill: {skill_title} ({lang_display})\n\n"
         f"## Category\n{category}\n\n"
         f"## When to Use\n{use_when}\n\n"
         f"## Required {lang_display} Packages\n{pkg_list}\n\n"
@@ -327,6 +331,11 @@ def _build_combined_code(content: str, language: str, packages: List[str]) -> st
                 parts.append("# Load packages\n" + "\n".join(imp_lines))
     elif language == 'julia':
         using_lines = [f"using {p}" for p in packages[:6]]
+        # Also add `using Random` if the code references Random functions but Random is not in packages
+        # (Random is in JULIA_STDLIB so it's excluded from packages list)
+        all_code = "\n".join(code for _, code in blocks)
+        if 'Random.' in all_code and 'Random' not in packages:
+            using_lines.append("using Random")
         if using_lines:
             parts.append("# Load packages\n" + "\n".join(using_lines))
 
@@ -411,14 +420,21 @@ def _extract_key_parameters(content: str, language: str,
         jl_params = {
             'colormap': 'Color scheme for the plot (e.g., :viridis, :RdBu)',
             'markersize': 'Size of scatter plot markers',
-            'alpha': 'Transparency level (0–1)',
-            'color': 'Color of plot elements',
+            'color': 'Color of plot elements (e.g., :steelblue or (:red, 0.5) for alpha)',
             'linewidth': 'Width of lines in the plot',
             'colorrange': 'Range for color mapping as (min, max) tuple',
+            'alpha': 'Transparency level (0–1) via color tuple (color, alpha)',
+            'side': 'Side of violin to draw (:left, :right, or both)',
+            'width': 'Width of violin or box plot elements',
+            'bandwidth': 'Kernel bandwidth for density estimation in violin plots',
+            'size': 'Figure size as (width, height) in pixels',
         }
         for param, desc in jl_params.items():
             if param in combined_code and len(params) < 8:
                 params[param] = desc
+        # Detect color tuple usage (alpha via tuple syntax)
+        if re.search(r'\(\s*:\w+\s*,\s*[\d.]+\s*\)', combined_code) and 'alpha' not in params and len(params) < 8:
+            params['alpha'] = 'Transparency via color tuple syntax: color=(:steelblue, 0.7)'
 
     # Ensure at least 3 params
     if len(params) < 3:
@@ -430,9 +446,15 @@ def _extract_key_parameters(content: str, language: str,
         elif language == 'python':
             if 'figsize' not in params:
                 params['figsize'] = 'Figure dimensions as (width, height) in inches'
+            if 'alpha' not in params:
+                params['alpha'] = 'Transparency level (0–1)'
         elif language == 'julia':
             if 'color' not in params:
-                params['color'] = 'Color of plot elements'
+                params['color'] = 'Color of plot elements (e.g., :steelblue or (:red, 0.5) for alpha)'
+            if 'markersize' not in params:
+                params['markersize'] = 'Size of scatter plot markers'
+            if len(params) < 3 and 'size' not in params:
+                params['size'] = 'Figure size as (width, height) in pixels'
 
     return dict(list(params.items())[:8])
 
@@ -553,6 +575,10 @@ class SkillGenerator:
         rel_html = str(filepath.with_suffix(".html")).lstrip("./")
         tutorial_url = base_url.rstrip("/") + "/" + rel_html
 
+        # Strip language tag from title for the skill header to avoid duplication
+        # (e.g., "Scatter Plot (Python)" becomes "Scatter Plot" before "(Python)" is appended)
+        skill_title = re.sub(r'\s*\((R|Python|Julia)\)\s*$', '', title, flags=re.IGNORECASE).strip()
+
         system_prompt = f"""You are an expert at creating AI skill documents for biomedical visualization tutorials.
 
 Follow this specification exactly:
@@ -572,7 +598,7 @@ Important rules:
         user_prompt = f"""Convert this Bizard QMD tutorial into a skill document.
 
 **Tutorial metadata:**
-- Title: {title}
+- Title: {skill_title}
 - Language: {lang_display}
 - Category: {category}
 - Packages detected: {', '.join(packages) if packages else 'none detected'}
