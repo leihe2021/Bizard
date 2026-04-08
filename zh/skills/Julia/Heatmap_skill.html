@@ -1876,7 +1876,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#skill-heatmap-julia-julia" id="toc-skill-heatmap-julia-julia" class="nav-link active" data-scroll-target="#skill-heatmap-julia-julia">Skill: Heatmap (Julia) (Julia)</a>
+<a href="#skill-heatmap-julia" id="toc-skill-heatmap-julia" class="nav-link active" data-scroll-target="#skill-heatmap-julia">Skill: Heatmap (Julia)</a>
   <ul class="collapse">
 <li><a href="#category" id="toc-category" class="nav-link" data-scroll-target="#category">Category</a></li>
   <li><a href="#when-to-use" id="toc-when-to-use" class="nav-link" data-scroll-target="#when-to-use">When to Use</a></li>
@@ -1906,7 +1906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">修改于</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-06</p>
+      <p class="date-modified">2026-04-08</p>
     </div>
   </div>
     
@@ -1914,7 +1914,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="skill-heatmap-julia-julia" class="level1"><h1>Skill: Heatmap (Julia) (Julia)</h1>
+</header><section id="skill-heatmap-julia" class="level1"><h1>Skill: Heatmap (Julia)</h1>
 <section id="category" class="level2"><h2 class="anchored" data-anchor-id="category">Category</h2>
 <p>Julia</p>
 </section><section id="when-to-use" class="level2"><h2 class="anchored" data-anchor-id="when-to-use">When to Use</h2>
@@ -1926,27 +1926,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">42</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>n_genes <span class="op">=</span> <span class="fl">20</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="fl">10</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>expr_matrix <span class="op">=</span> <span class="fu">randn</span>(n_genes, n_samples)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>expr_matrix[<span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>] <span class="op">.+=</span> <span class="fl">2.5</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>expr_matrix[<span class="fl">9</span><span class="op">:</span><span class="fl">15</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">10</span>] <span class="op">.+=</span> <span class="fl">2.0</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>gene_names <span class="op">=</span> [<span class="st">"Gene_</span><span class="sc">$</span>i<span class="st">"</span> for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>n_genes]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sample_names <span class="op">=</span> [<span class="st">"S</span><span class="sc">$</span>i<span class="st">"</span> for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>n_samples]</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create visualization</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> <span class="fu">Figure</span>(size<span class="op">=</span>(<span class="fl">700</span>, <span class="fl">600</span>))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> <span class="fu">Axis</span>(fig[<span class="fl">1</span>,<span class="fl">1</span>], xlabel<span class="op">=</span><span class="st">"Samples"</span>, ylabel<span class="op">=</span><span class="st">"Genes"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">"Gene Expression Heatmap"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          xticks<span class="op">=</span>(<span class="fl">1</span><span class="op">:</span>n_samples, sample_names),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>          yticks<span class="op">=</span>(<span class="fl">1</span><span class="op">:</span>n_genes, gene_names))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>hm <span class="op">=</span> <span class="fu">heatmap!</span>(ax, <span class="fl">1</span><span class="op">:</span>n_samples, <span class="fl">1</span><span class="op">:</span>n_genes, expr_matrix<span class="op">'</span>,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>              colormap<span class="op">=:</span>RdBu, colorrange<span class="op">=</span>(<span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>))</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">Colorbar</span>(fig[<span class="fl">1</span>,<span class="fl">2</span>], hm, label<span class="op">=</span><span class="st">"Expression (z-score)"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Random</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">42</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>n_genes <span class="op">=</span> <span class="fl">20</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>expr_matrix <span class="op">=</span> <span class="fu">randn</span>(n_genes, n_samples)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>expr_matrix[<span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>] <span class="op">.+=</span> <span class="fl">2.5</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>expr_matrix[<span class="fl">9</span><span class="op">:</span><span class="fl">15</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">10</span>] <span class="op">.+=</span> <span class="fl">2.0</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>gene_names <span class="op">=</span> [<span class="st">"Gene_</span><span class="sc">$</span>i<span class="st">"</span> for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>n_genes]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sample_names <span class="op">=</span> [<span class="st">"S</span><span class="sc">$</span>i<span class="st">"</span> for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>n_samples]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create visualization</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> <span class="fu">Figure</span>(size<span class="op">=</span>(<span class="fl">700</span>, <span class="fl">600</span>))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> <span class="fu">Axis</span>(fig[<span class="fl">1</span>,<span class="fl">1</span>], xlabel<span class="op">=</span><span class="st">"Samples"</span>, ylabel<span class="op">=</span><span class="st">"Genes"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">"Gene Expression Heatmap"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>          xticks<span class="op">=</span>(<span class="fl">1</span><span class="op">:</span>n_samples, sample_names),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>          yticks<span class="op">=</span>(<span class="fl">1</span><span class="op">:</span>n_genes, gene_names))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>hm <span class="op">=</span> <span class="fu">heatmap!</span>(ax, <span class="fl">1</span><span class="op">:</span>n_samples, <span class="fl">1</span><span class="op">:</span>n_genes, expr_matrix<span class="op">'</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>              colormap<span class="op">=:</span>RdBu, colorrange<span class="op">=</span>(<span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">Colorbar</span>(fig[<span class="fl">1</span>,<span class="fl">2</span>], hm, label<span class="op">=</span><span class="st">"Expression (z-score)"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div>
 <button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </section><section id="key-parameters" class="level2"><h2 class="anchored" data-anchor-id="key-parameters">Key Parameters</h2>
@@ -1954,9 +1955,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <code>colormap</code>: Color scheme for the plot (e.g., :viridis, :RdBu)</li>
 <li>
-<code>color</code>: Color of plot elements</li>
+<code>color</code>: Color of plot elements (e.g., :steelblue or (:red, 0.5) for alpha)</li>
 <li>
 <code>colorrange</code>: Range for color mapping as (min, max) tuple</li>
+<li>
+<code>size</code>: Figure size as (width, height) in pixels</li>
+<li>
+<code>alpha</code>: Transparency via color tuple syntax: color=(:steelblue, 0.7)</li>
 </ul></section><section id="tips" class="level2"><h2 class="anchored" data-anchor-id="tips">Tips</h2>
 <ul>
 <li>Save figures with <code>save("plot.png", fig)</code> or <code>save("plot.pdf", fig)</code>

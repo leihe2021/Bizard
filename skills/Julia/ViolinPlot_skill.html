@@ -1876,7 +1876,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#skill-violin-plot-julia-julia" id="toc-skill-violin-plot-julia-julia" class="nav-link active" data-scroll-target="#skill-violin-plot-julia-julia">Skill: Violin Plot (Julia) (Julia)</a>
+<a href="#skill-violin-plot-julia" id="toc-skill-violin-plot-julia" class="nav-link active" data-scroll-target="#skill-violin-plot-julia">Skill: Violin Plot (Julia)</a>
   <ul class="collapse">
 <li><a href="#category" id="toc-category" class="nav-link" data-scroll-target="#category">Category</a></li>
   <li><a href="#when-to-use" id="toc-when-to-use" class="nav-link" data-scroll-target="#when-to-use">When to Use</a></li>
@@ -1906,7 +1906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-05</p>
+      <p class="date-modified">2026-04-07</p>
     </div>
   </div>
     
@@ -1914,7 +1914,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="skill-violin-plot-julia-julia" class="level1"><h1>Skill: Violin Plot (Julia) (Julia)</h1>
+</header><section id="skill-violin-plot-julia" class="level1"><h1>Skill: Violin Plot (Julia)</h1>
 <section id="category" class="level2"><h2 class="anchored" data-anchor-id="category">Category</h2>
 <p>Julia</p>
 </section><section id="when-to-use" class="level2"><h2 class="anchored" data-anchor-id="when-to-use">When to Use</h2>
@@ -1928,26 +1928,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">42</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>n_per <span class="op">=</span> <span class="fl">80</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> <span class="fu">vcat</span>(<span class="fu">fill</span>(<span class="st">"Tumor"</span>, n_per), <span class="fu">fill</span>(<span class="st">"Normal"</span>, n_per), <span class="fu">fill</span>(<span class="st">"Adjacent"</span>, n_per))</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>expression <span class="op">=</span> <span class="fu">vcat</span>(</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">randn</span>(n_per) <span class="op">.*</span> <span class="fl">1.5</span> <span class="op">.+</span> <span class="fl">8</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">randn</span>(n_per) <span class="op">.*</span> <span class="fl">1.2</span> <span class="op">.+</span> <span class="fl">5</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">randn</span>(n_per) <span class="op">.*</span> <span class="fl">1.8</span> <span class="op">.+</span> <span class="fl">6.5</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>group_idx <span class="op">=</span> <span class="fu">vcat</span>(<span class="fu">fill</span>(<span class="fl">1</span>, n_per), <span class="fu">fill</span>(<span class="fl">2</span>, n_per), <span class="fu">fill</span>(<span class="fl">3</span>, n_per))</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(Group<span class="op">=</span>groups, Expression<span class="op">=</span>expression, GroupIdx<span class="op">=</span>group_idx)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create visualization</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> <span class="fu">Figure</span>(size<span class="op">=</span>(<span class="fl">700</span>, <span class="fl">500</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> <span class="fu">Axis</span>(fig[<span class="fl">1</span>,<span class="fl">1</span>], xlabel<span class="op">=</span><span class="st">"Group"</span>, ylabel<span class="op">=</span><span class="st">"Expression Level"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">"Gene Expression Distribution"</span>,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>          xticks<span class="op">=</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, [<span class="st">"Tumor"</span>, <span class="st">"Normal"</span>, <span class="st">"Adjacent"</span>]))</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">violin!</span>(ax, df.GroupIdx, df.Expression, color<span class="op">=</span>(<span class="op">:</span>steelblue, <span class="fl">0.7</span>))</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Random</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">42</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>n_per <span class="op">=</span> <span class="fl">80</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> <span class="fu">vcat</span>(<span class="fu">fill</span>(<span class="st">"Tumor"</span>, n_per), <span class="fu">fill</span>(<span class="st">"Normal"</span>, n_per), <span class="fu">fill</span>(<span class="st">"Adjacent"</span>, n_per))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>expression <span class="op">=</span> <span class="fu">vcat</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">randn</span>(n_per) <span class="op">.*</span> <span class="fl">1.5</span> <span class="op">.+</span> <span class="fl">8</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">randn</span>(n_per) <span class="op">.*</span> <span class="fl">1.2</span> <span class="op">.+</span> <span class="fl">5</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">randn</span>(n_per) <span class="op">.*</span> <span class="fl">1.8</span> <span class="op">.+</span> <span class="fl">6.5</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>group_idx <span class="op">=</span> <span class="fu">vcat</span>(<span class="fu">fill</span>(<span class="fl">1</span>, n_per), <span class="fu">fill</span>(<span class="fl">2</span>, n_per), <span class="fu">fill</span>(<span class="fl">3</span>, n_per))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(Group<span class="op">=</span>groups, Expression<span class="op">=</span>expression, GroupIdx<span class="op">=</span>group_idx)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create visualization</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> <span class="fu">Figure</span>(size<span class="op">=</span>(<span class="fl">700</span>, <span class="fl">500</span>))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> <span class="fu">Axis</span>(fig[<span class="fl">1</span>,<span class="fl">1</span>], xlabel<span class="op">=</span><span class="st">"Group"</span>, ylabel<span class="op">=</span><span class="st">"Expression Level"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">"Gene Expression Distribution"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>          xticks<span class="op">=</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, [<span class="st">"Tumor"</span>, <span class="st">"Normal"</span>, <span class="st">"Adjacent"</span>]))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">violin!</span>(ax, df.GroupIdx, df.Expression, color<span class="op">=</span>(<span class="op">:</span>steelblue, <span class="fl">0.7</span>))</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </section><section id="key-parameters" class="level2"><h2 class="anchored" data-anchor-id="key-parameters">Key Parameters</h2>
@@ -1955,7 +1956,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <code>markersize</code>: Size of scatter plot markers</li>
 <li>
-<code>color</code>: Color of plot elements</li>
+<code>color</code>: Color of plot elements (e.g., :steelblue or (:red, 0.5) for alpha)</li>
+<li>
+<code>side</code>: Side of violin to draw (:left, :right, or both)</li>
+<li>
+<code>width</code>: Width of violin or box plot elements</li>
+<li>
+<code>size</code>: Figure size as (width, height) in pixels</li>
+<li>
+<code>alpha</code>: Transparency via color tuple syntax: color=(:steelblue, 0.7)</li>
 </ul></section><section id="tips" class="level2"><h2 class="anchored" data-anchor-id="tips">Tips</h2>
 <ul>
 <li>Save figures with <code>save("plot.png", fig)</code> or <code>save("plot.pdf", fig)</code>
