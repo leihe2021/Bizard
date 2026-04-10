@@ -5,7 +5,7 @@
 <link rel="alternate" hreflang="zh" href="https://openbiox.github.io/Bizard/zh/Hiplot/065-ggdag.zh.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="[Editor] Hu Zheng;">
 <meta name="author" content="[Contributors]">
@@ -66,9 +66,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../Hiplot/064-ggbetweenstats.html" rel="prev">
 <link href="../images/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35b2f760594feb33653408e8073a8ed5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6895eb8220bc1faff07cfcde1528c940.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -2024,7 +2024,7 @@ Note
  tz       UTC
  date     2026-04-09
  pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
- quarto   1.9.36 @ /usr/local/bin/quarto
+ quarto   1.9.37 @ /usr/local/bin/quarto
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package * version date (UTC) lib source
@@ -2059,21 +2059,21 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>$data
 # A tibble: 13 × 8
-   name       x       y direction to      xend   yend circular
-   &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;   
- 1 v      1.50  -0.0512 -&gt;        z1     0.456 -1.01  FALSE   
- 2 v      1.50  -0.0512 -&gt;        z2     0.568  0.988 FALSE   
- 3 w1    -0.997 -0.498  -&gt;        x     -0.379 -0.517 FALSE   
- 4 w1    -0.997 -0.498  -&gt;        y     -0.876  0.657 FALSE   
- 5 w1    -0.997 -0.498  -&gt;        z1     0.456 -1.01  FALSE   
- 6 w1    -0.997 -0.498  &lt;-&gt;       w2    -0.277  0.429 FALSE   
- 7 w2    -0.277  0.429  -&gt;        x     -0.379 -0.517 FALSE   
- 8 w2    -0.277  0.429  -&gt;        y     -0.876  0.657 FALSE   
- 9 w2    -0.277  0.429  -&gt;        z2     0.568  0.988 FALSE   
-10 x     -0.379 -0.517  -&gt;        y     -0.876  0.657 FALSE   
-11 y     -0.876  0.657  &lt;NA&gt;      &lt;NA&gt;  NA     NA     FALSE   
-12 z1     0.456 -1.01   -&gt;        x     -0.379 -0.517 FALSE   
-13 z2     0.568  0.988  -&gt;        y     -0.876  0.657 FALSE   
+   name       x      y direction to      xend   yend circular
+   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;     &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;   
+ 1 v     -1.49   0.124 -&gt;        z1    -0.617 -0.969 FALSE   
+ 2 v     -1.49   0.124 -&gt;        z2    -0.397  1.03  FALSE   
+ 3 w1     0.244 -0.446 -&gt;        x      0.836 -0.693 FALSE   
+ 4 w1     0.244 -0.446 -&gt;        y      1.02   0.449 FALSE   
+ 5 w1     0.244 -0.446 -&gt;        z1    -0.617 -0.969 FALSE   
+ 6 w1     0.244 -0.446 &lt;-&gt;       w2     0.406  0.501 FALSE   
+ 7 w2     0.406  0.501 -&gt;        x      0.836 -0.693 FALSE   
+ 8 w2     0.406  0.501 -&gt;        y      1.02   0.449 FALSE   
+ 9 w2     0.406  0.501 -&gt;        z2    -0.397  1.03  FALSE   
+10 x      0.836 -0.693 -&gt;        y      1.02   0.449 FALSE   
+11 y      1.02   0.449 &lt;NA&gt;      &lt;NA&gt;  NA     NA     FALSE   
+12 z1    -0.617 -0.969 -&gt;        x      0.836 -0.693 FALSE   
+13 z2    -0.397  1.03  -&gt;        y      1.02   0.449 FALSE   
 
 $dag
 dag {

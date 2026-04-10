@@ -5,7 +5,7 @@
 <link rel="alternate" hreflang="zh" href="https://openbiox.github.io/Bizard/zh/Hiplot/065-ggdag.zh.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="[编辑] 郑虎;">
 <meta name="author" content="[审核] .">
@@ -66,9 +66,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../Hiplot/064-ggbetweenstats.html" rel="prev">
 <link href="../images/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35b2f760594feb33653408e8073a8ed5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6895eb8220bc1faff07cfcde1528c940.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -1915,7 +1915,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">修改于</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-09</p>
+      <p class="date-modified">2026-04-10</p>
     </div>
   </div>
     
@@ -2022,9 +2022,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  collate  C.UTF-8
  ctype    C.UTF-8
  tz       UTC
- date     2026-04-09
+ date     2026-04-10
  pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
- quarto   1.9.36 @ /usr/local/bin/quarto
+ quarto   1.9.37 @ /usr/local/bin/quarto
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package * version date (UTC) lib source
@@ -2059,21 +2059,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>$data
 # A tibble: 13 × 8
-   name       x      y direction to      xend   yend circular
-   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;     &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;   
- 1 v     -1.50   0.102 -&gt;        z1    -0.408  1.02  FALSE   
- 2 v     -1.50   0.102 -&gt;        z2    -0.608 -0.977 FALSE   
- 3 w1     1.02   0.431 -&gt;        x      0.418  0.537 FALSE   
- 4 w1     1.02   0.431 -&gt;        y      0.829 -0.692 FALSE   
- 5 w1     1.02   0.431 -&gt;        z1    -0.408  1.02  FALSE   
- 6 w1     1.02   0.431 &lt;-&gt;       w2     0.244 -0.420 FALSE   
- 7 w2     0.244 -0.420 -&gt;        x      0.418  0.537 FALSE   
- 8 w2     0.244 -0.420 -&gt;        y      0.829 -0.692 FALSE   
- 9 w2     0.244 -0.420 -&gt;        z2    -0.608 -0.977 FALSE   
-10 x      0.418  0.537 -&gt;        y      0.829 -0.692 FALSE   
-11 y      0.829 -0.692 &lt;NA&gt;      &lt;NA&gt;  NA     NA     FALSE   
-12 z1    -0.408  1.02  -&gt;        x      0.418  0.537 FALSE   
-13 z2    -0.608 -0.977 -&gt;        y      0.829 -0.692 FALSE   
+   name       x        y direction to      xend   yend circular
+   &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;     &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;   
+ 1 v     -1.49  -0.00606 -&gt;        z1    -0.494 -1.02  FALSE   
+ 2 v     -1.49  -0.00606 -&gt;        z2    -0.514  1.02  FALSE   
+ 3 w1     0.948 -0.566   -&gt;        x      0.325 -0.487 FALSE   
+ 4 w1     0.948 -0.566   -&gt;        y      0.305  0.454 FALSE   
+ 5 w1     0.948 -0.566   -&gt;        z1    -0.494 -1.02  FALSE   
+ 6 w1     0.948 -0.566   &lt;-&gt;       w2     0.916  0.605 FALSE   
+ 7 w2     0.916  0.605   -&gt;        x      0.325 -0.487 FALSE   
+ 8 w2     0.916  0.605   -&gt;        y      0.305  0.454 FALSE   
+ 9 w2     0.916  0.605   -&gt;        z2    -0.514  1.02  FALSE   
+10 x      0.325 -0.487   -&gt;        y      0.305  0.454 FALSE   
+11 y      0.305  0.454   &lt;NA&gt;      &lt;NA&gt;  NA     NA     FALSE   
+12 z1    -0.494 -1.02    -&gt;        x      0.325 -0.487 FALSE   
+13 z2    -0.514  1.02    -&gt;        y      0.305  0.454 FALSE   
 
 $dag
 dag {
