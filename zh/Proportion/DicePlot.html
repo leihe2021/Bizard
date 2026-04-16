@@ -1944,51 +1944,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: 骰子图</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = '骰子图';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><p>骰子图是一种用于表示高维分类数据的可视化技术。ggdiceplot 包提供了 ggplot2 扩展，用于创建基于骰子的可视化，其中骰子上的每个点位置代表一个特定的分类变量。这允许使用传统的骰子模式同时直观地可视化多达 6 个分类变量。每个骰子位置（1-6）代表不同的类别，仅当该类别存在时才显示点。</p>
 <section id="示例" class="level2"><h2 class="anchored" data-anchor-id="示例">示例</h2>
@@ -2349,7 +2325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section></section><section id="应用" class="level2"><h2 class="anchored" data-anchor-id="应用">应用</h2>
 <p>骰子图在生物医学研究中特别有用，用于可视化复杂的分类关系。它们已应用于各个领域，包括基因组学、转录组学和临床研究。</p>
 <section id="基因表达分析" class="level3"><h3 class="anchored" data-anchor-id="基因表达分析">1. 基因表达分析</h3>
-<div id="fig-GeneExpression" class="quarto-float quarto-figure quarto-figure-center anchored" alt="ZEBRA 基因表达" data-fig-align="center">
+<div id="fig-GeneExpression" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="ZEBRA 基因表达">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-GeneExpression-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/ggdiceplot/zebra_example.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="ZEBRA 基因表达">
 </div>
@@ -2368,7 +2344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>多米诺图允许同时可视化多个维度的基因表达模式，使识别疾病特异性和细胞类型特异性失调模式变得容易。</p>
 </section><section id="分类学分析" class="level3"><h3 class="anchored" data-anchor-id="分类学分析">2. 分类学分析</h3>
-<div id="fig-TaxonomyApp" class="quarto-float quarto-figure quarto-figure-center anchored" alt="分类学骰子图" data-fig-align="center">
+<div id="fig-TaxonomyApp" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="分类学骰子图">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-TaxonomyApp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/ggdiceplot/example1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="分类学骰子图">
 </div>
@@ -2378,7 +2354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>该应用演示了骰子图如何可视化样本和疾病中的分类学丰度数据，每个点代表不同的疾病状态，颜色/大小表示效应大小和显著性水平。</p>
 </section><section id="mirna-失调研究" class="level3"><h3 class="anchored" data-anchor-id="mirna-失调研究">3. miRNA 失调研究</h3>
-<div id="fig-miRNAApp" class="quarto-float quarto-figure quarto-figure-center anchored" alt="miRNA 骰子图" data-fig-align="center">
+<div id="fig-miRNAApp" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="miRNA 骰子图">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-miRNAApp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/ggdiceplot/example2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="miRNA 骰子图">
 </div>

@@ -1934,7 +1934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-15</p>
+      <p class="date-modified">2026-04-16</p>
     </div>
   </div>
     
@@ -1945,51 +1945,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: Chord Diagram</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = 'Chord Diagram';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><p>Chord diagrams can use connecting lines or bars to represent the relationships between different objects. The connections in a chord diagram directly show the relationships between different objects; the width of the connection is proportional to the strength of the relationship, and the color of the connection can represent another mapping of the relationship, such as the type of relationship. The size of the sectors in the diagram represents the measurement of the objects.</p>
 <section id="example" class="level2"><h2 class="anchored" data-anchor-id="example">Example</h2>
@@ -2666,8 +2642,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="cell-output-display">
-<div class="chorddiag html-widget html-fill-item" id="htmlwidget-94bb544ed50f48bf78f8" style="width:95%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-94bb544ed50f48bf78f8">{"x":{"matrix":[[4,0,2,10],[0,16,11,1],[4,15,74,27],[3,7,23,30]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["Low","Normal","Slightly High","High"],"groupColors":["#ADD9EE","#7B92C7","#F7C1CF","#FFD47F"],"groupThickness":0.1,"groupPadding":0.03490658503988659,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["Low","Normal","Slightly High","High"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script><p>Interactive Chord Diagram</p>
+<div class="chorddiag html-widget html-fill-item" id="htmlwidget-a44eb23ff43b10562299" style="width:95%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-a44eb23ff43b10562299">{"x":{"matrix":[[4,0,2,10],[0,16,11,1],[4,15,74,27],[3,7,23,30]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["Low","Normal","Slightly High","High"],"groupColors":["#ADD9EE","#7B92C7","#F7C1CF","#FFD47F"],"groupThickness":0.1,"groupPadding":0.03490658503988659,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["Low","Normal","Slightly High","High"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script><p>Interactive Chord Diagram</p>
 </div>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save</span></span>

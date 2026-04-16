@@ -1867,7 +1867,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-15</p>
+      <p class="date-modified">2026-04-16</p>
     </div>
   </div>
     
@@ -1878,56 +1878,32 @@ ul.task-list li input[type="checkbox"] {
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: Tutorial</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = 'Tutorial';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><p>As a comprehensive visual code repository for community collaboration, Bizard is a platform based on GitHub that integrates <strong>Discussion Questions</strong>, <strong>Graphics Collection</strong>, <strong>Collaborative Development</strong>, and <strong>Automated Deployment</strong>. Community members can discuss problems through <code>GitHub Discussions</code>, initiate new graphics through <code>GitHub Issues</code>, contribute through <code>GitHub Pull Requests</code>, and automate website deployment using <code>GitHub Actions</code>. The following describes each step in detail:</p>
 <section id="discussion-questions" class="level2"><h2 class="anchored" data-anchor-id="discussion-questions">Discussion Questions</h2>
 <p><code>GitHub Discussions</code> is a forum-like platform that provides a relaxed and open space for project communication. In Bizard, we built a website comment system based on giscus, which is located at the bottom of the website page:</p>
-<div id="fig-Fig2-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig1-1" data-fig-align="center">
+<div id="fig-Fig2-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig1-1">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./images/HowToContribute/Discussion-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Fig1-1">
 </div>
@@ -1937,7 +1913,7 @@ Figure 1: Discuss Questions Using The Bizard Comment System
 </div>
 <p>If you have problems with any of the graphic tutorials, you can start a discussion using the comment box at the bottom of the tutorial page. To do so, you need to log in to your GitHub account and edit your question using Markdown syntax.</p>
 <p>Once you submit a comment, your question will be automatically announced in the <code>GitHub Discussions</code> section of the Bizard project repository and marked with a link to the graphic tutorial. Any community member who sees your question can contribute to the discussion, and the Bizard operations team will regularly respond to questions in <code>GitHub Discussions</code>.</p>
-<div id="fig-Fig1-2" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig1-2" data-fig-align="center">
+<div id="fig-Fig1-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig1-2">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig1-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./images/HowToContribute/Discussion-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Fig1-2">
 </div>
@@ -1954,7 +1930,7 @@ Figure 2: Create GitHub Discussions
 <li>Related Resources: Graphic-Related Links</li>
 </ul>
 <p>Reference example: <a href="https://github.com/openbiox/Bizard/issues/61">New Graphic Collection (First Issue)</a></p>
-<div id="fig-Fig2-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig2-1" data-fig-align="center">
+<div id="fig-Fig2-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig2-1">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./images/HowToContribute/Issue-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Fig2-1">
 </div>
@@ -1983,7 +1959,7 @@ Figure 3: GitHub Issues Collect New Graphics
 <li>Reference</li>
 </ul>
 <p>Reference example: - <a href="https://github.com/openbiox/Bizard/issues/75">New graphic tutorial (Omics - Multiple volcano Plot)</a> - <a href="https://github.com/openbiox/Bizard/pull/133">Issue 1 (Omics/MultiVolcanoPlot)</a></p>
-<div id="fig-Fig3-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig3-1" data-fig-align="center">
+<div id="fig-Fig3-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig3-1">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig3-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./images/HowToContribute/PR-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Fig3-1">
 </div>
@@ -1991,7 +1967,7 @@ Figure 3: GitHub Issues Collect New Graphics
 Figure 4: GitHub Issues Submitting Graphic Tutorials
 </figcaption></figure>
 </div>
-<div id="fig-Fig3-2" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig3-2" data-fig-align="center">
+<div id="fig-Fig3-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig3-2">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig3-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./images/HowToContribute/PR-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Fig3-2">
 </div>
@@ -2001,7 +1977,7 @@ Figure 5: GitHub Pull Requests Submitting Graphic Tutorials
 </div>
 </section><section id="automated-deployment" class="level2"><h2 class="anchored" data-anchor-id="automated-deployment">Automated Deployment</h2>
 <p>To ensure efficient and reliable website development and completely eliminate the tediousness, delays, and risk of human error associated with manual website updates, Bizard has built a comprehensive automated workflow using <code>GitHub Actions</code>. This fully automates the entire process from code submission to website deployment, significantly improving the agility and stability of website iterations. The workflow is as follows: When a developer pushes new website content or code updates to a designated master branch (such as main or master) or initiates a pull request, <code>GitHub Actions</code> is automatically activated. It immediately executes a series of key tasks within a clean virtual environment provided by GitHub, strictly following a pre-defined configuration file (Workflow File), building the website and automatically deploying it to GitHub Pages.</p>
-<div id="fig-Fig4-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig4-1" data-fig-align="center">
+<div id="fig-Fig4-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig4-1">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig4-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./images/HowToContribute/Action-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Fig4-1">
 </div>
@@ -2012,7 +1988,7 @@ Figure 6: GitHub Actions Automated Deployment
 </section><section id="graph-gallery" class="level2"><h2 class="anchored" data-anchor-id="graph-gallery">Graph Gallery</h2>
 <p>The Graph Gallery feature was introduced to comprehensively address challenges arising from the rapidly growing number of graphics, including difficulties in locating specific graphics, management disorganization, and inefficient usage. By leveraging the advanced table management tool <a href="https://github.com/glin/reactable">reactable</a>, Bizard has integrated all graphics and rendered the table using JavaScript and CSS front-end code. In this tabular interface, each graphic is presented as a clear entry with key attributes: Graphic ID, Name, Description, and Type. Users can accurately locate the content they need from the extensive graphics collection through filtering, sorting, and keyword search, significantly enhancing the efficiency of information retrieval.</p>
 <p>We use two versions of tables, one in Chinese and one in English, located in the <code>Bizard/files/</code> path to manage the image library, as shown below:</p>
-<div id="fig-Fig5-1" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Fig5-1" data-fig-align="center">
+<div id="fig-Fig5-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Fig5-1">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Fig5-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./images/HowToContribute/Gallery1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="Fig5-1">
 </div>

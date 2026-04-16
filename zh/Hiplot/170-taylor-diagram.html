@@ -1926,51 +1926,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: 泰勒图</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = '泰勒图';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -2063,12 +2039,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 date obs      mod month   model
-1 1998-01-01 00:00:00 285 481.1562     1 model 1
-2 1998-01-01 01:00:00  NA 272.0863     1 model 1
-3 1998-01-01 02:00:00  NA 163.9122     1 model 1
-4 1998-01-01 03:00:00 493 183.7737     1 model 1
-5 1998-01-01 04:00:00 468 169.7624     1 model 1
-6 1998-01-01 05:00:00 264 119.5082     1 model 1</code></pre>
+1 1998-01-01 00:00:00 285 469.7038     1 model 1
+2 1998-01-01 01:00:00  NA 276.9081     1 model 1
+3 1998-01-01 02:00:00  NA 171.1458     1 model 1
+4 1998-01-01 03:00:00 493 200.4534     1 model 1
+5 1998-01-01 04:00:00 468 139.9735     1 model 1
+6 1998-01-01 05:00:00 264 133.7684     1 model 1</code></pre>
 </div>
 </div>
 </section><section id="可视化" class="level2"><h2 class="anchored" data-anchor-id="可视化">可视化</h2>

@@ -1935,7 +1935,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-15</p>
+      <p class="date-modified">2026-04-16</p>
     </div>
   </div>
     
@@ -1946,51 +1946,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: Dendrogram</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = 'Dendrogram';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><p>A dendrogram is a graphical representation of hierarchical relationships between objects. It is widely used in cluster analysis, especially hierarchical clustering, to visualize the similarity or distance between data points.</p>
 <p>A dendrogram is a hierarchical structure consisting of a series of nodes and branches connecting them. Each node represents a data point (or cluster), while the length of the branch indicates the similarity or distance between objects. Typically, a dendrogram starts with a single data point at the bottom and gradually merges to form larger clusters until all objects are merged into one large class. Branches represent the similarity between two clusters or objects, usually measured by a distance metric such as Euclidean distance. Shorter branches indicate greater similarity between the two objects, while longer branches indicate lower similarity. Non-leaf nodes are “merged” nodes generated from different data points or clusters, indicating that they have been merged into a larger class. Leaf nodes are the bottom nodes of the dendrogram and typically represent the original data points (such as samples, genes, etc.).</p>
@@ -2241,8 +2217,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="cell-output-display">
-<div class="collapsibleTree html-widget html-fill-item" id="htmlwidget-74f55841ec3df25d1b88" style="width:95%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-74f55841ec3df25d1b88">{"x":{"data":{"name":"warpbreaks","children":[{"name":"A","children":[{"name":"L","children":[{"name":"26"},{"name":"30"},{"name":"54"},{"name":"25"},{"name":"70"},{"name":"52"},{"name":"51"},{"name":"67"}]},{"name":"M","children":[{"name":"18"},{"name":"21"},{"name":"29"},{"name":"17"},{"name":"12"},{"name":"35"},{"name":"30"},{"name":"36"}]},{"name":"H","children":[{"name":"36"},{"name":"21"},{"name":"24"},{"name":"18"},{"name":"10"},{"name":"43"},{"name":"28"},{"name":"15"},{"name":"26"}]}]},{"name":"B","children":[{"name":"L","children":[{"name":"27"},{"name":"14"},{"name":"29"},{"name":"19"},{"name":"31"},{"name":"41"},{"name":"20"},{"name":"44"}]},{"name":"M","children":[{"name":"42"},{"name":"26"},{"name":"19"},{"name":"16"},{"name":"39"},{"name":"28"},{"name":"21"},{"name":"29"}]},{"name":"H","children":[{"name":"20"},{"name":"21"},{"name":"24"},{"name":"17"},{"name":"13"},{"name":"15"},{"name":"16"},{"name":"28"}]}]}]},"options":{"hierarchy":["wool","tension","breaks"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":75,"right":35},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>Interactive tree diagram</p>
+<div class="collapsibleTree html-widget html-fill-item" id="htmlwidget-039b12dd9ad0b6f40161" style="width:95%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-039b12dd9ad0b6f40161">{"x":{"data":{"name":"warpbreaks","children":[{"name":"A","children":[{"name":"L","children":[{"name":"26"},{"name":"30"},{"name":"54"},{"name":"25"},{"name":"70"},{"name":"52"},{"name":"51"},{"name":"67"}]},{"name":"M","children":[{"name":"18"},{"name":"21"},{"name":"29"},{"name":"17"},{"name":"12"},{"name":"35"},{"name":"30"},{"name":"36"}]},{"name":"H","children":[{"name":"36"},{"name":"21"},{"name":"24"},{"name":"18"},{"name":"10"},{"name":"43"},{"name":"28"},{"name":"15"},{"name":"26"}]}]},{"name":"B","children":[{"name":"L","children":[{"name":"27"},{"name":"14"},{"name":"29"},{"name":"19"},{"name":"31"},{"name":"41"},{"name":"20"},{"name":"44"}]},{"name":"M","children":[{"name":"42"},{"name":"26"},{"name":"19"},{"name":"16"},{"name":"39"},{"name":"28"},{"name":"21"},{"name":"29"}]},{"name":"H","children":[{"name":"20"},{"name":"21"},{"name":"24"},{"name":"17"},{"name":"13"},{"name":"15"},{"name":"16"},{"name":"28"}]}]}]},"options":{"hierarchy":["wool","tension","breaks"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":75,"right":35},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>Interactive tree diagram</p>
 </div>
 </div>
 <p>This diagram visualizes the <code>warpbreaks</code> dataset as an interactive tree diagram, categorized by the hierarchical structure of three variables: “wool” (wool type), “tension,” and “breaks” (number of breaks). Each node represents a level, and users can click to expand or collapse different nodes to view the data summary at that level. This diagram helps users understand the distribution of hierarchical data and the relationships between levels, making it suitable for displaying data with multi-level structures.</p>

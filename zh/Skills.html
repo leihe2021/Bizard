@@ -1880,8 +1880,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-bizard-%E6%8A%80%E8%83%BD" id="toc-什么是-bizard-技能" class="nav-link active" data-scroll-target="#什么是-bizard-技能">什么是 Bizard 技能？ <span class="emoji" data-emoji="brain">🧠</span></a></li>
+  <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">下载技能包</a></li>
   <li><a href="#browse" id="toc-browse" class="nav-link" data-scroll-target="#browse">按分类浏览技能</a></li>
-  <li><a href="#%E4%B8%8B%E8%BD%BD%E6%89%80%E6%9C%89%E6%8A%80%E8%83%BD" id="toc-下载所有技能" class="nav-link" data-scroll-target="#下载所有技能">下载所有技能</a></li>
+  <li><a href="#%E4%B8%8B%E8%BD%BD%E8%B5%84%E6%BA%90" id="toc-下载资源" class="nav-link" data-scroll-target="#下载资源">下载资源</a></li>
   <li><a href="#%E9%87%8D%E6%96%B0%E7%94%9F%E6%88%90%E6%8A%80%E8%83%BD" id="toc-重新生成技能" class="nav-link" data-scroll-target="#重新生成技能">重新生成技能</a></li>
   </ul>
 <div class="toc-actions"><ul>
@@ -1927,61 +1928,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: Bizard 技能库</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = 'Bizard 技能库';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><section id="什么是-bizard-技能" class="level2"><h2 class="anchored" data-anchor-id="什么是-bizard-技能">什么是 Bizard 技能？ <span class="emoji" data-emoji="brain">🧠</span>
 </h2>
-<p><strong>Bizard 技能</strong> 将本图集中的每个教程转换为紧凑、结构化的 <strong>AI 技能文档</strong> — 纯文本摘要，包含图表用途、使用时机、所需包（R、Python 或 Julia）以及最小可复现代码。技能可以：</p>
+<p><strong>Bizard 技能</strong> 是一个 AI 技能包，可以让你的 AI 助手成为生物医学可视化专家。加载此技能后，你的 AI 可以：</p>
 <ul>
-<li>直接复制到 AI 助手的上下文窗口中（ChatGPT、Copilot、Claude 等）</li>
-<li>与本地 LLM 工具配合使用，如 <a href="https://lmstudio.ai/">LM Studio</a> 或 <a href="https://ollama.ai/">Ollama</a>
-</li>
-<li>作为 ZIP 包下载，用于离线 AI 管道</li>
-<li>在自动化生物信息学工作流中引用</li>
+<li>
+<strong>推荐</strong> 最适合你数据和研究问题的可视化类型</li>
+<li>
+<strong>生成</strong> 基于 Bizard 教程的可复现 R / Python / Julia 绑图代码</li>
+<li>
+<strong>搜索</strong> 793 个精选图形示例（使用附带的画廊数据）</li>
+<li>
+<strong>链接</strong> 到完整教程以获取详细的自定义选项</li>
+</ul>
+<p>技能包适用于任何支持自定义指令或知识文件的 AI 工具：</p>
+<ul>
+<li>
+<strong>ChatGPT / GPT-4</strong>：作为自定义指令 + 知识文件加载</li>
+<li>
+<strong>Claude</strong>：作为项目文件上传</li>
+<li>
+<strong>GitHub Copilot Chat</strong>：使用 <code>#file:skill.md</code> 引用</li>
+<li>
+<strong>本地 LLM</strong>（Ollama、LM Studio）：作为系统提示上下文加载</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1993,24 +1984,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>如何使用技能</strong>：点击下方任意卡片查看技能文档，然后将内容复制到 AI 助手提示中。您也可以在任何教程页面使用 <strong>📋 获取 AI 技能</strong> 按钮！</p>
+<p><strong>快速开始</strong>：下载下方 ZIP 包 → 将 <code>skill.md</code> 加载为 AI 指令 → 上传 <code>gallery_data.csv</code> 作为知识文件 → 提问：<em>“帮我为差异表达结果创建一个火山图”</em></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<hr></section><section id="download" class="level2"><h2 class="anchored" data-anchor-id="download">下载技能包</h2>
+<p>ZIP 包含：</p>
+<ul>
+<li>
+<strong><code>skill.md</code></strong> — AI 技能指令：教会你的 AI 助手如何使用 Bizard 进行可视化推荐和代码生成</li>
+<li>
+<strong><code>gallery_data.csv</code></strong> — 793 个可视化示例，包含图片 URL、教程链接、描述和分类</li>
+<li>
+<strong><code>gallery_data_zh.csv</code></strong> — 画廊数据的中文版本</li>
+<li>
+<strong><code>README.md</code></strong> — 不同 AI 工具的安装指南</li>
+</ul>
+<div style="text-align:center;margin:2rem 0;">
+  <a class="bizard-skill-dl" href="bizard-skill.zip" download="" style="display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#3a86ff,#2563eb);color:#fff;border:none;padding:1rem 2.5rem;border-radius:10px;cursor:pointer;font-size:1.1rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(58,134,255,.3);transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(58,134,255,.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 14px rgba(58,134,255,.3)'">
+    ⬇️ 下载 Bizard 技能 ZIP
+  </a>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>技能生成规范
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>技能根据 <a href="https://github.com/openbiox/Bizard/blob/main/skill.md"><code>skill.md</code></a> 中的专业规范生成。该规范指导 LLM 和规则引擎生成一致、高质量的技能文档。</p>
-</div>
-</div>
-<hr></section><section id="browse" class="level2"><h2 class="anchored" data-anchor-id="browse">按分类浏览技能</h2>
-<p>使用搜索框、语言筛选或点击分类来筛选技能。</p>
+<script>
+// Fix download link paths for pages served under subdirectories (e.g. zh/)
+(function() {
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  var segmentsAfterRoot = parts.length - 2;
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  document.querySelectorAll('a.bizard-skill-dl, a[href="bizard-skill.zip"], a[href$="/bizard-skill.zip"]').forEach(function(a) {
+    a.href = prefix + 'bizard-skill.zip';
+  });
+})();
+</script><hr></section><section id="browse" class="level2"><h2 class="anchored" data-anchor-id="browse">按分类浏览技能</h2>
+<p>使用搜索框、语言筛选或点击分类来浏览所有可用的可视化技能。</p>
 <div id="skills-browser" style="margin-bottom:2rem;">
   <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
     <input id="skill-search" type="text" placeholder="搜索技能…" oninput="filterSkills()" style="flex:1;min-width:200px;padding:.5rem .8rem;font-size:.95rem;border:1px solid #ccc;border-radius:6px;font-family:inherit;"><div id="lang-filters" style="display:flex;gap:.3rem;flex-wrap:wrap;"></div>
@@ -2147,31 +2154,26 @@ function copySkill() {
     setTimeout(() => btn.textContent = '📋 复制技能', 2000);
   });
 }
-</script><hr></section><section id="下载所有技能" class="level2"><h2 class="anchored" data-anchor-id="下载所有技能">下载所有技能</h2>
-<p>完整的技能数据库可通过 JSON 获取：</p>
+</script><hr></section><section id="下载资源" class="level2"><h2 class="anchored" data-anchor-id="下载资源">下载资源</h2>
 <ul>
 <li>
-<strong><a href="skills/index.json"><code>skills/index.json</code></a></strong> — 轻量级索引</li>
+<strong><a href="bizard-skill.zip">下载技能 ZIP 包</a></strong> — 完整的统一技能包</li>
+<li>
+<strong><a href="skills/index.json"><code>skills/index.json</code></a></strong> — 轻量级 JSON 索引</li>
 <li>
 <strong><a href="skills/bizard_skills.json"><code>skills/bizard_skills.json</code></a></strong> — 完整技能文档</li>
 </ul></section><section id="重新生成技能" class="level2"><h2 class="anchored" data-anchor-id="重新生成技能">重新生成技能</h2>
-<p>技能支持 LLM 驱动和离线两种生成模式：</p>
+<p>技能在教程更新到主分支时<strong>自动重新生成</strong>。手动重新生成：</p>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LLM 模式（需要配置 API 密钥）</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--format</span> both <span class="at">--verbose</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 离线模式（基于规则提取）</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--offline</span> <span class="at">--format</span> both <span class="at">--verbose</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 仅处理特定文件</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--files</span> Omics/VolcanoPlot.qmd <span class="at">--verbose</span></span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--offline</span> <span class="at">--format</span> both <span class="at">--verbose</span></span></code></pre></div>
 <button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>技能在教程更新到主分支时<strong>自动重新生成</strong>，也可以在 PR 中通过评论命令手动触发：</p>
-<pre><code>/skill                          → 重新生成已更改文件的技能
-/skill Omics/VolcanoPlot.qmd    → 重新生成特定文件的技能
-/skill --offline                → 使用离线模式</code></pre>
-<p>查看完整规范：<a href="https://github.com/openbiox/Bizard/blob/main/skill.md">技能生成指南</a>。</p>
+<p>统一的 <code>skill.md</code> 在每次生成技能时从技能索引自动重建。</p>
+<p>查看完整技术规范：<a href="https://github.com/openbiox/Bizard/blob/main/skill-spec.md">技能生成规范</a>。</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

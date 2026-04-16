@@ -1946,51 +1946,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: 树状图</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = '树状图';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><p>树状图（Dendrogram）是展示对象之间层次关系的一种图形。它广泛应用于聚类分析，尤其是层次聚类（Hierarchical Clustering）中，用于可视化数据点之间的相似性或距离。</p>
 <p>树状图是一个分层结构，由一系列的节点和连接它们的分支（branches）组成。每个节点代表一个数据点（或聚类），而分支的长度则表示对象之间的相似度或距离。通常，树状图从底部的单个数据点开始，逐渐合并形成大的聚类，直到所有对象合并为一个大类。分支表示两个聚类或对象的相似性，通常通过距离度量（如欧氏距离）来衡量。分支越短，表示两个对象越相似，分支越长则表示相似性较低。非叶节点是从不同数据点或聚类中生成的“合并”节点，表示它们被合并成一个更大的类。叶节点是树状图的底部节点，通常代表原始数据点（如样本、基因等）。</p>
@@ -2241,8 +2217,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="cell-output-display">
-<div class="collapsibleTree html-widget html-fill-item" id="htmlwidget-565a789b2758322090c3" style="width:95%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-565a789b2758322090c3">{"x":{"data":{"name":"warpbreaks","children":[{"name":"A","children":[{"name":"L","children":[{"name":"26"},{"name":"30"},{"name":"54"},{"name":"25"},{"name":"70"},{"name":"52"},{"name":"51"},{"name":"67"}]},{"name":"M","children":[{"name":"18"},{"name":"21"},{"name":"29"},{"name":"17"},{"name":"12"},{"name":"35"},{"name":"30"},{"name":"36"}]},{"name":"H","children":[{"name":"36"},{"name":"21"},{"name":"24"},{"name":"18"},{"name":"10"},{"name":"43"},{"name":"28"},{"name":"15"},{"name":"26"}]}]},{"name":"B","children":[{"name":"L","children":[{"name":"27"},{"name":"14"},{"name":"29"},{"name":"19"},{"name":"31"},{"name":"41"},{"name":"20"},{"name":"44"}]},{"name":"M","children":[{"name":"42"},{"name":"26"},{"name":"19"},{"name":"16"},{"name":"39"},{"name":"28"},{"name":"21"},{"name":"29"}]},{"name":"H","children":[{"name":"20"},{"name":"21"},{"name":"24"},{"name":"17"},{"name":"13"},{"name":"15"},{"name":"16"},{"name":"28"}]}]}]},"options":{"hierarchy":["wool","tension","breaks"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":75,"right":35},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>交互式树状图</p>
+<div class="collapsibleTree html-widget html-fill-item" id="htmlwidget-87fca4ba4065d8cb678e" style="width:95%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-87fca4ba4065d8cb678e">{"x":{"data":{"name":"warpbreaks","children":[{"name":"A","children":[{"name":"L","children":[{"name":"26"},{"name":"30"},{"name":"54"},{"name":"25"},{"name":"70"},{"name":"52"},{"name":"51"},{"name":"67"}]},{"name":"M","children":[{"name":"18"},{"name":"21"},{"name":"29"},{"name":"17"},{"name":"12"},{"name":"35"},{"name":"30"},{"name":"36"}]},{"name":"H","children":[{"name":"36"},{"name":"21"},{"name":"24"},{"name":"18"},{"name":"10"},{"name":"43"},{"name":"28"},{"name":"15"},{"name":"26"}]}]},{"name":"B","children":[{"name":"L","children":[{"name":"27"},{"name":"14"},{"name":"29"},{"name":"19"},{"name":"31"},{"name":"41"},{"name":"20"},{"name":"44"}]},{"name":"M","children":[{"name":"42"},{"name":"26"},{"name":"19"},{"name":"16"},{"name":"39"},{"name":"28"},{"name":"21"},{"name":"29"}]},{"name":"H","children":[{"name":"20"},{"name":"21"},{"name":"24"},{"name":"17"},{"name":"13"},{"name":"15"},{"name":"16"},{"name":"28"}]}]}]},"options":{"hierarchy":["wool","tension","breaks"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":75,"right":35},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>交互式树状图</p>
 </div>
 </div>
 <p>此图通过将 <code>warpbreaks</code> 数据集按 “wool”（羊毛类型）、“tension”（张力）和 “breaks”（断裂次数）这三个变量的层级结构可视化，形成一个可交互的树状图。图中的每个节点代表一个层次，用户可以点击展开或折叠不同的节点，从而查看该层次下的数据汇总。此图形可以帮助用户理解层级数据的分布和各层之间的关系，适用于展示具有多层次结构的数据。</p>
@@ -2486,7 +2462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>这个图展示了两种不同的聚类方法对同一数据集（<code>USArrests</code>）的聚类结果进行比较。通过使用<code>dendlist()</code>将两个层次聚类树（<code>d1</code> 和 <code>d2</code>）合并为一个图，并通过tanglegram()函数展示这两个聚类树之间的差异。图中突出了不同的聚类分支，并通过颜色区分了两个方法在聚类过程中的不同划分。这样，可以直观地看到两种方法在聚类结果上的不同，并帮助用户理解它们的区别。</p>
 </section></section></section><section id="应用场景" class="level2"><h2 class="anchored" data-anchor-id="应用场景">应用场景</h2>
 <section id="基础树状图" class="level3"><h3 class="anchored" data-anchor-id="基础树状图">1. 基础树状图</h3>
-<div id="fig-DendrogramApplications" class="quarto-float quarto-figure quarto-figure-center anchored" alt="DendrogramApp1" data-fig-align="center">
+<div id="fig-DendrogramApplications" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="DendrogramApp1">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-DendrogramApplications-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/Dendrogram_app1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="DendrogramApp1">
 </div>
@@ -2496,7 +2472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>基因共表达模块和元模块。A） 树状图显示了 VSP 中分层聚类基因的结果。沿枝干的叶子代表基因探针。y 轴表示由 1 – 拓扑重叠 （TO） 确定的网络距离，其中接近 0 的值表示样本之间探针表达谱的相似性更高。下面的色块表示 VSP（顶部）和区域 X（底部）中探针在每个区域中分配到的模块。区域 X 模块颜色设置为尽可能与 VSP 颜色匹配，因此在 2 个波段中匹配的色块表示 VSP 模块保留在区域 X 中（例如粉色、红色、绿松石色、紫色）。未保存的模块：蓝色、绿黄色、黄色和鲑鱼色。（B） 树状图显示了分层聚类 VSP 模块特征基因 （MEs） 的结果，以检查模块之间的高阶关系。沿枝干的叶子代表 ME。y 轴表示由 1 – 相关性确定的网络距离，其中接近 0 的值表示模块中表达扰动的主要来源之间的相似性更高。（C） 表示 VSP ME 之间相关性的热图。每行/列代表一个 ME，由 x 轴和 y 轴上的模块色块表示。深红色表示强正相关，深绿色表示强负相关，白色表示无相关性，如色标尺所示。对角线上的单元格是深红色的，因为每个 ME 都与自身完美相关。（D） 所有 VSP 模块的颜色键。在后续图中使用相同的颜色。 [1]</p>
 </section><section id="与预期聚类进行比较-1" class="level3"><h3 class="anchored" data-anchor-id="与预期聚类进行比较-1">2. 与预期聚类进行比较</h3>
-<div id="fig-DendrogramApplications" class="quarto-float quarto-figure quarto-figure-center anchored" alt="DendrogramApp2" data-fig-align="center">
+<div id="fig-DendrogramApplications" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="DendrogramApp2">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-DendrogramApplications-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/Dendrogram_app2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="DendrogramApp2">
 </div>
@@ -2506,7 +2482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>应用于表达矩阵（左）和标准化相关性矩阵（图 3B）（右）的树状图算法的无监督结果。属于同一操纵子的基因用相同颜色标记。请注意，四个错配仅发生在标准化相关性矩阵（左）中。 [2]</p>
 </section><section id="圆形树状图" class="level3"><h3 class="anchored" data-anchor-id="圆形树状图">3. 圆形树状图</h3>
-<div id="fig-DendrogramApplications" class="quarto-float quarto-figure quarto-figure-center anchored" alt="DendrogramApp3" data-fig-align="center">
+<div id="fig-DendrogramApplications" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="DendrogramApp3">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-DendrogramApplications-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/Dendrogram_app3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="DendrogramApp3">
 </div>

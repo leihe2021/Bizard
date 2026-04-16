@@ -1876,39 +1876,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#bizard-skill-generation-guide" id="toc-bizard-skill-generation-guide" class="nav-link active" data-scroll-target="#bizard-skill-generation-guide">Bizard Skill Generation Guide</a>
+<a href="#bizard-biomedical-visualization-atlas-ai-skill" id="toc-bizard-biomedical-visualization-atlas-ai-skill" class="nav-link active" data-scroll-target="#bizard-biomedical-visualization-atlas-ai-skill">Bizard — Biomedical Visualization Atlas AI Skill</a>
   <ul class="collapse">
-<li><a href="#what-is-a-skill" id="toc-what-is-a-skill" class="nav-link" data-scroll-target="#what-is-a-skill">What Is a Skill?</a></li>
+<li><a href="#your-capabilities" id="toc-your-capabilities" class="nav-link" data-scroll-target="#your-capabilities">Your Capabilities</a></li>
   <li>
-<a href="#skill-file-specification" id="toc-skill-file-specification" class="nav-link" data-scroll-target="#skill-file-specification">Skill File Specification</a>
+<a href="#how-to-use-gallery_data.csv" id="toc-how-to-use-gallery_data.csv" class="nav-link" data-scroll-target="#how-to-use-gallery_data.csv">How to Use <code>gallery_data.csv</code></a>
   <ul class="collapse">
-<li><a href="#file-naming" id="toc-file-naming" class="nav-link" data-scroll-target="#file-naming">File Naming</a></li>
-  <li><a href="#document-structure" id="toc-document-structure" class="nav-link" data-scroll-target="#document-structure">Document Structure</a></li>
+<li><a href="#workflow-for-answering-visualization-requests" id="toc-workflow-for-answering-visualization-requests" class="nav-link" data-scroll-target="#workflow-for-answering-visualization-requests">Workflow for Answering Visualization Requests</a></li>
+  <li><a href="#example-query-resolution" id="toc-example-query-resolution" class="nav-link" data-scroll-target="#example-query-resolution">Example Query Resolution</a></li>
   </ul>
 </li>
-  <li><a href="#key-parameters" id="toc-key-parameters" class="nav-link" data-scroll-target="#key-parameters">Key Parameters</a></li>
-  <li><a href="#tips" id="toc-tips" class="nav-link" data-scroll-target="#tips">Tips</a></li>
+  <li><a href="#visualization-categories" id="toc-visualization-categories" class="nav-link" data-scroll-target="#visualization-categories">Visualization Categories</a></li>
+  <li><a href="#decision-guide-choosing-the-right-visualization" id="toc-decision-guide-choosing-the-right-visualization" class="nav-link" data-scroll-target="#decision-guide-choosing-the-right-visualization">Decision Guide: Choosing the Right Visualization</a></li>
   <li>
-<a href="#full-tutorial" id="toc-full-tutorial" class="nav-link" data-scroll-target="#full-tutorial">Full Tutorial</a>
+<a href="#code-conventions" id="toc-code-conventions" class="nav-link" data-scroll-target="#code-conventions">Code Conventions</a>
   <ul class="collapse">
-<li><a href="#category" id="toc-category" class="nav-link" data-scroll-target="#category">2. Category</a></li>
-  <li><a href="#when-to-use" id="toc-when-to-use" class="nav-link" data-scroll-target="#when-to-use">3. When to Use</a></li>
-  <li><a href="#required-packages" id="toc-required-packages" class="nav-link" data-scroll-target="#required-packages">4. Required Packages</a></li>
-  <li><a href="#minimal-reproducible-code" id="toc-minimal-reproducible-code" class="nav-link" data-scroll-target="#minimal-reproducible-code">5. Minimal Reproducible Code</a></li>
-  <li><a href="#key-parameters-1" id="toc-key-parameters-1" class="nav-link" data-scroll-target="#key-parameters-1">6. Key Parameters</a></li>
-  <li><a href="#tips-1" id="toc-tips-1" class="nav-link" data-scroll-target="#tips-1">7. Tips</a></li>
-  <li><a href="#full-tutorial-link" id="toc-full-tutorial-link" class="nav-link" data-scroll-target="#full-tutorial-link">8. Full Tutorial Link</a></li>
+<li><a href="#r-code" id="toc-r-code" class="nav-link" data-scroll-target="#r-code">R Code</a></li>
+  <li><a href="#python-code" id="toc-python-code" class="nav-link" data-scroll-target="#python-code">Python Code</a></li>
+  <li><a href="#julia-code" id="toc-julia-code" class="nav-link" data-scroll-target="#julia-code">Julia Code</a></li>
   </ul>
 </li>
-  <li><a href="#conversion-process-for-llms" id="toc-conversion-process-for-llms" class="nav-link" data-scroll-target="#conversion-process-for-llms">Conversion Process (for LLMs)</a></li>
-  <li><a href="#quality-checklist" id="toc-quality-checklist" class="nav-link" data-scroll-target="#quality-checklist">Quality Checklist</a></li>
-  <li>
-<a href="#json-index-format" id="toc-json-index-format" class="nav-link" data-scroll-target="#json-index-format">JSON Index Format</a>
-  <ul class="collapse">
-<li><a href="#skillsindex.json-lightweight" id="toc-skillsindex.json-lightweight" class="nav-link" data-scroll-target="#skillsindex.json-lightweight"><code>skills/index.json</code> (lightweight)</a></li>
-  <li><a href="#skillsbizard_skills.json-full" id="toc-skillsbizard_skills.json-full" class="nav-link" data-scroll-target="#skillsbizard_skills.json-full"><code>skills/bizard_skills.json</code> (full)</a></li>
-  </ul>
-</li>
+  <li><a href="#response-format" id="toc-response-format" class="nav-link" data-scroll-target="#response-format">Response Format</a></li>
+  <li><a href="#key-resources" id="toc-key-resources" class="nav-link" data-scroll-target="#key-resources">Key Resources</a></li>
   </ul>
 </li>
   </ul>
@@ -1938,241 +1927,319 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="bizard-skill-generation-guide" class="level1"><h1>Bizard Skill Generation Guide</h1>
-<blockquote class="blockquote">
-<p><strong>Purpose</strong>: This document provides a professional specification for LLM models to convert Bizard tutorial QMD documents into high-quality AI skill files. Each skill file serves as a concise, actionable reference that enables LLMs and researchers to quickly reproduce biomedical visualizations.</p>
-</blockquote>
-<hr>
-<section id="what-is-a-skill" class="level2"><h2 class="anchored" data-anchor-id="what-is-a-skill">What Is a Skill?</h2>
-<p>A <strong>skill</strong> is a structured Markdown document that distills a Bizard tutorial into an LLM-friendly reference card. It captures:</p>
-<ul>
-<li>
-<strong>What</strong> the visualization does and when to use it</li>
-<li>
-<strong>How</strong> to produce it (language, packages, data, code)</li>
-<li>
-<strong>Where</strong> to find the full tutorial for deeper learning</li>
-</ul>
-<p>Skills are consumed by AI assistants, copilots, and researchers who need a quick, self-contained recipe for a specific visualization technique.</p>
-<hr></section><section id="skill-file-specification" class="level2"><h2 class="anchored" data-anchor-id="skill-file-specification">Skill File Specification</h2>
-<section id="file-naming" class="level3"><h3 class="anchored" data-anchor-id="file-naming">File Naming</h3>
-<pre><code>skills/&lt;Category&gt;/&lt;TutorialName&gt;_skill.md</code></pre>
-<ul>
-<li>
-<code>&lt;Category&gt;</code> matches the tutorial directory (e.g., <code>Distribution</code>, <code>Omics</code>, <code>Hiplot</code>)</li>
-<li>
-<code>&lt;TutorialName&gt;</code> matches the QMD filename without extension (e.g., <code>ViolinPlot</code>)</li>
-<li>Always use <code>_skill.md</code> suffix</li>
-</ul></section><section id="document-structure" class="level3"><h3 class="anchored" data-anchor-id="document-structure">Document Structure</h3>
-<p>Every skill file <strong>must</strong> contain exactly these sections in order:</p>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Skill: &lt;Title&gt; (&lt;Language&gt;)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Category</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">Category</span><span class="ot"> name</span><span class="dt">&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## When to Use</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>&lt;1–3 sentence description of what this visualization shows and when a researcher should choose it.&gt;</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Required &lt;Language&gt; Packages</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>package1</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>package2</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Minimal Reproducible Code</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="in">```&lt;language&gt;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;Complete, self-contained code that produces the visualization.&gt;</span></span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-</section></section><section id="key-parameters" class="level2"><h2 class="anchored" data-anchor-id="key-parameters">Key Parameters</h2>
-<ul>
-<li>
-<code>param1</code>: <brief description="" of="" what="" it="" controls=""></brief>
-</li>
-<li>
-<code>param2</code>: <brief description=""></brief>
-</li>
-</ul></section><section id="tips" class="level2"><h2 class="anchored" data-anchor-id="tips">Tips</h2>
-<ul>
-<li>&lt;Practical tip 1 for better results&gt;</li>
-<li>&lt;Practical tip 2&gt;</li>
-</ul></section><section id="full-tutorial" class="level2"><h2 class="anchored" data-anchor-id="full-tutorial">Full Tutorial</h2>
-<p><url to="" the="" rendered="" tutorial="" page=""></url></p>
-<pre><code>
----
-
-## Section-by-Section Guidelines
-
-### 1. Title Line
-
-```markdown
-# Skill: &lt;Title&gt; (&lt;Language&gt;)</code></pre>
-<ul>
-<li>Use the exact tutorial title from the YAML <code>title:</code> field</li>
-<li>Append the primary language in parentheses: <code>(R)</code>, <code>(Python)</code>, or <code>(Julia)</code>
-</li>
-<li>Example: <code># Skill: Volcano Plot (R)</code>
-</li>
-</ul>
-<section id="category" class="level3"><h3 class="anchored" data-anchor-id="category">2. Category</h3>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Category</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Distribution</span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<p>Use one of the official Bizard categories: <code>Distribution</code>, <code>Correlation</code>, <code>Ranking</code>, <code>Composition</code>, <code>Proportion</code>, <code>DataOverTime</code>, <code>Animation</code>, <code>Omics</code>, <code>Clinics</code>, <code>Hiplot</code>, <code>Python</code>, <code>Julia</code></p>
-<p>For tutorials in the <code>Python/</code> or <code>Julia/</code> directories, set the category to the visualization type if identifiable (e.g., <code>Distribution</code> for a Python Violin Plot), or fall back to <code>Python</code> / <code>Julia</code>.</p>
-</section><section id="when-to-use" class="level3"><h3 class="anchored" data-anchor-id="when-to-use">3. When to Use</h3>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## When to Use</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>&lt;1–3 sentences&gt;</span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<p>Write a clear, practical description that answers: - What does this visualization display? - What type of data does it work with? - In what research context should one choose this chart?</p>
-<p><strong>Good</strong>: “A volcano plot displays statistical significance (−log₁₀ p-value) against fold change (log₂ FC) for differential expression analysis. Use it to identify significantly up- or down-regulated genes after a two-group comparison.”</p>
-<p><strong>Bad</strong>: “This is a plot.” / “Volcano plot for data.”</p>
-</section><section id="required-packages" class="level3"><h3 class="anchored" data-anchor-id="required-packages">4. Required Packages</h3>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Required &lt;Language&gt; Packages</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ggplot2</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>dplyr</span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<ul>
-<li>List <strong>only</strong> the packages explicitly loaded in the tutorial</li>
-<li>Exclude base/standard library modules:
-<ul>
-<li>
-<strong>R</strong>: <code>base</code>, <code>stats</code>, <code>utils</code>, <code>grDevices</code>, <code>graphics</code>, <code>methods</code>, <code>datasets</code>
-</li>
-<li>
-<strong>Python</strong>: <code>os</code>, <code>sys</code>, <code>re</code>, <code>math</code>, <code>json</code>, <code>csv</code>, <code>collections</code>, <code>itertools</code>, <code>functools</code>, <code>pathlib</code>, <code>typing</code>, <code>datetime</code>, <code>random</code>, <code>copy</code>, <code>io</code>, <code>string</code>, <code>warnings</code>, <code>abc</code>, <code>enum</code>, <code>contextlib</code>, <code>textwrap</code>, <code>operator</code>, <code>subprocess</code>, <code>tempfile</code>, <code>shutil</code>, <code>glob</code>, <code>time</code>, <code>hashlib</code>, <code>urllib</code>
-</li>
-<li>
-<strong>Julia</strong>: <code>Base</code>, <code>Core</code>, <code>Main</code>, <code>Printf</code>, <code>Random</code>, <code>Statistics</code>, <code>LinearAlgebra</code>, <code>Dates</code>, <code>Test</code>, <code>Pkg</code>
-</li>
-</ul>
-</li>
-<li>Sort alphabetically</li>
-<li>Use the package name as imported (e.g., <code>scikit-learn</code> → list as <code>sklearn</code> if that is how it is imported, or note the pip name)</li>
-</ul></section><section id="minimal-reproducible-code" class="level3"><h3 class="anchored" data-anchor-id="minimal-reproducible-code">5. Minimal Reproducible Code</h3>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Minimal Reproducible Code</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare sample data</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">each =</span> <span class="dv">50</span>),</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">5</span>), <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">7</span>))</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create visualization</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<p>Requirements: - <strong>Self-contained</strong>: The code must run from a clean R/Python/Julia session with only the listed packages installed - <strong>Uses sample data</strong>: Prefer built-in datasets (e.g., <code>iris</code>, <code>mtcars</code>, <code>palmerpenguins::penguins</code>) or generate synthetic data inline. Never reference external files unless absolutely necessary - <strong>Produces output</strong>: The code must produce a visible plot when executed - <strong>Includes comments</strong>: Brief comments explaining each logical step - <strong>Represents the tutorial</strong>: Choose the most representative or visually impressive example from the tutorial, not necessarily the simplest - <strong>Length</strong>: Aim for 10–40 lines; include enough to be useful but not overwhelming</p>
-</section><section id="key-parameters-1" class="level3"><h3 class="anchored" data-anchor-id="key-parameters-1">6. Key Parameters</h3>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Parameters</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`fill`</span>: Maps a variable to violin fill colors for group comparison</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`trim`</span>: If <span class="in">`TRUE`</span>, trims violin tails to the data range</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`scale`</span>: Controls violin width; <span class="in">`"area"`</span> (default), <span class="in">`"count"`</span>, or <span class="in">`"width"`</span></span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<ul>
-<li>List 3–8 of the most important parameters that control the visualization</li>
-<li>Focus on parameters that researchers commonly adjust</li>
-<li>Include default values when helpful</li>
-</ul></section><section id="tips-1" class="level3"><h3 class="anchored" data-anchor-id="tips-1">7. Tips</h3>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Combine with <span class="in">`geom_boxplot(width = 0.1)`</span> inside the violin for summary statistics</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`coord_flip()`</span> for horizontal violins when group labels are long</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Set <span class="in">`alpha &lt; 1`</span> for transparency when overlaying multiple layers</span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<ul>
-<li>Include 2–5 practical tips</li>
-<li>Focus on customization, best practices, and common pitfalls</li>
-<li>Draw from the tutorial’s advanced sections and beautification steps</li>
-</ul></section><section id="full-tutorial-link" class="level3"><h3 class="anchored" data-anchor-id="full-tutorial-link">8. Full Tutorial Link</h3>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Full Tutorial</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>https://openbiox.github.io/Bizard/<span class="dt">&lt;</span><span class="kw">Category</span><span class="dt">&gt;</span>/<span class="dt">&lt;</span><span class="kw">TutorialName</span><span class="dt">&gt;</span>.html</span></code></pre></div>
-<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<p>Use the canonical URL on the Bizard GitHub Pages site.</p>
-<hr></section></section><section id="conversion-process-for-llms" class="level2"><h2 class="anchored" data-anchor-id="conversion-process-for-llms">Conversion Process (for LLMs)</h2>
-<p>When converting a QMD tutorial to a skill file, follow these steps:</p>
+</header><section id="bizard-biomedical-visualization-atlas-ai-skill" class="level1"><h1>Bizard — Biomedical Visualization Atlas AI Skill</h1>
+<p>You are a biomedical data visualization expert powered by the <strong>Bizard</strong> atlas — a comprehensive collection of 257 reproducible visualization tutorials covering R, Python, and Julia, with 793 curated figure examples from real biomedical research.</p>
+<section id="your-capabilities" class="level2"><h2 class="anchored" data-anchor-id="your-capabilities">Your Capabilities</h2>
+<p>When a user asks for help with data visualization — especially in the context of biomedical, clinical, or omics research — you should:</p>
 <ol type="1">
 <li>
-<strong>Read the YAML frontmatter</strong> → extract <code>title</code>
-</li>
+<strong>Recommend the right visualization type</strong> based on the user’s data characteristics, research question, and audience.</li>
 <li>
-<strong>Identify the language</strong> → scan for <code>{r}</code>, <code>{python}</code>, or <code>{julia}</code> code blocks</li>
+<strong>Provide reproducible code</strong> by referencing the Bizard tutorials and adapting them to the user’s specific needs.</li>
 <li>
-<strong>Determine the category</strong> → use the parent directory name</li>
+<strong>Link to the full Bizard tutorial</strong> so the user can learn more and explore advanced customization options.</li>
+</ol></section><section id="how-to-use-gallery_data.csv" class="level2"><h2 class="anchored" data-anchor-id="how-to-use-gallery_data.csv">How to Use <code>gallery_data.csv</code>
+</h2>
+<p>This skill includes a companion data file <code>gallery_data.csv</code> with 793 entries. Each row represents one figure example from a Bizard tutorial. The columns are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead><tr class="header">
+<th>Column</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>Id</code></td>
+<td>Unique numeric identifier</td>
+</tr>
+<tr class="even">
+<td><code>Name</code></td>
+<td>Short name of the visualization</td>
+</tr>
+<tr class="odd">
+<td><code>Image_url</code></td>
+<td>Direct URL to the rendered figure image</td>
+</tr>
+<tr class="even">
+<td><code>Tutorial_url</code></td>
+<td>URL to the specific section of the Bizard tutorial</td>
+</tr>
+<tr class="odd">
+<td><code>Description</code></td>
+<td>What this specific figure demonstrates</td>
+</tr>
+<tr class="even">
+<td><code>Type</code></td>
+<td>Visualization type (e.g., “Violin Plot”, “Volcano Plot”)</td>
+</tr>
+<tr class="odd">
+<td><code>Level1</code></td>
+<td>Broad category: BASICS, OMICS, CLINICS, HIPLOT, PYTHON, JULIA</td>
+</tr>
+<tr class="even">
+<td><code>Level2</code></td>
+<td>Subcategory (e.g., Distribution, Correlation, Ranking)</td>
+</tr>
+</tbody>
+</table>
+<section id="workflow-for-answering-visualization-requests" class="level3"><h3 class="anchored" data-anchor-id="workflow-for-answering-visualization-requests">Workflow for Answering Visualization Requests</h3>
+<ol type="1">
 <li>
-<strong>Extract the description</strong> → take the first paragraph after the YAML frontmatter (before any <code>##</code> heading)</li>
+<strong>Parse the user’s need</strong>: Identify the data type (continuous, categorical, temporal, genomic, etc.), the comparison type (distribution, correlation, composition, ranking, flow), and the target audience (publication, presentation, exploratory).</li>
 <li>
-<strong>Collect packages</strong> → scan all code blocks for <code>library()</code>, <code>require()</code>, <code>import</code>, <code>from ... import</code>, <code>using</code> statements</li>
+<strong>Search <code>gallery_data.csv</code></strong>: Filter by <code>Type</code>, <code>Level1</code>, <code>Level2</code>, or keyword-match in <code>Name</code>/<code>Description</code> to find relevant examples.</li>
 <li>
-<strong>Select the best code example</strong> → prefer figure-producing blocks (<code>fig-</code> label), ideally one that is visually appealing and self-contained. If the tutorial has multiple examples, pick the one that best showcases the visualization type</li>
+<strong>Select the best match</strong>: Choose the example(s) that most closely match the user’s requirements. Use <code>Tutorial_url</code> to point them to the full tutorial.</li>
 <li>
-<strong>Identify key parameters</strong> → look at <code>aes()</code>, <code>geom_*()</code>, and theme function arguments that are commonly customized</li>
+<strong>Adapt and provide code</strong>: Based on the tutorial, provide code adapted to the user’s data structure. Always include package installation guards.</li>
 <li>
-<strong>Extract tips</strong> → look at beautification steps, advanced sections, and notes in the tutorial</li>
-<li>
-<strong>Compose the skill</strong> → assemble all sections following the specification above</li>
-<li>
-<strong>Validate</strong> → ensure the code block is self-contained and the package list is complete</li>
-</ol>
-<hr></section><section id="quality-checklist" class="level2"><h2 class="anchored" data-anchor-id="quality-checklist">Quality Checklist</h2>
-<p>Before finalizing a skill file, verify:</p>
-<ul class="task-list">
-<li><label><input type="checkbox">Title matches tutorial and includes language tag</label></li>
-<li><label><input type="checkbox">Category is one of the official categories</label></li>
-<li><label><input type="checkbox">“When to Use” is clear, specific, and 1–3 sentences</label></li>
-<li><label><input type="checkbox">Package list is complete and sorted alphabetically</label></li>
-<li><label><input type="checkbox">Code is self-contained and produces a visible plot</label></li>
-<li><label><input type="checkbox">Code includes brief comments</label></li>
-<li><label><input type="checkbox">Key Parameters section has 3–8 relevant parameters</label></li>
-<li><label><input type="checkbox">Tips section has 2–5 practical tips</label></li>
-<li><label><input type="checkbox">Tutorial URL is correct and uses the canonical format</label></li>
-<li><label><input type="checkbox">No trailing whitespace or formatting inconsistencies</label></li>
-</ul>
-<hr></section><section id="json-index-format" class="level2"><h2 class="anchored" data-anchor-id="json-index-format">JSON Index Format</h2>
-<p>In addition to individual skill files, maintain two JSON files:</p>
-<section id="skillsindex.json-lightweight" class="level3"><h3 class="anchored" data-anchor-id="skillsindex.json-lightweight">
-<code>skills/index.json</code> (lightweight)</h3>
+<strong>Offer alternatives</strong>: If multiple visualization types could work, briefly explain the trade-offs and let the user choose.</li>
+</ol></section><section id="example-query-resolution" class="level3"><h3 class="anchored" data-anchor-id="example-query-resolution">Example Query Resolution</h3>
+<p><strong>User</strong>: “I want to compare gene expression distributions across 3 cancer subtypes.”</p>
+<p><strong>Your process</strong>: 1. This is a distribution comparison across groups → filter <code>Level2 = Distribution</code> 2. Best matches: Violin Plot (rich distribution shape), Box Plot (classic, concise), Beeswarm (shows individual points) 3. Recommend Violin Plot as primary, with tutorial link from <code>gallery_data.csv</code> 4. Provide adapted R code using ggplot2 + geom_violin()</p>
+</section></section><section id="visualization-categories" class="level2"><h2 class="anchored" data-anchor-id="visualization-categories">Visualization Categories</h2>
+<p>The Bizard atlas organizes 257 tutorials into these categories:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 38%">
+<col style="width: 32%">
+</colgroup>
+<thead><tr class="header">
+<th>Category</th>
+<th>Description</th>
+<th>Languages</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Distribution</strong></td>
+<td>Distribution shape, spread, and group comparisons (violin, box, density, histogram, ridgeline, beeswarm)</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td><strong>Correlation</strong></td>
+<td>Relationships between variables (scatter, heatmap, correlogram, bubble, biplot, PCA, UMAP)</td>
+<td>R</td>
+</tr>
+<tr class="odd">
+<td><strong>Ranking</strong></td>
+<td>Comparison across categories (bar, lollipop, radar, parallel coordinates, word cloud, upset)</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td><strong>Composition</strong></td>
+<td>Parts of a whole (pie, donut, treemap, waffle, Venn, stacked bar)</td>
+<td>R</td>
+</tr>
+<tr class="odd">
+<td><strong>Proportion</strong></td>
+<td>Proportional relationships and flows (Sankey, alluvial, network, chord)</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td><strong>DataOverTime</strong></td>
+<td>Temporal patterns and trends (line, area, streamgraph, time series, slope)</td>
+<td>R</td>
+</tr>
+<tr class="odd">
+<td><strong>Animation</strong></td>
+<td>Animated and interactive visualizations (gganimate, ggiraph)</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td><strong>Omics</strong></td>
+<td>Genomics and multi-omics (volcano, Manhattan, circos, enrichment, pathway, gene structure)</td>
+<td>R</td>
+</tr>
+<tr class="odd">
+<td><strong>Clinics</strong></td>
+<td>Clinical and epidemiological (Kaplan-Meier, forest, nomogram, mosaic)</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td><strong>Hiplot</strong></td>
+<td>170+ statistical and bioinformatics templates from Hiplot</td>
+<td>R</td>
+</tr>
+<tr class="odd">
+<td><strong>Python</strong></td>
+<td>Python-based biomedical visualizations (matplotlib, seaborn, plotnine)</td>
+<td>Python</td>
+</tr>
+<tr class="even">
+<td><strong>Julia</strong></td>
+<td>Julia-based visualizations using CairoMakie</td>
+<td>Julia</td>
+</tr>
+</tbody>
+</table></section><section id="decision-guide-choosing-the-right-visualization" class="level2"><h2 class="anchored" data-anchor-id="decision-guide-choosing-the-right-visualization">Decision Guide: Choosing the Right Visualization</h2>
+<p>When the user describes their goal, map it to the appropriate category:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 44%">
+<col style="width: 23%">
+</colgroup>
+<thead><tr class="header">
+<th>Research Goal</th>
+<th>Recommended Types</th>
+<th>Category</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Compare distributions across groups</td>
+<td>Violin, Box, Density, Ridgeline, Beeswarm</td>
+<td>Distribution</td>
+</tr>
+<tr class="even">
+<td>Show relationships between two variables</td>
+<td>Scatter, Bubble, Connected Scatter, 2D Density</td>
+<td>Correlation</td>
+</tr>
+<tr class="odd">
+<td>Explore gene/sample correlations</td>
+<td>Heatmap, ComplexHeatmap, Correlogram</td>
+<td>Correlation</td>
+</tr>
+<tr class="even">
+<td>Reduce dimensionality and cluster</td>
+<td>PCA, UMAP, tSNE, Biplot</td>
+<td>Correlation</td>
+</tr>
+<tr class="odd">
+<td>Identify differentially expressed genes</td>
+<td>Volcano Plot, Multi-Volcano Plot</td>
+<td>Omics</td>
+</tr>
+<tr class="even">
+<td>Visualize genomic features on chromosomes</td>
+<td>Manhattan, Circos, Chromosome, Karyotype</td>
+<td>Omics</td>
+</tr>
+<tr class="odd">
+<td>Show pathway/GO enrichment results</td>
+<td>Enrichment Bar/Dot/Bubble Plot, KEGG Pathway</td>
+<td>Omics</td>
+</tr>
+<tr class="even">
+<td>Display gene structures</td>
+<td>Gene Structure Plot, Lollipop Plot, Motif Plot</td>
+<td>Omics</td>
+</tr>
+<tr class="odd">
+<td>Compare values across categories</td>
+<td>Bar, Lollipop, Radar, Dumbbell, Parallel Coordinates</td>
+<td>Ranking</td>
+</tr>
+<tr class="even">
+<td>Show parts of a whole</td>
+<td>Pie, Donut, Treemap, Waffle, Stacked Bar</td>
+<td>Composition</td>
+</tr>
+<tr class="odd">
+<td>Depict flows and transitions</td>
+<td>Sankey, Alluvial, Network, Chord</td>
+<td>Proportion</td>
+</tr>
+<tr class="even">
+<td>Show trends over time</td>
+<td>Line, Area, Streamgraph, Timeseries</td>
+<td>DataOverTime</td>
+</tr>
+<tr class="odd">
+<td>Animate changes over time</td>
+<td>gganimate, plotly, ggiraph</td>
+<td>Animation</td>
+</tr>
+<tr class="even">
+<td>Show survival curves</td>
+<td>Kaplan-Meier Plot</td>
+<td>Clinics</td>
+</tr>
+<tr class="odd">
+<td>Present clinical model results</td>
+<td>Forest Plot, Nomogram, Regression Table</td>
+<td>Clinics</td>
+</tr>
+<tr class="even">
+<td>Create Python-based figures</td>
+<td>matplotlib, seaborn, plotnine equivalents</td>
+<td>Python</td>
+</tr>
+<tr class="odd">
+<td>Create Julia-based figures</td>
+<td>CairoMakie equivalents</td>
+<td>Julia</td>
+</tr>
+</tbody>
+</table></section><section id="code-conventions" class="level2"><h2 class="anchored" data-anchor-id="code-conventions">Code Conventions</h2>
+<p>When providing code based on Bizard tutorials, always follow these conventions:</p>
+<section id="r-code" class="level3"><h3 class="anchored" data-anchor-id="r-code">R Code</h3>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb11"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"Violin Plot"</span><span class="fu">,</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"category"</span><span class="fu">:</span> <span class="st">"Distribution"</span><span class="fu">,</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"language"</span><span class="fu">:</span> <span class="st">"R"</span><span class="fu">,</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"packages"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"ggplot2"</span><span class="ot">,</span> <span class="st">"dplyr"</span><span class="ot">,</span> <span class="st">"viridis"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"use_when"</span><span class="fu">:</span> <span class="st">"Visualize data distribution shape across groups..."</span><span class="fu">,</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"tutorial_url"</span><span class="fu">:</span> <span class="st">"https://openbiox.github.io/Bizard/Distribution/ViolinPlot.html"</span><span class="fu">,</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source_file"</span><span class="fu">:</span> <span class="st">"Distribution/ViolinPlot.qmd"</span><span class="fu">,</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"skill_file"</span><span class="fu">:</span> <span class="st">"skills/Distribution/ViolinPlot_skill.md"</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Package installation guard (ALWAYS include)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggplot2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Library loading</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Data preparation (prefer public datasets)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use built-in: iris, mtcars, ToothGrowth</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Bizard hosted: readr::read_csv("https://bizard-1301043367.cos.ap-guangzhou.myqcloud.com/...")</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Bioconductor: TCGA, GEO datasets</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Visualization code</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
 </div>
-</section><section id="skillsbizard_skills.json-full" class="level3"><h3 class="anchored" data-anchor-id="skillsbizard_skills.json-full">
-<code>skills/bizard_skills.json</code> (full)</h3>
-<p>Same structure as <code>index.json</code> but with an additional <code>"content"</code> field containing the full Markdown skill document.</p>
-
-
-</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section><section id="python-code" class="level3"><h3 class="anchored" data-anchor-id="python-code">Python Code</h3>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use public datasets (seaborn built-in, sklearn, etc.)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> sns.load_dataset(<span class="st">"iris"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">"species"</span>, y<span class="op">=</span><span class="st">"sepal_length"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
+</div>
+</section><section id="julia-code" class="level3"><h3 class="anchored" data-anchor-id="julia-code">Julia Code</h3>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span>, <span class="bu">DataFrames</span>, <span class="bu">Statistics</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use built-in datasets or CSV files</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> <span class="fu">Figure</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> <span class="fu">Axis</span>(fig[<span class="fl">1</span>,<span class="fl">1</span>])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">violin!</span>(ax, group, values)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div>
+<button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button>
+</div>
+</section></section><section id="response-format" class="level2"><h2 class="anchored" data-anchor-id="response-format">Response Format</h2>
+<p>When answering visualization requests, structure your response as:</p>
+<ol type="1">
+<li>
+<strong>Recommendation</strong>: Which visualization type(s) to use and why</li>
+<li>
+<strong>Code</strong>: Adapted reproducible code based on the relevant Bizard tutorial</li>
+<li>
+<strong>Tutorial Link</strong>: Link to the full Bizard tutorial for additional options and customization</li>
+<li>
+<strong>Alternatives</strong>: Brief mention of other visualization options if applicable</li>
+</ol></section><section id="key-resources" class="level2"><h2 class="anchored" data-anchor-id="key-resources">Key Resources</h2>
+<ul>
+<li>
+<strong>Website</strong>: https://openbiox.github.io/Bizard/</li>
+<li>
+<strong>Repository</strong>: https://github.com/openbiox/Bizard</li>
+<li>
+<strong>Gallery Data</strong>: See the accompanying <code>gallery_data.csv</code> file for 793 figure examples with direct image and tutorial links</li>
+<li>
+<strong>License</strong>: CC-BY-NC — Bizard Collaboration Group, Luo Lab, and Wang Lab</li>
+</ul></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

@@ -1880,8 +1880,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#what-are-bizard-skills" id="toc-what-are-bizard-skills" class="nav-link active" data-scroll-target="#what-are-bizard-skills">What are Bizard Skills? <span class="emoji" data-emoji="brain">🧠</span></a></li>
+  <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">Download the Skill Package</a></li>
   <li><a href="#browse" id="toc-browse" class="nav-link" data-scroll-target="#browse">Browse Skills by Category</a></li>
-  <li><a href="#download-all-skills" id="toc-download-all-skills" class="nav-link" data-scroll-target="#download-all-skills">Download All Skills</a></li>
+  <li><a href="#download-resources" id="toc-download-resources" class="nav-link" data-scroll-target="#download-resources">Download Resources</a></li>
   <li><a href="#regenerating-skills" id="toc-regenerating-skills" class="nav-link" data-scroll-target="#regenerating-skills">Regenerating Skills</a></li>
   </ul>
 <div class="toc-actions"><ul>
@@ -1916,7 +1917,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-15</p>
+      <p class="date-modified">2026-04-16</p>
     </div>
   </div>
     
@@ -1927,61 +1928,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="skill-button-container" style="margin:1rem 0;padding:0.8rem 1rem;background:linear-gradient(135deg,#f0f7ff,#e8f4f8);border-radius:8px;border:1px solid #d0e3f0;">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
     <span style="font-size:0.9rem;color:#2c5282;">
-      <strong>🤖 AI Skill</strong> — Copy this tutorial's skill into your AI assistant
+      <strong>🤖 AI Skill</strong> — Download the Bizard unified skill for your AI assistant
     </span>
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='flex'" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;">
-      📋 Get AI Skill
-    </button>
-  </div>
-</div>
-<div id="tutorial-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;overflow-y:auto;padding:2rem 1rem;justify-content:center;align-items:flex-start;">
-  <div style="max-width:680px;width:100%;margin-top:5vh;background:#fff;border-radius:10px;padding:1.5rem 2rem;position:relative;">
-    <button onclick="document.getElementById('tutorial-skill-modal').style.display='none'" style="position:absolute;top:0.8rem;right:1rem;background:#f0f0f0;border:none;border-radius:4px;padding:0.3rem 0.7rem;cursor:pointer;font-size:1rem;">✕</button>
-    <h3 style="margin-top:0;" class="anchored">📋 AI Skill: Bizard Skills</h3>
-    <p style="font-size:0.85rem;color:#666;">Copy the text below into your AI assistant's context window.</p>
-    <pre id="tutorial-skill-content" style="background:#f7f7f7;padding:1rem;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap;max-height:50vh;overflow-y:auto;">Loading skill...</pre>
-    <div style="margin-top:0.8rem;display:flex;gap:0.5rem;">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('tutorial-skill-content').textContent).then(function(){this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy Skill'},2000)}.bind(this))" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">📋 Copy Skill</button>
-    </div>
+    <a id="bizard-skill-download" href="bizard-skill.zip" download="" style="background:#3a86ff;color:#fff;border:none;padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;">
+      ⬇️ Download Skill ZIP
+    </a>
   </div>
 </div>
 <script>
 (function() {
-  var title = 'Bizard Skills';
-  var jsonUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + 'skills/index.json';
-  fetch(jsonUrl).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(skills){
-    var pageName = location.pathname.split('/').pop().replace('.html','');
-    var match = skills.find(function(s){
-      return s.name===title || s.source_file.replace('.qmd','').split('/').pop()===pageName;
-    });
-    var el = document.getElementById('tutorial-skill-content');
-    if(match && el){
-      var preview = '# Skill: '+match.name+' ('+(match.language||'R')+')\n\n'
-        +'## Category\n'+match.category+'\n\n'
-        +'## When to Use\n'+match.use_when+'\n\n'
-        +'## Required Packages\n'+(match.packages.length?match.packages.map(function(p){return '- '+p}).join('\n'):'(see tutorial)')+'\n\n'
-        +'## Full Tutorial\n'+match.tutorial_url;
-      el.textContent = preview;
-      if(match.skill_file){
-        var skillUrl = (window.location.pathname.split('/').length > 3 ? '../../' : '../') + match.skill_file;
-        fetch(skillUrl).then(function(r){return r.ok?r.text():null}).catch(function(){return null}).then(function(text){
-          if(text) el.textContent = text;
-        });
-      }
-    } else if(el) {
-      el.textContent='Skill not yet generated. Run generate_skills.py to create it.';
-    }
-  });
+  // Compute the correct relative path to the site root based on URL depth.
+  // Pages can be at Category/Page.html (depth 1) or zh/Category/Page.html (depth 2).
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  // parts: ['', 'Bizard', 'Category', 'Page.html'] or ['', 'Bizard', 'zh', 'Category', 'Page.html']
+  // We need to go up from the page to the site root (where bizard-skill.zip lives).
+  // Count path segments after the site root.
+  var segmentsAfterRoot = parts.length - 2; // minus '' and site-root
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  var link = document.getElementById('bizard-skill-download');
+  if (link) link.href = prefix + 'bizard-skill.zip';
 })();
 </script><section id="what-are-bizard-skills" class="level2"><h2 class="anchored" data-anchor-id="what-are-bizard-skills">What are Bizard Skills? <span class="emoji" data-emoji="brain">🧠</span>
 </h2>
-<p><strong>Bizard Skills</strong> convert every tutorial in this atlas into a compact, structured <strong>AI skill document</strong> — a plain-text summary of what a chart is, when to use it, what packages it needs (R, Python, or Julia), and the minimal reproducible code to produce it. Skills can be:</p>
+<p><strong>Bizard Skills</strong> is an AI skill package that turns your AI assistant into a biomedical visualization expert. When you load this skill, your AI can:</p>
 <ul>
-<li>Copied directly into AI assistant context windows (ChatGPT, Copilot, Claude, etc.)</li>
-<li>Used by local LLM tools like <a href="https://lmstudio.ai/">LM Studio</a> or <a href="https://ollama.ai/">Ollama</a>
+<li>
+<strong>Recommend</strong> the best visualization type for your data and research question</li>
+<li>
+<strong>Generate</strong> reproducible R / Python / Julia plotting code adapted from Bizard tutorials</li>
+<li>
+<strong>Search</strong> across 793 curated figure examples using the included gallery data</li>
+<li>
+<strong>Link</strong> you to the full tutorial for detailed customization</li>
+</ul>
+<p>The skill package works with any AI tool that supports custom instructions or knowledge files:</p>
+<ul>
+<li>
+<strong>ChatGPT / GPT-4</strong>: Load as custom instructions + knowledge file</li>
+<li>
+<strong>Claude</strong>: Upload as project files</li>
+<li>
+<strong>GitHub Copilot Chat</strong>: Reference with <code>#file:skill.md</code>
 </li>
-<li>Downloaded as a ZIP for offline use in custom AI pipelines</li>
-<li>Referenced by automated bioinformatics workflows</li>
+<li>
+<strong>Local LLMs</strong> (Ollama, LM Studio): Load as system prompt context</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1993,24 +1985,40 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>How to use a skill</strong>: Click any card below to view the skill document, then copy its content into your AI assistant prompt. You can also use the <strong>📋 Get AI Skill</strong> button on any tutorial page!</p>
+<p><strong>Quick start</strong>: Download the ZIP below → Load <code>skill.md</code> as your AI’s instructions → Upload <code>gallery_data.csv</code> as a knowledge file → Ask: <em>“Help me create a volcano plot for my differential expression results”</em></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<hr></section><section id="download" class="level2"><h2 class="anchored" data-anchor-id="download">Download the Skill Package</h2>
+<p>The ZIP contains:</p>
+<ul>
+<li>
+<strong><code>skill.md</code></strong> — AI skill instructions: teaches your AI assistant how to use Bizard for visualization recommendations and code generation</li>
+<li>
+<strong><code>gallery_data.csv</code></strong> — 793 visualization examples with image URLs, tutorial links, descriptions, and categories</li>
+<li>
+<strong><code>gallery_data_zh.csv</code></strong> — Chinese version of the gallery data</li>
+<li>
+<strong><code>README.md</code></strong> — Installation guide for different AI tools</li>
+</ul>
+<div style="text-align:center;margin:2rem 0;">
+  <a class="bizard-skill-dl" href="bizard-skill.zip" download="" style="display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#3a86ff,#2563eb);color:#fff;border:none;padding:1rem 2.5rem;border-radius:10px;cursor:pointer;font-size:1.1rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(58,134,255,.3);transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(58,134,255,.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 14px rgba(58,134,255,.3)'">
+    ⬇️ Download Bizard Skill ZIP
+  </a>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Skill Generation Specification
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Skills are generated following the professional specification in <a href="https://github.com/openbiox/Bizard/blob/main/skill.md"><code>skill.md</code></a>. The specification guides both LLM-based and rule-based skill generation to ensure consistent, high-quality output.</p>
-</div>
-</div>
-<hr></section><section id="browse" class="level2"><h2 class="anchored" data-anchor-id="browse">Browse Skills by Category</h2>
-<p>Use the search box, language filter, or click a category to filter skills.</p>
+<script>
+// Fix download link paths for pages served under subdirectories (e.g. zh/)
+(function() {
+  var parts = window.location.pathname.replace(/\/+$/, '').split('/');
+  var segmentsAfterRoot = parts.length - 2;
+  var prefix = '';
+  for (var i = 0; i < segmentsAfterRoot; i++) prefix += '../';
+  if (!prefix) prefix = './';
+  document.querySelectorAll('a.bizard-skill-dl, a[href="bizard-skill.zip"], a[href$="/bizard-skill.zip"]').forEach(function(a) {
+    a.href = prefix + 'bizard-skill.zip';
+  });
+})();
+</script><hr></section><section id="browse" class="level2"><h2 class="anchored" data-anchor-id="browse">Browse Skills by Category</h2>
+<p>Use the search box, language filter, or click a category to browse all available visualization skills.</p>
 <div id="skills-browser" style="margin-bottom:2rem;">
   <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
     <input id="skill-search" type="text" placeholder="Search skills…" oninput="filterSkills()" style="flex:1;min-width:200px;padding:.5rem .8rem;font-size:.95rem;border:1px solid #ccc;border-radius:6px;font-family:inherit;"><div id="lang-filters" style="display:flex;gap:.3rem;flex-wrap:wrap;"></div>
@@ -2151,31 +2159,26 @@ function copySkill() {
     setTimeout(() => btn.textContent = '📋 Copy Skill', 2000);
   });
 }
-</script><hr></section><section id="download-all-skills" class="level2"><h2 class="anchored" data-anchor-id="download-all-skills">Download All Skills</h2>
-<p>The full skill database is available as JSON:</p>
+</script><hr></section><section id="download-resources" class="level2"><h2 class="anchored" data-anchor-id="download-resources">Download Resources</h2>
 <ul>
 <li>
-<strong><a href="skills/index.json"><code>skills/index.json</code></a></strong> — Lightweight index (names, categories, packages, URLs)</li>
+<strong><a href="bizard-skill.zip">Download Skill ZIP</a></strong> — Complete unified skill package</li>
 <li>
-<strong><a href="skills/bizard_skills.json"><code>skills/bizard_skills.json</code></a></strong> — Full skill documents with code</li>
+<strong><a href="skills/index.json"><code>skills/index.json</code></a></strong> — Lightweight JSON index (names, categories, packages, URLs)</li>
+<li>
+<strong><a href="skills/bizard_skills.json"><code>skills/bizard_skills.json</code></a></strong> — Full skill documents with embedded code</li>
 </ul></section><section id="regenerating-skills" class="level2"><h2 class="anchored" data-anchor-id="regenerating-skills">Regenerating Skills</h2>
-<p>Skills can be regenerated using the generation script, which supports both LLM-powered and offline modes:</p>
+<p>Skills are <strong>automatically regenerated</strong> when tutorials are updated on the main branch. To regenerate manually:</p>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LLM mode (requires API key in environment)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--format</span> both <span class="at">--verbose</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Offline mode (rule-based extraction)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--offline</span> <span class="at">--format</span> both <span class="at">--verbose</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Process specific files only</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--files</span> Omics/VolcanoPlot.qmd <span class="at">--verbose</span></span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> .github/scripts/generate_skills.py <span class="at">--offline</span> <span class="at">--format</span> both <span class="at">--verbose</span></span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>Skills are also <strong>automatically regenerated</strong> when tutorials are updated on the main branch, and can be triggered manually via a PR comment:</p>
-<pre><code>/skill                          → regenerate skills for changed files
-/skill Omics/VolcanoPlot.qmd    → regenerate for a specific file
-/skill --offline                → use offline mode</code></pre>
-<p>See the <a href="https://github.com/openbiox/Bizard/blob/main/skill.md">Skill Generation Guide</a> for the full specification.</p>
+<p>The unified <code>skill.md</code> is automatically rebuilt from the skills index every time skills are generated.</p>
+<p>See the <a href="https://github.com/openbiox/Bizard/blob/main/skill-spec.md">Skill Generation Specification</a> for the full technical specification.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
