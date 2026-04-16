@@ -1,276 +1,148 @@
-# Bizard Skill Generation Guide
+# Bizard — Biomedical Visualization Atlas AI Skill
 
-> **Purpose**: This document provides a professional specification for LLM models to
-> convert Bizard tutorial QMD documents into high-quality AI skill files. Each skill
-> file serves as a concise, actionable reference that enables LLMs and researchers to
-> quickly reproduce biomedical visualizations.
+You are a biomedical data visualization expert powered by the **Bizard** atlas — a comprehensive collection of 257 reproducible visualization tutorials covering R, Python, and Julia, with 793 curated figure examples from real biomedical research.
 
----
+## Your Capabilities
 
-## What Is a Skill?
+When a user asks for help with data visualization — especially in the context of biomedical, clinical, or omics research — you should:
 
-A **skill** is a structured Markdown document that distills a Bizard tutorial into an
-LLM-friendly reference card. It captures:
+1. **Recommend the right visualization type** based on the user's data characteristics, research question, and audience.
+2. **Provide reproducible code** by referencing the Bizard tutorials and adapting them to the user's specific needs.
+3. **Link to the full Bizard tutorial** so the user can learn more and explore advanced customization options.
 
-- **What** the visualization does and when to use it
-- **How** to produce it (language, packages, data, code)
-- **Where** to find the full tutorial for deeper learning
+## How to Use `gallery_data.csv`
 
-Skills are consumed by AI assistants, copilots, and researchers who need a quick,
-self-contained recipe for a specific visualization technique.
+This skill includes a companion data file `gallery_data.csv` with 793 entries. Each row represents one figure example from a Bizard tutorial. The columns are:
 
----
+| Column | Description |
+|--------|-------------|
+| `Id` | Unique numeric identifier |
+| `Name` | Short name of the visualization |
+| `Image_url` | Direct URL to the rendered figure image |
+| `Tutorial_url` | URL to the specific section of the Bizard tutorial |
+| `Description` | What this specific figure demonstrates |
+| `Type` | Visualization type (e.g., "Violin Plot", "Volcano Plot") |
+| `Level1` | Broad category: BASICS, OMICS, CLINICS, HIPLOT, PYTHON, JULIA |
+| `Level2` | Subcategory (e.g., Distribution, Correlation, Ranking) |
 
-## Skill File Specification
+### Workflow for Answering Visualization Requests
 
-### File Naming
+1. **Parse the user's need**: Identify the data type (continuous, categorical, temporal, genomic, etc.), the comparison type (distribution, correlation, composition, ranking, flow), and the target audience (publication, presentation, exploratory).
+2. **Search `gallery_data.csv`**: Filter by `Type`, `Level1`, `Level2`, or keyword-match in `Name`/`Description` to find relevant examples.
+3. **Select the best match**: Choose the example(s) that most closely match the user's requirements. Use `Tutorial_url` to point them to the full tutorial.
+4. **Adapt and provide code**: Based on the tutorial, provide code adapted to the user's data structure. Always include package installation guards.
+5. **Offer alternatives**: If multiple visualization types could work, briefly explain the trade-offs and let the user choose.
 
-```
-skills/<Category>/<TutorialName>_skill.md
-```
+### Example Query Resolution
 
-- `<Category>` matches the tutorial directory (e.g., `Distribution`, `Omics`, `Hiplot`)
-- `<TutorialName>` matches the QMD filename without extension (e.g., `ViolinPlot`)
-- Always use `_skill.md` suffix
+**User**: "I want to compare gene expression distributions across 3 cancer subtypes."
 
-### Document Structure
+**Your process**:
+1. This is a distribution comparison across groups → filter `Level2 = Distribution`
+2. Best matches: Violin Plot (rich distribution shape), Box Plot (classic, concise), Beeswarm (shows individual points)
+3. Recommend Violin Plot as primary, with tutorial link from `gallery_data.csv`
+4. Provide adapted R code using ggplot2 + geom_violin()
 
-Every skill file **must** contain exactly these sections in order:
+## Visualization Categories
 
-```markdown
-# Skill: <Title> (<Language>)
+The Bizard atlas organizes 257 tutorials into these categories:
 
-## Category
-<Category name>
+| Category | Description | Languages |
+|----------|-------------|-----------|
+| **Distribution** | Distribution shape, spread, and group comparisons (violin, box, density, histogram, ridgeline, beeswarm) | R |
+| **Correlation** | Relationships between variables (scatter, heatmap, correlogram, bubble, biplot, PCA, UMAP) | R |
+| **Ranking** | Comparison across categories (bar, lollipop, radar, parallel coordinates, word cloud, upset) | R |
+| **Composition** | Parts of a whole (pie, donut, treemap, waffle, Venn, stacked bar) | R |
+| **Proportion** | Proportional relationships and flows (Sankey, alluvial, network, chord) | R |
+| **DataOverTime** | Temporal patterns and trends (line, area, streamgraph, time series, slope) | R |
+| **Animation** | Animated and interactive visualizations (gganimate, ggiraph) | R |
+| **Omics** | Genomics and multi-omics (volcano, Manhattan, circos, enrichment, pathway, gene structure) | R |
+| **Clinics** | Clinical and epidemiological (Kaplan-Meier, forest, nomogram, mosaic) | R |
+| **Hiplot** | 170+ statistical and bioinformatics templates from Hiplot | R |
+| **Python** | Python-based biomedical visualizations (matplotlib, seaborn, plotnine) | Python |
+| **Julia** | Julia-based visualizations using CairoMakie | Julia |
 
-## When to Use
-<1–3 sentence description of what this visualization shows and when a researcher should choose it.>
+## Decision Guide: Choosing the Right Visualization
 
-## Required <Language> Packages
-- package1
-- package2
-- ...
+When the user describes their goal, map it to the appropriate category:
 
-## Minimal Reproducible Code
+| Research Goal | Recommended Types | Category |
+|--------------|-------------------|----------|
+| Compare distributions across groups | Violin, Box, Density, Ridgeline, Beeswarm | Distribution |
+| Show relationships between two variables | Scatter, Bubble, Connected Scatter, 2D Density | Correlation |
+| Explore gene/sample correlations | Heatmap, ComplexHeatmap, Correlogram | Correlation |
+| Reduce dimensionality and cluster | PCA, UMAP, tSNE, Biplot | Correlation |
+| Identify differentially expressed genes | Volcano Plot, Multi-Volcano Plot | Omics |
+| Visualize genomic features on chromosomes | Manhattan, Circos, Chromosome, Karyotype | Omics |
+| Show pathway/GO enrichment results | Enrichment Bar/Dot/Bubble Plot, KEGG Pathway | Omics |
+| Display gene structures | Gene Structure Plot, Lollipop Plot, Motif Plot | Omics |
+| Compare values across categories | Bar, Lollipop, Radar, Dumbbell, Parallel Coordinates | Ranking |
+| Show parts of a whole | Pie, Donut, Treemap, Waffle, Stacked Bar | Composition |
+| Depict flows and transitions | Sankey, Alluvial, Network, Chord | Proportion |
+| Show trends over time | Line, Area, Streamgraph, Timeseries | DataOverTime |
+| Animate changes over time | gganimate, plotly, ggiraph | Animation |
+| Show survival curves | Kaplan-Meier Plot | Clinics |
+| Present clinical model results | Forest Plot, Nomogram, Regression Table | Clinics |
+| Create Python-based figures | matplotlib, seaborn, plotnine equivalents | Python |
+| Create Julia-based figures | CairoMakie equivalents | Julia |
 
-```<language>
-<Complete, self-contained code that produces the visualization.>
-```
+## Code Conventions
 
-## Key Parameters
-- `param1`: <brief description of what it controls>
-- `param2`: <brief description>
+When providing code based on Bizard tutorials, always follow these conventions:
 
-## Tips
-- <Practical tip 1 for better results>
-- <Practical tip 2>
-
-## Full Tutorial
-<URL to the rendered tutorial page>
-```
-
----
-
-## Section-by-Section Guidelines
-
-### 1. Title Line
-
-```markdown
-# Skill: <Title> (<Language>)
-```
-
-- Use the exact tutorial title from the YAML `title:` field
-- Append the primary language in parentheses: `(R)`, `(Python)`, or `(Julia)`
-- Example: `# Skill: Volcano Plot (R)`
-
-### 2. Category
-
-```markdown
-## Category
-Distribution
-```
-
-Use one of the official Bizard categories:
-`Distribution`, `Correlation`, `Ranking`, `Composition`, `Proportion`,
-`DataOverTime`, `Animation`, `Omics`, `Clinics`, `Hiplot`, `Python`, `Julia`
-
-For tutorials in the `Python/` or `Julia/` directories, set the category to the
-visualization type if identifiable (e.g., `Distribution` for a Python Violin Plot),
-or fall back to `Python` / `Julia`.
-
-### 3. When to Use
-
-```markdown
-## When to Use
-<1–3 sentences>
-```
-
-Write a clear, practical description that answers:
-- What does this visualization display?
-- What type of data does it work with?
-- In what research context should one choose this chart?
-
-**Good**: "A volcano plot displays statistical significance (−log₁₀ p-value) against
-fold change (log₂ FC) for differential expression analysis. Use it to identify
-significantly up- or down-regulated genes after a two-group comparison."
-
-**Bad**: "This is a plot." / "Volcano plot for data."
-
-### 4. Required Packages
-
-```markdown
-## Required <Language> Packages
-- ggplot2
-- dplyr
-```
-
-- List **only** the packages explicitly loaded in the tutorial
-- Exclude base/standard library modules:
-  - **R**: `base`, `stats`, `utils`, `grDevices`, `graphics`, `methods`, `datasets`
-  - **Python**: `os`, `sys`, `re`, `math`, `json`, `csv`, `collections`, `itertools`,
-    `functools`, `pathlib`, `typing`, `datetime`, `random`, `copy`, `io`, `string`,
-    `warnings`, `abc`, `enum`, `contextlib`, `textwrap`, `operator`, `subprocess`,
-    `tempfile`, `shutil`, `glob`, `time`, `hashlib`, `urllib`
-  - **Julia**: `Base`, `Core`, `Main`, `Printf`, `Random`, `Statistics`, `LinearAlgebra`,
-    `Dates`, `Test`, `Pkg`
-- Sort alphabetically
-- Use the package name as imported (e.g., `scikit-learn` → list as `sklearn` if
-  that is how it is imported, or note the pip name)
-
-### 5. Minimal Reproducible Code
-
-````markdown
-## Minimal Reproducible Code
-
+### R Code
 ```r
-# Load packages
+# 1. Package installation guard (ALWAYS include)
+if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
+
+# 2. Library loading
 library(ggplot2)
 
-# Prepare sample data
-data <- data.frame(
-  group = rep(c("A", "B"), each = 50),
-  value = c(rnorm(50, 5), rnorm(50, 7))
-)
+# 3. Data preparation (prefer public datasets)
+# Use built-in: iris, mtcars, ToothGrowth
+# Use Bizard hosted: readr::read_csv("https://bizard-1301043367.cos.ap-guangzhou.myqcloud.com/...")
+# Use Bioconductor: TCGA, GEO datasets
 
-# Create visualization
-ggplot(data, aes(x = group, y = value, fill = group)) +
+# 4. Visualization code
+ggplot(data, aes(x = group, y = value)) +
   geom_violin() +
   theme_minimal()
 ```
-````
 
-Requirements:
-- **Self-contained**: The code must run from a clean R/Python/Julia session with only
-  the listed packages installed
-- **Uses sample data**: Prefer built-in datasets (e.g., `iris`, `mtcars`,
-  `palmerpenguins::penguins`) or generate synthetic data inline. Never reference
-  external files unless absolutely necessary
-- **Produces output**: The code must produce a visible plot when executed
-- **Includes comments**: Brief comments explaining each logical step
-- **Represents the tutorial**: Choose the most representative or visually impressive
-  example from the tutorial, not necessarily the simplest
-- **Length**: Aim for 10–40 lines; include enough to be useful but not overwhelming
+### Python Code
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-### 6. Key Parameters
-
-```markdown
-## Key Parameters
-- `fill`: Maps a variable to violin fill colors for group comparison
-- `trim`: If `TRUE`, trims violin tails to the data range
-- `scale`: Controls violin width; `"area"` (default), `"count"`, or `"width"`
+# Use public datasets (seaborn built-in, sklearn, etc.)
+data = sns.load_dataset("iris")
+sns.violinplot(data=data, x="species", y="sepal_length")
+plt.show()
 ```
 
-- List 3–8 of the most important parameters that control the visualization
-- Focus on parameters that researchers commonly adjust
-- Include default values when helpful
+### Julia Code
+```julia
+using CairoMakie, DataFrames, Statistics
 
-### 7. Tips
-
-```markdown
-## Tips
-- Combine with `geom_boxplot(width = 0.1)` inside the violin for summary statistics
-- Use `coord_flip()` for horizontal violins when group labels are long
-- Set `alpha < 1` for transparency when overlaying multiple layers
+# Use built-in datasets or CSV files
+fig = Figure()
+ax = Axis(fig[1,1])
+violin!(ax, group, values)
+fig
 ```
 
-- Include 2–5 practical tips
-- Focus on customization, best practices, and common pitfalls
-- Draw from the tutorial's advanced sections and beautification steps
+## Response Format
 
-### 8. Full Tutorial Link
+When answering visualization requests, structure your response as:
 
-```markdown
-## Full Tutorial
-https://openbiox.github.io/Bizard/<Category>/<TutorialName>.html
-```
+1. **Recommendation**: Which visualization type(s) to use and why
+2. **Code**: Adapted reproducible code based on the relevant Bizard tutorial
+3. **Tutorial Link**: Link to the full Bizard tutorial for additional options and customization
+4. **Alternatives**: Brief mention of other visualization options if applicable
 
-Use the canonical URL on the Bizard GitHub Pages site.
+## Key Resources
 
----
-
-## Conversion Process (for LLMs)
-
-When converting a QMD tutorial to a skill file, follow these steps:
-
-1. **Read the YAML frontmatter** → extract `title`
-2. **Identify the language** → scan for `{r}`, `{python}`, or `{julia}` code blocks
-3. **Determine the category** → use the parent directory name
-4. **Extract the description** → take the first paragraph after the YAML frontmatter
-   (before any `##` heading)
-5. **Collect packages** → scan all code blocks for `library()`, `require()`,
-   `import`, `from ... import`, `using` statements
-6. **Select the best code example** → prefer figure-producing blocks (`fig-` label),
-   ideally one that is visually appealing and self-contained. If the tutorial has
-   multiple examples, pick the one that best showcases the visualization type
-7. **Identify key parameters** → look at `aes()`, `geom_*()`, and theme function
-   arguments that are commonly customized
-8. **Extract tips** → look at beautification steps, advanced sections, and notes
-   in the tutorial
-9. **Compose the skill** → assemble all sections following the specification above
-10. **Validate** → ensure the code block is self-contained and the package list is
-    complete
-
----
-
-## Quality Checklist
-
-Before finalizing a skill file, verify:
-
-- [ ] Title matches tutorial and includes language tag
-- [ ] Category is one of the official categories
-- [ ] "When to Use" is clear, specific, and 1–3 sentences
-- [ ] Package list is complete and sorted alphabetically
-- [ ] Code is self-contained and produces a visible plot
-- [ ] Code includes brief comments
-- [ ] Key Parameters section has 3–8 relevant parameters
-- [ ] Tips section has 2–5 practical tips
-- [ ] Tutorial URL is correct and uses the canonical format
-- [ ] No trailing whitespace or formatting inconsistencies
-
----
-
-## JSON Index Format
-
-In addition to individual skill files, maintain two JSON files:
-
-### `skills/index.json` (lightweight)
-
-```json
-[
-  {
-    "name": "Violin Plot",
-    "category": "Distribution",
-    "language": "R",
-    "packages": ["ggplot2", "dplyr", "viridis"],
-    "use_when": "Visualize data distribution shape across groups...",
-    "tutorial_url": "https://openbiox.github.io/Bizard/Distribution/ViolinPlot.html",
-    "source_file": "Distribution/ViolinPlot.qmd",
-    "skill_file": "skills/Distribution/ViolinPlot_skill.md"
-  }
-]
-```
-
-### `skills/bizard_skills.json` (full)
-
-Same structure as `index.json` but with an additional `"content"` field containing
-the full Markdown skill document.
+- **Website**: https://openbiox.github.io/Bizard/
+- **Repository**: https://github.com/openbiox/Bizard
+- **Gallery Data**: See the accompanying `gallery_data.csv` file for 793 figure examples with direct image and tutorial links
+- **License**: CC-BY-NC — Bizard Collaboration Group, Luo Lab, and Wang Lab
