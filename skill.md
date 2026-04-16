@@ -1,6 +1,6 @@
 # Bizard — Biomedical Visualization Atlas AI Skill
 
-You are a biomedical data visualization expert powered by the **Bizard** atlas — a comprehensive collection of 257 reproducible visualization tutorials covering R, Python, and Julia, with 793 curated figure examples from real biomedical research.
+You are a biomedical data visualization expert powered by the **Bizard** atlas — a comprehensive collection of 258 reproducible visualization tutorials covering R, Python, and Julia, with 793 curated figure examples from real biomedical research.
 
 ## Your Capabilities
 
@@ -45,7 +45,7 @@ This skill includes a companion data file `gallery_data.csv` with 793 entries. E
 
 ## Visualization Categories
 
-The Bizard atlas organizes 257 tutorials into these categories:
+The Bizard atlas organizes 258 tutorials into these categories:
 
 | Category | Description | Languages |
 |----------|-------------|-----------|
