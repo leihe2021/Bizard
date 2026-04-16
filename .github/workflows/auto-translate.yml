@@ -1,0 +1,290 @@
+name: Auto-Translate QMD Files
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Triggers:
+#   - pull_request:      auto-translate new .qmd files added in a PR
+#   - push:              translate on direct push to main/master (creates a new PR)
+#   - workflow_dispatch: manual trigger (optionally targeting a specific PR and files)
+#                        Also dispatched by translate-command.yml when a /translate
+#                        comment is posted on a PR.
+#
+# To trigger translation from a PR comment, post: /translate [file1.qmd] …
+# The translate-command.yml workflow handles comment parsing and permission
+# checking, then dispatches this workflow via workflow_dispatch.
+# ──────────────────────────────────────────────────────────────────────────────
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths: ['**.qmd', '**.Qmd']
+  push:
+    branches: [main, master]
+    paths: ['**.qmd', '**.Qmd']
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to translate (leave empty for current branch)'
+        required: false
+        type: number
+      files:
+        description: 'Specific files to translate, space-separated (leave empty for all changed files)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-translate:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Resolve branch / PR context ─────────────────────────────────────
+      - name: Resolve PR / branch context
+        id: ctx
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ev = context.eventName;
+            let prNumber = '', prRef = '', prRepo = '', isPush = false, specificFiles = '';
+
+            if (ev === 'pull_request') {
+              prNumber = String(context.payload.pull_request.number);
+              prRef    = context.payload.pull_request.head.ref;
+              prRepo   = context.payload.pull_request.head.repo.full_name;
+
+            } else if (ev === 'push') {
+              isPush = true;
+              const base = context.ref.replace('refs/heads/', '');
+              const ts   = new Date().toISOString().replace(/[:.]/g, '-').split('Z')[0];
+              prRef  = `auto-translate-${base}-${ts}`;
+              prRepo = `${context.repo.owner}/${context.repo.repo}`;
+
+            } else if (ev === 'workflow_dispatch') {
+              specificFiles = context.payload.inputs?.files || '';
+              const inputPr = context.payload.inputs?.pr_number;
+              if (inputPr) {
+                prNumber = String(inputPr);
+                const { data: pr } = await github.rest.pulls.get({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  pull_number: Number(inputPr)
+                });
+                prRef  = pr.head.ref;
+                prRepo = pr.head.repo.full_name;
+              } else {
+                prRef  = context.ref.replace('refs/heads/', '');
+                prRepo = `${context.repo.owner}/${context.repo.repo}`;
+              }
+            }
+
+            core.setOutput('pr_number',      prNumber);
+            core.setOutput('pr_ref',         prRef || context.ref.replace('refs/heads/', ''));
+            core.setOutput('pr_repo',        prRepo);
+            core.setOutput('is_push',        isPush ? 'true' : 'false');
+            core.setOutput('base_branch',    context.ref.replace('refs/heads/', ''));
+            core.setOutput('specific_files', specificFiles);
+
+      # ── 2. Checkout ─────────────────────────────────────────────────────────
+      - name: Checkout (PR / dispatch)
+        if: steps.ctx.outputs.is_push != 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.ctx.outputs.pr_repo }}
+          ref: ${{ steps.ctx.outputs.pr_ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout (push – create new translation branch)
+        if: steps.ctx.outputs.is_push == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.ctx.outputs.base_branch }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create translation branch (push only)
+        if: steps.ctx.outputs.is_push == 'true'
+        run: git checkout -b ${{ steps.ctx.outputs.pr_ref }}
+
+      # ── 3. Python setup ─────────────────────────────────────────────────────
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install openai
+
+      # ── 4. Detect changed QMD files ─────────────────────────────────────────
+      # Skipped when specific_files were passed via workflow_dispatch input.
+      - name: Detect changed QMD files
+        id: changed-files
+        if: steps.ctx.outputs.specific_files == ''
+        uses: tj-actions/changed-files@v46.0.5
+        with:
+          files: |
+            **.qmd
+            **.Qmd
+
+      # ── 5. Resolve the final list of files to process ───────────────────────
+      - name: Resolve files to process
+        id: resolve-files
+        run: |
+          SPECIFIC="${{ steps.ctx.outputs.specific_files }}"
+          if [ -n "$SPECIFIC" ]; then
+            echo "has_files=true"       >> "$GITHUB_OUTPUT"
+            echo "all_files=$SPECIFIC" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.changed-files.outputs.any_changed }}" = "true" ]; then
+            echo "has_files=true"                                                  >> "$GITHUB_OUTPUT"
+            echo "all_files=${{ steps.changed-files.outputs.all_changed_files }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+            echo "all_files="      >> "$GITHUB_OUTPUT"
+          fi
+
+      # ── 6. Translate / validate ──────────────────────────────────────────────
+      - name: Translate and validate QMD pairs
+        if: steps.resolve-files.outputs.has_files == 'true'
+        env:
+          AI_Model_API_KEY: ${{ secrets.AI_Model_API_KEY || secrets.OPENAI_API_KEY }}
+          AI_Model_BASE_URL: ${{ secrets.AI_Model_BASE_URL }}
+          AI_Model_Name: ${{ secrets.AI_Model_Name }}
+          CHANGED_FILES: ${{ steps.resolve-files.outputs.all_files }}
+          IS_PUSH_EVENT: ${{ steps.ctx.outputs.is_push }}
+        run: |
+          set -euo pipefail
+
+          # ── helpers ──
+          is_blacklisted() {
+            local file="$1"
+            [ -f .github/translation-blacklist.txt ] || return 1
+            while IFS= read -r pattern || [ -n "$pattern" ]; do
+              [[ "$pattern" =~ ^[[:space:]]*$ || "$pattern" =~ ^# ]] && continue
+              case "$file" in $pattern) return 0 ;; esac
+            done < .github/translation-blacklist.txt
+            return 1
+          }
+
+          files_to_translate=()
+          files_with_pairs=()
+
+          for file in $CHANGED_FILES; do
+            echo "▶ $file"
+            if is_blacklisted "$file"; then echo "  ⊘ blacklisted"; continue; fi
+
+            if [[ "$file" == *.zh.qmd ]]; then
+              pair="${file%.zh.qmd}.qmd"
+            else
+              pair="${file%.qmd}.zh.qmd"
+            fi
+
+            if echo "$CHANGED_FILES" | grep -qw "$pair"; then
+              echo "  ✓ bilingual pair both in PR"
+              files_with_pairs+=("$file|$pair")
+            elif [ -f "$pair" ]; then
+              echo "  ⚠ pair exists in repo – skipping auto-translate to avoid overwrite"
+            else
+              echo "  → will translate to: $pair"
+              files_to_translate+=("$file")
+            fi
+          done
+
+          # Translations
+          if [ ${#files_to_translate[@]} -gt 0 ]; then
+            if [ -z "${AI_Model_API_KEY:-}" ]; then
+              echo "✗ No AI_Model_API_KEY / OPENAI_API_KEY secret configured – skipping translation"
+            else
+              echo "=== Translating ${#files_to_translate[@]} file(s) ==="
+              for file in "${files_to_translate[@]}"; do
+                echo "  Translating $file …"
+                python .github/scripts/translate_qmd.py "$file" && echo "  ✓" || echo "  ✗ failed"
+              done
+            fi
+          fi
+
+          # Spell-check bilingual pairs
+          if [ ${#files_with_pairs[@]} -gt 0 ]; then
+            echo "=== Spell-checking ${#files_with_pairs[@]} pair(s) ==="
+            for entry in "${files_with_pairs[@]}"; do
+              IFS='|' read -r f1 f2 <<< "$entry"
+              python .github/scripts/translate_qmd.py "$f1" --check-spelling || true
+              python .github/scripts/translate_qmd.py "$f2" --check-spelling || true
+            done
+          fi
+
+      # ── 7. Commit & push ────────────────────────────────────────────────────
+      - name: Commit translations
+        id: git-commit
+        run: |
+          if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.name  "github-actions[bot]"
+            git add -A
+            git commit -m "chore: auto-translate QMD files" \
+              -m "Automatically generated translations for modified QMD files."
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push translations
+        if: steps.git-commit.outputs.committed == 'true'
+        continue-on-error: true
+        run: |
+          git pull --rebase origin ${{ steps.ctx.outputs.pr_ref }} || true
+          git push origin ${{ steps.ctx.outputs.pr_ref }} || \
+            echo "⚠️ Push failed (fork PR without write permission) – translations available as artifacts"
+
+      # ── 8. PR comments ──────────────────────────────────────────────────────
+      - name: Post translation summary to PR
+        if: |
+          steps.git-commit.outputs.committed == 'true' &&
+          (github.event_name == 'pull_request' ||
+           (github.event_name == 'workflow_dispatch' && steps.ctx.outputs.pr_number != ''))
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { execSync } = require('child_process');
+            const fs = require('fs');
+
+            const prNum = '${{ steps.ctx.outputs.pr_number }}';
+            if (!prNum) {
+              console.log('No PR number available (push-triggered or non-PR dispatch) – skipping PR comment.');
+              return;
+            }
+
+            const files = execSync('git show --name-only --format= HEAD')
+              .toString().trim().split('\n')
+              .filter(f => f.endsWith('.qmd') || f.endsWith('.zh.qmd'));
+
+            if (!files.length) return;
+
+            let body = `## 🤖 Translation Preview\n\nTranslated **${files.length}** file(s):\n\n`;
+            for (const f of files) {
+              const preview = fs.existsSync(f)
+                ? fs.readFileSync(f, 'utf8').split('\n').slice(0, 20).join('\n')
+                : '(file not readable)';
+              body += `<details><summary>📄 \`${f}\`</summary>\n\n\`\`\`\n${preview}\n\`\`\`\n</details>\n\n`;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: Number(prNum), body
+            });
+
+      - name: Create PR for push-triggered translations
+        if: steps.ctx.outputs.is_push == 'true' && steps.git-commit.outputs.committed == 'true'
+        uses: actions/github-script@v7
+        env:
+          CHANGED_FILES: ${{ steps.resolve-files.outputs.all_files }}
+        with:
+          script: |
+            const base = '${{ steps.ctx.outputs.base_branch }}';
+            const head = '${{ steps.ctx.outputs.pr_ref }}';
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title: `🤖 Auto-translate QMD files from ${base}`,
+              head, base,
+              body: `## 🤖 Automatic Translation\n\nThis PR was created automatically after a push to \`${base}\`.\n\n**Changed files:**\n\`\`\`\n${process.env.CHANGED_FILES}\n\`\`\`\n\n> Please review translations for accuracy, especially biomedical terminology.\n\n---\n*Created by [Auto-Translate workflow](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})*`
+            });
+            console.log(`Created PR #${pr.number}: ${pr.html_url}`);

@@ -1,0 +1,119 @@
+---
+title: "双侧标准化图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Diverging Scale` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/diverging-scale?lang=zh_cn>
+:::
+
+双侧标准化图是一种将连续的，定量的输入映射到连续的固定的插值器上的图形。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggcharts`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggcharts", quietly = TRUE)) {
+  install.packages("ggcharts")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggcharts)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+导入数据第一列为模型名称列表，其余列输入相关指标及对应数值。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/diverging-scale/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+data <- dplyr::transmute(.data = data, x = model, y = scale(hp))
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+### 1.条形图
+
+```{r}
+#| label: fig-1barplot
+#| fig-cap: "双侧条形图"
+#| out.width: "95%"
+#| fig-height: 3.5
+#| fig-width: 4
+#| warning: false
+#| message: false
+
+# 双侧条形图
+fill_colors <- c("#C20B01", "#196ABD")
+fill_colors <- fill_colors[c(any(data[, "y"] > 0), any(data[, "y"] < 0))]
+p <- diverging_bar_chart(data = data, x = x, y = y, bar_colors = fill_colors,
+                         text_color = '#000000') + 
+  theme(axis.text.x = element_text(color = "#000000"),
+        axis.title.x = element_text(colour = "#000000"),
+        axis.title.y = element_text(colour = "#000000"),
+        plot.background = element_blank()) + 
+  labs(x = "model", y = "scale(hp)", title = "")
+
+p
+```
+
+图示横轴表示hp数据，纵轴表示模型名称（分类），红色表示超过平均值的模型，蓝色表示低于平均值的模型，数据是按照大小赋值于 2 的比例尺上面。
+
+### 2.棒棒糖图
+
+```{r}
+#| label: fig-2lollipop
+#| fig-cap: "双侧棒棒糖图"
+#| out.width: "95%"
+#| fig-height: 3.5
+#| fig-width: 4
+#| warning: false
+#| message: false
+
+# 双侧棒棒糖图
+fill_colors <- c("#C20B01", "#196ABD")
+fill_colors <- fill_colors[c(any(data[, "y"] > 0), any(data[, "y"] < 0))]
+p <- diverging_lollipop_chart(
+  data = data, x = x, y = y, lollipop_colors = fill_colors,
+  line_size = 0.3, point_size = 1.9, text_color = '#000000') + 
+  theme(axis.text.x = element_text(color = "#000000"),
+        axis.title.x = element_text(colour = "#000000"),
+        axis.title.y = element_text(colour = "#000000"),
+        plot.background = element_blank()) + 
+  labs(x = "model", y = "scale(hp)", title = "")
+
+p
+```
+
+

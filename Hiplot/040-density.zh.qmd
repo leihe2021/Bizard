@@ -1,0 +1,99 @@
+---
+title: "密度图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Density` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/density?lang=zh_cn>
+:::
+
+核密度图是一种用来观察连续型变量分布的图形。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggplot2`; `ggthemes`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+if (!requireNamespace("ggthemes", quietly = TRUE)) {
+  install.packages("ggthemes")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/density/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+data[,2] <- factor(data[,2], levels = unique(data[,2]))
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Density
+#| fig-cap: "密度图"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 6
+#| warning: false
+#| message: false
+
+# 密度图
+data["group_add_by_code"] <- "g1"
+
+p <- ggplot(data, aes_(as.name(colnames(data[1])))) +
+  geom_density(col = "white", alpha = 0.85,
+               aes_(fill = as.name(colnames(data[2])))) +
+  ggtitle("") +
+  scale_fill_manual(values = c("#e04d39","#5bbad6")) +
+  theme_stata() +
+  theme(text = element_text(family = "Arial"),
+        plot.title = element_text(size = 12,hjust = 0.5),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 0, hjust = 0.5,vjust = 1),
+        legend.position = "right",
+        legend.direction = "vertical",
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+p
+```
+
+

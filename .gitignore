@@ -1,0 +1,22 @@
+/.quarto/
+
+.quarto
+
+# RStudio file
+.Rproj.user
+
+# Ignore all files under _site/
+_site/
+
+# Ignore macOS system file
+.DS_Store
+
+# Ignore R history file
+.Rhistory
+.radian_history
+__pycache__
+
+**/*.quarto_ipynb
+
+# Julia generated files
+Julia/Manifest.toml

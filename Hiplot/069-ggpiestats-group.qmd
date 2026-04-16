@@ -1,0 +1,105 @@
+---
+title: "Piestats Group"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Piestats Group` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/ggpiestats-group?lang=en>
+:::
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `ggstatsplot`; `ggplot2`; `cowplot`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggstatsplot", quietly = TRUE)) {
+  install.packages("ggstatsplot")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+if (!requireNamespace("cowplot", quietly = TRUE)) {
+  install.packages("cowplot")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(ggstatsplot)
+library(ggplot2)
+library(cowplot)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/ggpiestats-group/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+axis <- c("genre", "mpaa")
+data[, axis[1]] <- factor(data[, axis[1]], levels = unique(data[, axis[1]]))
+data[, axis[2]] <- factor(data[, axis[2]], levels = unique(data[, axis[2]]))
+
+# View data
+head(data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1ggpiestats-group
+#| fig-cap: "Piestats Group"
+#| out.width: "95%"
+#| fig-height: 5
+#| fig-width: 14
+#| warning: false
+#| error: false
+#| message: false
+
+# Piestats Group
+g <- unique(data[,axis[2]])
+plist <- list()
+for (i in 1:length(g)) {
+  fil <- data[,axis[2]] == g[i]
+  plist[[i]] <- 
+    ggpiestats(
+      data = data[fil,], x = genre, 
+      title= paste('', axis[2], g[i], sep = ':'),
+      plotgrid.args = list(ncol = 3),
+      label.repel = TRUE,
+      k = 2
+    ) +
+    scale_fill_manual(values = c("#3B4992FF","#EE0000FF","#008B45FF","#631879FF",
+                                 "#008280FF","#BB0021FF","#5F559BFF","#A20056FF",
+                                 "#808180FF"))
+}
+
+plot_grid(plotlist = plist, ncol = 3)
+```
+
+
+
+

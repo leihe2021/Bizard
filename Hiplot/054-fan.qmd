@@ -1,0 +1,85 @@
+---
+title: "Fan Plot"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Fan Plot` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/fan?lang=en>
+:::
+
+The pie chart is a statistical chart designed to clearly show the percentage of each data group by the size of the pie.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `plotrix`; `ggplotify`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("plotrix", quietly = TRUE)) {
+  install.packages("plotrix")
+}
+if (!requireNamespace("ggplotify", quietly = TRUE)) {
+  install.packages("ggplotify")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(plotrix)
+library(ggplotify)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+The loaded data are different groups and their data.
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/fan/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# View data
+head(data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1Fan
+#| fig-cap: "Fan Plot"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 6
+#| warning: false
+#| message: false
+
+# Fan Plot
+p <- as.ggplot(function() {
+  fan.plot(data[, 2], main = "", labels = as.character(data[, 1]),
+           col = c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF"))
+  })
+
+p
+```
+
+Different colors represent different groups and different areas represent data and proportion.

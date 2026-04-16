@@ -1,0 +1,154 @@
+name: Generate Skills
+
+# Run whenever QMD tutorials are updated on the main branch,
+# when the skill spec or generation script changes, or on manual dispatch.
+# Also supports being called from the skill-command workflow.
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '**.qmd'
+      - 'skill-spec.md'
+      - '.github/scripts/generate_skills.py'
+  workflow_dispatch:
+    inputs:
+      files:
+        description: 'Space-separated list of QMD files to process (empty = all)'
+        required: false
+        default: ''
+      pr_number:
+        description: 'PR number (for command-triggered runs)'
+        required: false
+        default: ''
+      offline:
+        description: 'Use offline mode (no LLM API)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: skills-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-skills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # If triggered from a PR, check out the PR branch
+      - name: Checkout PR branch
+        if: inputs.pr_number != ''
+        run: |
+          PR_NUM="${{ inputs.pr_number }}"
+          echo "Fetching PR #${PR_NUM}..."
+          PR_DATA=$(gh api repos/${{ github.repository }}/pulls/${PR_NUM})
+          PR_BRANCH=$(echo "$PR_DATA" | jq -r '.head.ref')
+          PR_REPO=$(echo "$PR_DATA" | jq -r '.head.repo.full_name')
+          echo "PR branch: ${PR_BRANCH} from ${PR_REPO}"
+          git fetch origin "${PR_BRANCH}"
+          git checkout "${PR_BRANCH}"
+          echo "PR_BRANCH=${PR_BRANCH}" >> "$GITHUB_ENV"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install openai
+
+      # Detect changed files for push events
+      - name: Detect changed QMD files
+        if: github.event_name == 'push' && inputs.files == ''
+        id: changed
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- '*.qmd' | grep -v '\.zh\.qmd$' || true)
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "Changed QMD files: $CHANGED"
+
+      - name: Generate skill documents
+        env:
+          AI_Model_API_KEY: ${{ secrets.AI_Model_API_KEY }}
+          AI_Model_BASE_URL: ${{ secrets.AI_Model_BASE_URL }}
+          AI_Model_Name: ${{ secrets.AI_Model_Name }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          ARGS="--output skills/ --base-url https://openbiox.github.io/Bizard/ --format both --verbose"
+
+          # Check if offline mode is requested
+          if [ "${{ inputs.offline }}" = "true" ]; then
+            ARGS="${ARGS} --offline"
+          fi
+
+          # Determine which files to process
+          if [ -n "${{ inputs.files }}" ]; then
+            # Specific files from workflow dispatch
+            python .github/scripts/generate_skills.py ${ARGS} --changed-files "${{ inputs.files }}"
+          elif [ -n "${{ steps.changed.outputs.files }}" ]; then
+            # Changed files from push event
+            FILES=$(echo "${{ steps.changed.outputs.files }}" | tr '\n' ' ')
+            python .github/scripts/generate_skills.py ${ARGS} --changed-files "${FILES}"
+          else
+            # Process all files (manual dispatch without file list)
+            python .github/scripts/generate_skills.py ${ARGS}
+          fi
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard skills/)" ]; then
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+            echo "No skill file changes detected."
+          else
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+            echo "Skill files updated."
+            git status --short
+          fi
+
+      - name: Check for changes (including unified skill.md)
+        id: git-check-unified
+        run: |
+          if git diff --quiet skill.md && git diff --quiet -- skills/; then
+            echo "No unified skill or skills directory changes."
+          else
+            echo "unified_changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push skill documents
+        if: steps.git-check.outputs.committed == 'true' || steps.git-check-unified.outputs.unified_changed == 'true'
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
+          git add skills/ skill.md
+          git commit -m "chore: regenerate AI skill documents" \
+            -m "Auto-generated skill documents from QMD tutorials."
+          BRANCH="${PR_BRANCH:-${{ github.ref_name }}}"
+          git push origin "${BRANCH}"
+
+      - name: Post PR comment
+        if: (steps.git-check.outputs.committed == 'true' || steps.git-check-unified.outputs.unified_changed == 'true') && inputs.pr_number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = parseInt('${{ inputs.pr_number }}');
+            if (!prNumber) return;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `✅ **Skill documents regenerated** and pushed to the PR branch.\n\nSee the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.`
+            });

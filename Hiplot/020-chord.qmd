@@ -1,0 +1,108 @@
+---
+title: "Chord Plot"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Chord Plot` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/chord?lang=en>
+:::
+
+The complex interaction is visualized in the form of chord graph.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `circlize`; `ggplotify`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("circlize", quietly = TRUE)) {
+  install.packages("circlize")
+}
+if (!requireNamespace("ggplotify", quietly = TRUE)) {
+  install.packages("ggplotify")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(circlize)
+library(ggplotify)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+Data frame or matrix of interaction of genes with pathways or gene ontologys.
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/chord/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+row.names(data) <- data[, 1]
+data <- data[, -1]
+data <- as.matrix(data)
+
+# View data
+head(data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1Chord
+#| fig-cap: "Chord Plot"
+#| out.width: "95%"
+#| warning: false
+#| message: false
+#| fig-height: 6
+#| fig-width: 6
+
+# Chord Plot
+Palette <- c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF",
+             "#8491B4FF","#91D1C2FF","#DC0000FF","#7E6148FF","#B09C85FF")
+grid.col <- c(Palette, Palette, Palette[1:5])
+p <- as.ggplot(function() {
+  chordDiagram(
+    data, grid.col = grid.col, grid.border = NULL, transparency = 0.5,
+    row.col = NULL, column.col = NULL,  order = NULL,
+    directional = 0, # 1, -1, 0, 2
+    direction.type = "diffHeight", # diffHeight and arrows
+    diffHeight = convert_height(2, "mm"), reduce = 1e-5, xmax = NULL, 
+    self.link = 2, symmetric = FALSE, keep.diagonal = FALSE, 
+    preAllocateTracks = NULL,
+    annotationTrack = c("name", "grid", "axis"),
+    annotationTrackHeight = convert_height(c(3, 3), "mm"),
+    link.border = NA, link.lwd = par("lwd"), link.lty = par("lty"), 
+    link.sort = FALSE, link.decreasing = TRUE, link.largest.ontop = FALSE,
+    link.visible = T, link.rank = NULL, link.overlap = FALSE,
+    scale = F, group = NULL, big.gap = 10, small.gap = 1
+    )
+  })
+
+p
+```
+
+
+
+

@@ -1,0 +1,94 @@
+---
+title: "自定义基因富集分析"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `DIY GSEA` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/diy-gsea?lang=zh_cn>
+:::
+
+自定义基因集。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `clusterProfiler`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("clusterProfiler", quietly = TRUE)) {
+  BiocManager::install("clusterProfiler")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(clusterProfiler)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data1 <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/diy-gsea/data.json")$exampleData$textarea[[1]])
+data1 <- as.data.frame(data1)
+data2 <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/diy-gsea/data.json")$exampleData$textarea[[2]])
+data2 <- as.data.frame(data2)
+
+# 整理数据格式
+data1[,2] <- as.numeric(data1[,2])
+geneList <- data1[,2]
+names(geneList) <- data1[,1]
+geneList <- sort(geneList, decreasing = TRUE)
+term <- data.frame(term=data2[,1], gene=data2[,2])
+
+# 查看数据
+head(term)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Diy-gsea
+#| fig-cap: "自定义基因富集分析"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 7
+#| warning: false
+#| message: false
+
+# 自定义基因富集分析
+y <- clusterProfiler::GSEA(geneList, TERM2GENE = term, pvalueCutoff = 1)
+p <- gseaplot(
+  y,
+  y@result$Description[1],
+  color = "#000000",
+  by = "runningScore",
+  color.line = "#4CAF50",
+  color.vline= "#FA5860",
+  title = "DIY GSEA Plot",
+  )
+
+p
+```
+
+

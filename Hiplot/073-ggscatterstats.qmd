@@ -1,0 +1,78 @@
+---
+title: "Scatterstats"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Scatterstats` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/ggscatterstats?lang=en>
+:::
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `ggpubr`; `ggthemes`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggstatsplot", quietly = TRUE)) {
+  install.packages("ggstatsplot")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(ggstatsplot)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/ggscatterstats/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# View data
+head(data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1ggpubr-boxplot
+#| fig-cap: "Scatterstats"
+#| out.width: "95%"
+#| fig-height: 7
+#| fig-width: 7
+#| warning: false
+#| error: false
+#| message: false
+
+# Scatterstats
+p <- ggscatterstats(
+  data = data, x = rating, y = budget
+)
+
+p
+```
+
+
+

@@ -1,0 +1,97 @@
+---
+title: "凹凸图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Bumpchart` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/bumpchart?lang=zh_cn>
+:::
+
+凹凸图可以用于展示多组数值变化情况。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggplot2`; `ggbump`; `dplyr`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+if (!requireNamespace("ggbump", quietly = TRUE)) {
+  install.packages("https://cran.r-project.org/src/contrib/Archive/ggbump/ggbump_0.1.0.tar.gz")
+}
+if (!requireNamespace("dplyr", quietly = TRUE)) {
+  install.packages("dplyr")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggplot2)
+library(ggbump)
+library(dplyr)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+```{r load data, message=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/bumpchart/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Bumpchart
+#| fig-cap: "凹凸图"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 6
+#| warning: false
+
+# 凹凸图
+p <- ggplot(data, aes(x = x, y = y, color = group)) +
+  geom_bump(size = 1.5) +
+  geom_point(size = 5) +
+  geom_text(data = data %>% filter(x == min(x)),
+            aes(x = x - 0.1, label = group),
+            size = 5, hjust = 1) +
+  geom_text(data = data %>% filter(x == max(x)),
+            aes(x = x + 0.1, label = group),
+            size = 5, hjust = 0) +
+  theme_void() +
+  theme(legend.position = "none") +
+  scale_color_manual(values = c("#0571B0","#92C5DE","#F4A582","#CA0020"))
+
+p
+```
+
+
+
+
+

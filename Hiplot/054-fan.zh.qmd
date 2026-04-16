@@ -1,0 +1,85 @@
+---
+title: "扇形图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Fan Plot` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/fan?lang=zh_cn>
+:::
+
+扇形图是旨在以所占扇形的大小清楚表示各组数据所占百分比的统计图表。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `plotrix`; `ggplotify`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("plotrix", quietly = TRUE)) {
+  install.packages("plotrix")
+}
+if (!requireNamespace("ggplotify", quietly = TRUE)) {
+  install.packages("ggplotify")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(plotrix)
+library(ggplotify)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+载入数据为不同分组及其数据。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/fan/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Fan
+#| fig-cap: "Cox 模型森林图"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 6
+#| warning: false
+#| message: false
+
+# Cox 模型森林图
+p <- as.ggplot(function() {
+  fan.plot(data[, 2], main = "", labels = as.character(data[, 1]),
+           col = c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF"))
+  })
+
+p
+```
+
+不同颜色表示不同组群 ，不同面积表示数据及占比。

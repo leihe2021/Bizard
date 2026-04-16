@@ -1,0 +1,141 @@
+---
+title: "Multiple Barplot&Line"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Multiple Barplot&Line` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/barplot-line-multiple?lang=en>
+:::
+
+Displaying multiple bar or line plot in one diagram.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `ggplot2`; `reshape2`; `ggthemes`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+if (!requireNamespace("reshape2", quietly = TRUE)) {
+  install.packages("reshape2")
+}
+if (!requireNamespace("ggthemes", quietly = TRUE)) {
+  install.packages("ggthemes")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(ggplot2)
+library(reshape2)
+library(ggthemes)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+Data frame with multiple columns data (Numeric).
+
+```{r load data, message=FALSE}
+#| warning: false
+
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/barplot-line-multiple/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+data_melt <- melt(data, id.vars = colnames(data)[1])
+data_melt[, 1] <- factor(data_melt[, 1], level = unique(data_melt[, 1]))
+
+# View data
+head(data)
+```
+
+## Visualization
+
+### 1. Multiple Line
+
+```{r}
+#| label: fig-1Barplot-line-multiple1
+#| fig-cap: "Multiple Line"
+#| out.width: "95%"
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
+
+# Multiple Line
+p <- ggplot(data = data_melt, aes(x = age, y = value, group = variable,
+                                  colour = variable)) +
+  geom_line(alpha = 1, size = 1) +
+  geom_point(aes(shape = variable), alpha = 1, size = 3) +
+  labs(title = "Line (Multiple)", x = "X Lable", y = "Value") +
+  scale_color_manual(values = c("#3B4992FF","#EE0000FF","#008B45FF","#631879FF",
+                               "#008280FF","#BB0021FF")) +
+  theme_stata() +
+  theme(text = element_text(family = "Arial"),
+        plot.title = element_text(size = 12,hjust = 0.5),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 0, hjust = 0.5,vjust = 1),
+        legend.position = "right",
+        legend.direction = "vertical",
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+p
+```
+
+### 2. Multiple Barplot
+
+```{r}
+#| label: fig-1Barplot-line-multiple2
+#| fig-cap: "Multiple Barplot"
+#| out.width: "95%"
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
+
+# Multiple Barplot
+p <- ggplot(data = data_melt, aes(x = age, y = value, fill = variable)) +
+  geom_bar(stat = "identity", position = position_dodge(), colour = "black",
+           alpha = 1) +
+  labs(title = "", x = "X Lable", y = "Value") +
+  
+  scale_fill_manual(values = c("#3B4992FF","#EE0000FF","#008B45FF","#631879FF",
+                               "#008280FF","#BB0021FF")) +
+  theme_stata() +
+  theme(text = element_text(family = "Arial"),
+        plot.title = element_text(size = 12,hjust = 0.5),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 0, hjust = 0.5,vjust = 1),
+        legend.position = "right",
+        legend.direction = "vertical",
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+p
+```
+
+

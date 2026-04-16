@@ -1,0 +1,88 @@
+---
+title: "区间条形图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Interval Bar Chart` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/interval-bar-chart?lang=zh_cn>
+:::
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggplot2`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggplot2)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+案例数据为一年十二个月份的最高和最低温度和对应的月份简称。通过案例数据绘制了每个月份的温度区间及温度均线。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/interval-bar-chart/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+data$name_num <- match(data[["month"]], unique(data[["month"]]))
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1interval-bar-chart
+#| fig-cap: "区间条形图"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 7
+#| warning: false
+#| error: false
+#| message: false
+
+# 区间条形图
+p <- ggplot(data, aes(x = month, y = max_temperature)) +
+  geom_rect(aes(xmin = name_num - 0.4, xmax = name_num + 0.4,
+                ymin = min_temperature, ymax = max_temperature), 
+            fill = "#282726", alpha = 0.7) +
+  geom_line(aes(x = name_num, y = mean), color = "#006064", size = 0.8) +
+  labs(x = "Month", y = "Temperature") +
+  scale_x_discrete() +
+  theme_bw()
+
+p
+```
+
+
+

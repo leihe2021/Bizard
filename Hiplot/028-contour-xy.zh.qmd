@@ -1,0 +1,104 @@
+---
+title: "等高线图 (XY)"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Contour (XY)` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/contour-xy?lang=zh_cn>
+:::
+
+等高线图 (XY) 是一种通过等高线反映数据密集程度的数据处理方式。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggplot2`; `ggisoband`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+if (!requireNamespace("ggisoband", quietly = TRUE)) {
+  remotes::install_github("clauswilke/ggisoband")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggplot2)
+library(ggisoband)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+载入数据为两个变量。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/contour-xy/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+colnames(data) <- c("xvalue", "yvalue")
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Contour-xy
+#| fig-cap: "等高线图 (XY)"
+#| out.width: "95%"
+#| fig-height: 2.5
+#| fig-width: 4
+#| warning: false
+#| message: false
+
+# 等高线图 (XY)
+p <- ggplot(data, aes(xvalue, yvalue)) +
+  geom_density_bands(
+    alpha = 1,
+    aes(fill = stat(density)), color = "gray40", size = 0.2
+    ) +
+  geom_point(alpha = 1, shape = 21, fill = "white") +
+  scale_fill_viridis_c(guide = "legend") +
+  ylab("value2") +
+  xlab("value1") +
+  ggtitle("Contour-XY Plot") +
+  theme_bw() +
+  theme(text = element_text(family = "Arial"),
+        plot.title = element_text(size = 12,hjust = 0.5),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 0, hjust = 0.5,vjust = 1),
+        legend.position = "right",
+        legend.direction = "vertical",
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+p
+```
+
+正如地理上的等高线代表不同高度一样，等高线图上的不同等高线代表不同密度，越靠中心，等高线圈越小，代表其区域数据密度程度越高。如：黄色区域数据密集程度最高，而蓝色区域数据密集程度最低。

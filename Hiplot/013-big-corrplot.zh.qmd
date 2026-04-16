@@ -1,0 +1,101 @@
+---
+title: "大样本相关性热图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Corrplot Big Data` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/big-corrplot?lang=zh_cn>
+:::
+
+相关性热图是一种分析多个变量，两两之间相关性的图形。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ComplexHeatmap`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
+  BiocManager::install("ComplexHeatmap")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ComplexHeatmap)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+载入数据为基因名称及每个样本的表达量。
+
+```{r load data, message=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/big-corrplot/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+data <- data[!is.na(data[, 1]), ]
+idx <- duplicated(data[, 1])
+data[idx, 1] <- paste0(data[idx, 1], "--dup-", cumsum(idx)[idx])
+rownames(data) <- data[, 1]
+data <- data[, -1]
+str2num_df <- function(x) {
+  x[] <- lapply(x, function(l) as.numeric(l))
+  x
+}
+tmp <- t(str2num_df(data))
+corr <- round(cor(tmp, use = "na.or.complete", method = "pearson"), 3)
+
+# 查看数据
+head(corr)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Big-corrplot
+#| fig-cap: "大样本相关性热图"
+#| out.width: "95%"
+#| fig-height: 9
+#| fig-width: 9
+#| warning: false
+
+# 大样本相关性热图
+p <- ComplexHeatmap::Heatmap(
+  corr, col = colorRampPalette(c("#4477AA","#FFFFFF","#BB4444"))(50),
+  clustering_distance_rows = "euclidean",
+  clustering_method_rows = "ward.D2",
+  clustering_distance_columns = "euclidean",
+  clustering_method_columns = "ward.D2",
+  show_column_dend = FALSE, show_row_dend = FALSE,
+  column_names_gp = gpar(fontsize = 8),
+  row_names_gp = gpar(fontsize = 8)
+)
+
+p
+```
+
+红色系表示两个基因之间呈正相关，蓝色系表示两个基因之间呈负相关，每一格中的数字表示相关系数。
+
+

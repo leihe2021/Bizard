@@ -1,0 +1,93 @@
+---
+title: "DIY GSEA"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `DIY GSEA` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/diy-gsea?lang=en>
+:::
+
+Make your geneset.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `clusterProfiler`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("clusterProfiler", quietly = TRUE)) {
+  BiocManager::install("clusterProfiler")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(clusterProfiler)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data1 <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/diy-gsea/data.json")$exampleData$textarea[[1]])
+data1 <- as.data.frame(data1)
+data2 <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/diy-gsea/data.json")$exampleData$textarea[[2]])
+data2 <- as.data.frame(data2)
+
+# convert data structure
+data1[,2] <- as.numeric(data1[,2])
+geneList <- data1[,2]
+names(geneList) <- data1[,1]
+geneList <- sort(geneList, decreasing = TRUE)
+term <- data.frame(term=data2[,1], gene=data2[,2])
+
+# View data
+head(term)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1Diy-gsea
+#| fig-cap: "DIY GSEA"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 7
+#| warning: false
+#| message: false
+
+# DIY GSEA
+y <- clusterProfiler::GSEA(geneList, TERM2GENE = term, pvalueCutoff = 1)
+p <- gseaplot(
+  y,
+  y@result$Description[1],
+  color = "#000000",
+  by = "runningScore",
+  color.line = "#4CAF50",
+  color.vline= "#FA5860",
+  title = "DIY GSEA Plot",
+  )
+
+p
+```
+

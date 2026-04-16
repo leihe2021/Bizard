@@ -1,0 +1,95 @@
+---
+title: "条形图（Histostats）"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Histostats` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/gghistostats?lang=zh_cn>
+:::
+
+展示数据分布及统计推断。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggstatsplot`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggstatsplot", quietly = TRUE)) {
+  install.packages("ggstatsplot")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggstatsplot)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/gghistostats/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+axis <- c("budget", "genre")
+data[, axis[2]] <- factor(data[, axis[2]], levels = unique(data[, axis[2]]))
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1gghistostats
+#| fig-cap: "条形图"
+#| out.width: "95%"
+#| fig-height: 7
+#| fig-width: 7
+#| warning: false
+#| error: false
+#| message: false
+
+# 条形图
+p <- grouped_gghistostats(
+  data = data, x = budget, grouping.var = genre,
+  effsize.type = "unbiased",
+  type = "parametric",
+  centrality.k = 2,
+  plotgrid.args = list(ncol = 2),
+  centrality.parameter = "solid",
+  centrality.line.args = list(size = 1, color = "black"),
+  bar.fill = "#0D47A1", 
+  centrality.label.args = list(color = "#0D47A1", size = 3),
+  test.value = as.numeric(0),
+  normal.curve = F,
+  normal.curve.args = list(size = 1)
+)
+
+p
+```
+
+
+

@@ -1,0 +1,83 @@
+---
+title: "Group Rank Dotplot"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Group Rank Dotplot` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/grdotplot?lang=en>
+:::
+
+Values distribution for different groups.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `sigminer`; `ggplot2`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("sigminer", quietly = TRUE)) {
+  remotes::install_github("ShixiangWang/sigminer")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(sigminer)
+library(ggplot2)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/grdotplot/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# View data
+head(data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1grdotplot
+#| fig-cap: "Group Rank Dotplot"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 6
+#| warning: false
+#| error: false
+#| message: false
+
+# Group Rank Dotplot
+p <- show_group_distribution(data, gvar = "gvar",  dvar = "dvar", 
+                             order_by_fun = F)
+
+p
+```
+
+
+

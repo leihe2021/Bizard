@@ -1,0 +1,120 @@
+---
+title: "基因差异表达排序图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Gene Ranking Dotplot` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/gene-rank?lang=zh_cn>
+:::
+
+基因表达排序可视化。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggrepel`; `ggplot2`; `RColorBrewer`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggrepel", quietly = TRUE)) {
+  install.packages("ggrepel")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+if (!requireNamespace("RColorBrewer", quietly = TRUE)) {
+  install.packages("RColorBrewer")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggrepel)
+library(ggplot2)
+library(RColorBrewer)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/gene-rank/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+## 按 log2FoldChange 和 pvalue 排序
+data <- data[order(-data$log2FC, data$pvalue), ]
+## 添加 rank 列
+data$rank <- 1:nrow(data)
+## 获取 top n 上调和下调基因进行标记
+top_n <- 5
+top_n_up <- rownames(head(data, top_n))
+top_n_down <- rownames(tail(data, top_n))
+genes_to_label <- c(top_n_up, top_n_down)
+data2 <- data[genes_to_label, ]
+
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Gene-rank
+#| fig-cap: "基因差异表达排序图"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 6
+#| warning: false
+#| message: false
+
+# 基因差异表达排序图
+p <- 
+  ggplot(data, aes(rank, log2FC, color = pvalue, size = abs(log2FC))) + 
+  geom_point() + 
+  scale_color_gradientn(colours = colorRampPalette(brewer.pal(11,'RdYlBu'))(100)) +
+  geom_hline(yintercept = c(-1, 1), linetype = 2, size = 0.3) +
+  geom_hline(yintercept = 0, linetype = 1, size = 0.5) +
+  geom_vline(xintercept = median(data$rank), linetype = 2, size = 0.3) + 
+  geom_text_repel(data = data2, aes(rank, log2FC, label = gene),
+                  size = 3, color = "red") +
+  xlab("") + ylab("") + 
+  ylim(c(-max(abs(data$log2FC)), max(abs(data$log2FC)))) +
+  labs(color = "Pvalue", size = "Log2FoldChange") +
+  theme_bw(base_size = 12) +
+  theme(text = element_text(family = "Arial"),
+        plot.title = element_text(size = 12,hjust = 0.5),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 0, hjust = 0.5,vjust = 1),
+        legend.position = "right",
+        legend.direction = "vertical",
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+p
+```
+
+
+
+

@@ -1,0 +1,92 @@
+---
+title: "Custom Icon Scatter"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Custom Icon Scatter` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/custom-icon-scatter?lang=en>
+:::
+
+A scatter plot with customizable icons.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `echarts4r`; `echarts4r.assets`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("echarts4r", quietly = TRUE)) {
+  install.packages("echarts4r")
+}
+if (!requireNamespace("echarts4r.assets", quietly = TRUE)) {
+  remotes::install_github("JohnCoene/echarts4r.assets")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(echarts4r)
+library(echarts4r.assets)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/custom-icon-scatter/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+draw_data <- data.frame(
+  x = data[["mpg"]],
+  y = data[["wt"]],
+  size = data[["qsec"]]
+  )
+rm(data)
+
+# View data
+head(draw_data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1Custom-icon-scatter
+#| fig-cap: "Custom Icon Scatter"
+#| out.width: "95%"
+#| warning: false
+#| message: false
+
+# Custom Icon Scatter
+p <- draw_data |>
+  e_charts(x) |>
+  e_scatter(
+    y,
+    size,
+    symbol = ea_icons("warning"),
+    name = "warning"
+    )
+
+p
+```
+

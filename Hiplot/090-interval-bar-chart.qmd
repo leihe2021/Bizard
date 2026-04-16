@@ -1,0 +1,88 @@
+---
+title: "Interval Bar Chart"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Interval Bar Chart` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/interval-bar-chart?lang=en>
+:::
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `ggplot2`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(ggplot2)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+The case data consists of the highest and lowest temperatures for each of the twelve months in a year, along with the corresponding abbreviated month names. Based on the case data, temperature intervals and average temperature lines have been plotted for each month.
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/interval-bar-chart/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# Convert data structure
+data$name_num <- match(data[["month"]], unique(data[["month"]]))
+
+# View data
+head(data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1interval-bar-chart
+#| fig-cap: "Interval Bar Chart"
+#| out.width: "95%"
+#| fig-height: 4
+#| fig-width: 7
+#| warning: false
+#| error: false
+#| message: false
+
+# Interval Bar Chart
+p <- ggplot(data, aes(x = month, y = max_temperature)) +
+  geom_rect(aes(xmin = name_num - 0.4, xmax = name_num + 0.4,
+                ymin = min_temperature, ymax = max_temperature), 
+            fill = "#282726", alpha = 0.7) +
+  geom_line(aes(x = name_num, y = mean), color = "#006064", size = 0.8) +
+  labs(x = "Month", y = "Temperature") +
+  scale_x_discrete() +
+  theme_bw()
+
+p
+```
+
+
+

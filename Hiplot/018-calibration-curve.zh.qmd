@@ -1,0 +1,100 @@
+---
+title: "校准曲线"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Calibration Curve` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/calibration-curve?lang=zh_cn>
+:::
+
+校准曲线用于评估一致性/校准，即预测值和实际值之间的差异。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `survival`; `rms`; `ggplotify`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("survival", quietly = TRUE)) {
+  install.packages("survival")
+}
+if (!requireNamespace("rms", quietly = TRUE)) {
+  install.packages("rms")
+}
+if (!requireNamespace("ggplotify", quietly = TRUE)) {
+  install.packages("ggplotify")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(survival)
+library(rms)
+library(ggplotify)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+多列数据的数据帧（数字允许NA）。ie生存数据（状态为0和1）。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/calibration-curve/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+res.lrm <- lrm(as.formula(paste(
+  "status ~ ", 
+  paste(colnames(data)[3:length(colnames(data))], collapse = "+"))),
+  data = data, x = TRUE, y = TRUE)
+
+lrm.cal <- calibrate(res.lrm, method = "boot", B = length(rownames(data)))
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Calibration-curve
+#| fig-cap: "校准曲线"
+#| out.width: "95%"
+#| fig-height: 6
+#| fig-width: 6
+#| warning: false
+#| message: false
+
+# 校准曲线
+p <- as.ggplot(function() {
+  plot(lrm.cal,
+       xlab = "Nomogram Predicted Survival",
+       ylab = "Actual Survival",
+       main = "Calibration Curve"
+       )
+})
+
+p
+```
+
+

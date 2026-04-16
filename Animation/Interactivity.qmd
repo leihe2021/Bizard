@@ -1,0 +1,588 @@
+---
+title: "Interactivity"
+author:
+  - "**[Editor]** [KeXin Huang](https://github.com/Kathywongkx),
+  [YuJie Peng](https://github.com/YujiePeng913);"
+  - "**[Contributors]** [ShiXiang Wang](https://github.com/ShixiangWang), 
+  [Peng Luo](https://github.com/DrRobinLuo), 
+  [Hong Yang](https://github.com/MartinaHYang), 
+  [KeXin Li](https://github.com/Likexin0127), 
+  [Ying Shi](https://github.com/), 
+  [Hu Zheng](https://github.com/ZhengTiger)."
+---
+
+Interactive charts allow users to perform actions: zoom, hover the mouse over markers for tooltips, select variables to display, and so on. R provides a set of packages called HTML widgets: these allow you to build interactive data visualizations directly from R.
+
+## Example
+
+![](../images/Interactivity_demo.png){fig-alt="Interactivity DEMO" fig-align="center" width="60%"}
+
+The basic scatter plot above can intuitively represent a general trend of the dependent variable y changing with the independent variable x. It can be seen that y increases roughly as x increases.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming Language: R
+
+-   Dependencies: `plotly`, `gapminder`, `ggiraph`, `webshot`, `tidyverse`, `chorddiag`, `streamgraph`, `htmlwidgets`, `dygraphs`, `xts`, `d3heatmap`, `patchwork`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("plotly", quietly = TRUE)) {
+  install.packages("plotly")
+}
+if (!requireNamespace("gapminder", quietly = TRUE)) {
+  install.packages("gapminder")
+}
+if (!requireNamespace("ggiraph", quietly = TRUE)) {
+  install.packages("ggiraph")
+}
+if (!requireNamespace("webshot", quietly = TRUE)) {
+  install.packages("webshot")
+}
+if (!requireNamespace("tidyverse", quietly = TRUE)) {
+  install.packages("tidyverse")
+}
+if (!requireNamespace("chorddiag", quietly = TRUE)) {
+  remotes::install_github("mattflor/chorddiag")
+}
+if (!requireNamespace("streamgraph", quietly = TRUE)) {
+  remotes::install_github("hrbrmstr/streamgraph")
+}
+if (!requireNamespace("htmlwidgets", quietly = TRUE)) {
+  install.packages("htmlwidgets")
+}
+if (!requireNamespace("dygraphs", quietly = TRUE)) {
+  install.packages("dygraphs")
+}
+if (!requireNamespace("xts", quietly = TRUE)) {
+  install.packages("xts")
+}
+if (!requireNamespace("d3heatmap", quietly = TRUE)) {
+  install.packages("d3heatmap")
+}
+if (!requireNamespace("patchwork", quietly = TRUE)) {
+  install.packages("patchwork")
+}
+
+# Load packages
+library(plotly)
+library(gapminder)
+library(ggiraph)
+library(webshot)
+library(tidyverse)
+library(chorddiag)
+library(streamgraph)
+library(htmlwidgets)
+library(dygraphs)
+library(xts)     
+library(d3heatmap)
+library(patchwork)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+It primarily utilizes gapminder, TCGA dataset, GISAID database, and built-in R datasets.
+
+**1. gapminder dataset**
+
+The `gapminder` package is an R language package that provides an excerpt from a dataset from the Gapminder.org website. This dataset contains population, life expectancy, and GDP data for 142 countries, updated every five years from 1952 to 2007.
+
+```{r load data1}
+head(gapminder)
+```
+
+**2. TCGA dataset**
+
+DNA methylation data were selected from the TCGA Bile Duct Cancer (CHOL) dataset.
+
+```{r load data2}
+#| message: false
+
+data <- readr::read_csv(
+"https://bizard-1301043367.cos.ap-guangzhou.myqcloud.com/data.csv")
+head(data)
+```
+
+**3. Data on COVID-19 infections in 2020 (data source: GISAID database)**
+
+```{r load data3}
+#| message: false
+
+covid_all <- readr::read_csv(
+"https://bizard-1301043367.cos.ap-guangzhou.myqcloud.com/covid_all.csv")
+covid_China <- readr::read_csv(
+"https://bizard-1301043367.cos.ap-guangzhou.myqcloud.com/covid_China.csv")
+head(covid_all)
+head(covid_China)
+```
+
+**4. R Built-in Dataset - mtcars**
+
+```{r load data4}
+#| message: false
+
+mtcars_db <- rownames_to_column(mtcars, var = "carname")
+head(mtcars_db)
+```
+
+## Visualization
+
+### 1. Bubble chart (using plotly)
+
+Using the gapminder dataset
+
+```{r}
+#| label: fig1gapminder
+#| fig-cap: "Bubble chart (using plotly)"
+#| out.width: "95%"
+#| warning: false
+
+plot1 <- gapminder %>%
+  filter(year==1977) %>%
+  ggplot(aes(gdpPercap, lifeExp, size = pop, color=continent))+
+  geom_point() +
+  theme_bw()
+ggplotly(plot1)
+```
+
+This bubble chart illustrates the relationship between GDP per capita and life expectancy at birth in different regions, with the size of the circles representing population size.
+
+### 2. Heatmap (using plotly and d3heatmap)
+
+There are two options for building interactive heatmaps from R:
+
+- `Plotly`: As mentioned above, `Plotly` allows you to convert any heatmap created using `ggplot2` into an interactive version.
+
+- `D3heatmap`: A package that uses the same syntax as the basic R heatmap function `heatmap()` for creating interactive versions.
+
+#### 2.1 plotly
+
+Taking the TCGA database as an example
+
+```{r}
+#| label: fig2plotly
+#| fig-cap: "plotly"
+#| out.width: "95%"
+#| warning: false
+
+plot2 <- ggplot(data, aes(x = Sample, y = Composite, fill= Standardized_Level)) +
+  geom_tile()
+
+ggplotly(plot2)
+```
+
+This heatmap depicts the distribution of standardized methylation levels among different samples and composites in the TCGA-CHOL dataset, reflecting the differences in methylation status among the samples.
+
+#### 2.2 d3heatmap
+
+Taking the `mtcars` database as an example
+
+```{r}
+#| label: fig3d3heatmap
+#| fig-cap: "d3heatmap"
+#| out.width: "95%"
+#| warning: false
+
+d3heatmap(mtcars, scale="column")
+```
+
+This heatmap describes the different attributes of different car models in the mtcars database.
+
+### 3. Streamline diagram (using streamgraph)
+
+Taking the GISAID database as an example
+
+The `streamgraph` package allows you to build interactive flow graphs, and hovering over a group will give you its name and its exact value. This is also the only way to build flow graphs from R.
+
+```{r}
+#| label: fig4streamgraph
+#| fig-cap: "streamgraph"
+#| out.width: "95%"
+#| warning: false
+#| eval: false
+
+streamgraph(covid_all,key = "location",
+            value = "count",date = "time",
+            height="300px", width="1000px")
+```
+
+::: {#fig-4streamgraph}
+![](../images/gallery/Interactivity_plot4.png){fig-alt="Interactivity_plot4" fig-align="center" width="95%"}
+
+streamgraph
+:::
+
+This line graph illustrates the changing trends in the number of COVID-19 infections in different regions of the world in 2020.
+
+### 4. Chord diagram (using the chorddiag package)
+
+The `chorddiag` package allows you to build interactive chord diagrams using R. It takes a square matrix as input, providing the flow intensity between each pair of nodes that will be displayed around the circle. Once the data is correctly formatted, the `chorddiag()` function will automatically build the diagram for you.
+
+```{r}
+#| label: fig5chorddiag
+#| fig-cap: "chorddiag"
+#| out.width: "95%"
+#| warning: false
+#| eval: false
+
+# Create a dataset
+m <- matrix(
+  c(
+    11975, 5871, 8916, 2868,
+    1951, 10048, 2060, 6171,
+    8010, 16145, 8090, 8045,
+    1013, 990, 940, 6907
+  ),
+  byrow = TRUE,
+  nrow = 4, ncol = 4
+)
+haircolors <- c("black", "blonde", "brown", "red")
+dimnames(m) <- list(
+  have = haircolors,
+  prefer = haircolors
+)
+groupColors <- c("#000000", "#FFDD89", "#957244", "#F26223")
+
+# plot
+p <- chorddiag(m, groupColors = groupColors, groupnamePadding = 60)
+p
+
+# Save the image as HTML
+# saveWidget(p, file=paste0( getwd(), "./chord_interactive.html")) 
+```
+
+::: {#fig-5chorddiag}
+![](../images/gallery/Interactivity_plot5.png){fig-alt="Interactivity_plot5" fig-align="center" width="95%"}
+
+chorddiag
+:::
+
+### 5. Time series plots (using the dygraphs package)
+
+```{r}
+#| label: fig6dygraphs
+#| fig-cap: "dygraphs"
+#| out.width: "95%"
+#| warning: false
+#| eval: false
+
+# When processing data, it's important to convert the time data into XTS time series data.
+covid_China$time <- as.Date(covid_China$time, format = "%Y-%m-%d")
+don <- xts(x = covid_China$count, order.by = covid_China$time)
+
+# plot
+p <- dygraph(don) %>%
+  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, 
+            fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
+  dyRangeSelector() %>%
+  dyCrosshair(direction = "vertical") %>%
+  dyHighlight(highlightCircleSize = 5, 
+              highlightSeriesBackgroundAlpha = 0.2, 
+              hideOnMouseOut = FALSE)  %>%
+  dyRoller(rollPeriod = 1)
+
+p
+```
+
+::: {#fig-6dygraphs}
+![](../images/gallery/Interactivity_plot6.png){fig-alt="Interactivity_plot6" fig-align="center" width="95%"}
+
+dygraphs
+:::
+
+This time series plot depicts the growth of the number of COVID-19 cases in China in 2020.
+
+### 6. ggiraph package
+
+The `ggiraph` package in R is an extension of the `ggplot2` package, designed to simplify the process of creating interactive and dynamic plots. It is an HTML widget, meaning it is highly compatible with R Markdown/Quarto documents and the Shiny application.
+
+#### 6.1 Basic usage
+
+This is an example using the `geom_point_interactive()` function, which "replaces" the original `geom_point()` function in `ggplot2`. It will also draw circles on the plot, but these circles will be interactive. This geometry has some new parameters, such as `hover_nearest = TRUE`, which ensures that we always consider the nearest point being hovered over.
+
+**Taking mtcars data as an example**
+
+```{r}
+#| label: fig7mtcars
+#| fig-cap: "Taking mtcars data as an example"
+#| out.width: "95%"
+#| warning: false
+#| eval: false
+
+# plot
+myplot <- ggplot(
+  data = mtcars_db,
+  mapping = aes(
+    x = disp, y = qsec,
+    tooltip = carname, data_id = carname
+  )
+) +
+  geom_point_interactive(
+    size = 3, hover_nearest = TRUE
+  )
+
+# Convert images into interactive formats
+interactive_plot <- girafe(ggobj = myplot)
+interactive_plot
+```
+
+::: {#fig-7mtcars}
+![](../images/gallery/Interactivity_plot7.png){fig-alt="Interactivity_plot7" fig-align="center" width="95%"}
+
+Taking mtcars data as an example
+:::
+
+This scatter plot shows the relationship between quarter-mile time and engine displacement for different cars in the `mtcars` dataset. Hovering the mouse over the origin will display the name of each car.
+
+#### 6.2 Merge charts
+
+```{r}
+#| label: fig8merge
+#| fig-cap: "Merge charts"
+#| out.width: "95%"
+#| warning: false
+#| message: false
+#| eval: false
+
+# plot1
+scatter <- ggplot(
+  data = mtcars_db,
+  mapping = aes(
+    x = disp, y = qsec,
+    tooltip = carname, data_id = carname
+  )
+) +
+  geom_point_interactive(
+    size = 3, hover_nearest = TRUE
+  ) +
+  labs(
+    title = "Displacement vs Quarter Mile",
+    x = "Displacement", y = "Quarter Mile"
+  ) +
+  theme_bw()
+
+# plot2
+bar <- ggplot(
+  data = mtcars_db,
+  mapping = aes(
+    x = reorder(carname, mpg), y = mpg,
+    tooltip = paste("Car:", carname, "<br>MPG:", mpg),
+    data_id = carname
+  )
+) +
+  geom_col_interactive(fill = "skyblue") +
+  coord_flip() +
+  labs(
+    title = "Miles per Gallon by Car",
+    x = "Car", y = "Miles per Gallon"
+  ) +
+  theme_bw()
+
+# Merge two charts
+combined_plot <- scatter + bar +
+  plot_layout(ncol = 2)
+
+# Convert images into interactive formats
+interactive_plot_match <- girafe(ggobj = combined_plot)
+
+# Options for setting interactive charts
+interactive_plot_match <- girafe_options(
+  interactive_plot_match,
+  opts_hover(css = "fill:cyan;stroke:black;cursor:pointer;"),
+  opts_selection(type = "single", css = "fill:red;stroke:black;")
+)
+
+interactive_plot_match
+```
+
+::: {#fig-8merge}
+![](../images/gallery/Interactivity_plot8.png){fig-alt="Interactivity_plot8" fig-align="center" width="95%"}
+
+Merge charts
+:::
+
+The left image shows the relationship between quarter-mile travel time and engine displacement for different cars in the mtcars dataset, while the right image shows the relationship between miles per gallon for different cars. By interactively merging the two images, the performance of each car can be quickly and intuitively obtained.
+
+#### 6.3 Customize interactive charts using CSS
+
+While CSS is primarily used for web design, it can also be used to customize visual effects in R, making it convenient for handling web-based outputs such as interactive charts or Shiny applications.
+
+Basic Graphics (using a line chart as an example)
+
+```{r}
+#| label: fig9CSS
+#| fig-cap: "Customize interactive charts using CSS"
+#| out.width: "95%"
+#| warning: false
+#| message: false
+#| eval: false
+
+# plot
+plot <- covid_all %>%
+  ggplot(mapping = aes(
+    x = time,
+    y = count,
+    color = location,
+    tooltip = location,
+    data_id = location
+  )) +
+  geom_line_interactive(hover_nearest = TRUE) +
+  theme_classic()
+
+# Convert images into interactive formats
+interactive_plot_line <- girafe(ggobj = plot)
+
+interactive_plot_line
+```
+
+::: {#fig-9CSS}
+![](../images/gallery/Interactivity_plot9.png){fig-alt="Interactivity_plot9" fig-align="center" width="95%"}
+
+Customize interactive charts using CSS
+:::
+
+This line graph depicts the changing trends in the number of COVID-19 infections in different regions of the world in 2020, with each curve representing a different continent.
+
+#### 6.4 Add CSS
+
+**1. Add fill effect**
+
+The simplest way to add CSS to `ggiraph` is to use the `girafe_options()` function.
+
+```{r}
+#| label: fig10girafe_options
+#| fig-cap: "Add fill effect"
+#| out.width: "95%"
+#| warning: false
+#| message: false
+#| eval: false
+
+interactive_plot_line <- girafe_options(
+  interactive_plot_line,
+  opts_hover(css = "fill:#ffe7a6;stroke:black;cursor:pointer;"),
+  opts_selection(type = "single", css = "fill:red;stroke:black;"),
+  opts_toolbar(saveaspng = FALSE)
+)
+interactive_plot_line
+```
+
+::: {#fig-10girafe_options}
+![](../images/gallery/Interactivity_plot10.png){fig-alt="Interactivity_plot10" fig-align="center" width="95%"}
+
+Add fill effect
+:::
+
+This line graph depicts the changing trends in the number of COVID-19 infections in different regions of the world in 2020, with each curve representing a different continent.
+
+**2. Highlight a curve**
+
+When one line is selected, the other lines automatically fade in color.
+
+Here are some parameters for adjusting the curve:
+
+- `stroke`: Changes the color of the hover line (e.g., `stroke: #69B3A2`;)
+- `stroke-width`: Increases the width of the hover line for emphasis.
+- `transition`: Adds a smooth transition effect (e.g., `transition: all 0.3s ease`;)
+- `opacity`: Reduces the opacity of non-hover lines (e.g., `opacity: 0.5`;)
+- `filter`: Applies a grayscale effect to non-hover lines (e.g., `filter: grayscale(90%)`;)
+
+```{r}
+#| label: fig11highlight
+#| fig-cap: "Highlight a curve"
+#| out.width: "95%"
+#| warning: false
+#| message: false
+#| eval: false
+
+interactive_plot_line2 <- girafe_options(
+  interactive_plot_line,
+  opts_hover(css = "stroke:#69B3A2; stroke-width: 3px; transition: all 0.3s ease;"),
+  opts_hover_inv("opacity:0.5;filter:saturate(10%);"),
+  opts_toolbar(saveaspng = FALSE)
+)
+interactive_plot_line2
+```
+
+::: {#fig-11highlight}
+![](../images/gallery/Interactivity_plot11.png){fig-alt="Interactivity_plot11" fig-align="center" width="95%"}
+
+Highlight a curve
+:::
+
+This line graph depicts the changing trends in the number of COVID-19 infections in different regions of the world in 2020, with each curve representing a different continent.
+
+### 7. Save interactive charts to .PNG and .HTML formats.
+
+Interactive charts can be saved as `.html` and two `.png` formats. To do this, you must rely on the `htmlwidget` and `webshot` packages respectively. You can then embed your visual `iframe`-like `img` in any webpage using the `<img>` tag.
+
+```{r}
+#| label: fig12save
+#| fig-cap: "Save interactive charts to .PNG and .HTML formats."
+#| out.width: "95%"
+#| warning: false
+#| message: false
+#| eval: false
+
+# Save as HTML
+saveWidget(p, file="myFile.html")
+
+# Save as PNG
+webshot::install_phantomjs()
+webshot("paste_your_html_here" , "output.png", delay = 0.2 , cliprect = c(440, 0, 1000, 10))
+```
+
+## Applications
+
+Interactive charts can make research data more intuitive.
+
+::: {#fig-ScatterApplications}
+![](../images/Interactivity_app.png){fig-alt="nteractivityApp1" fig-align="center" width="60%"}
+
+Applications of Interactivity plot
+:::
+
+Kepler.gl is a powerful geospatial data visualization tool developed and open-sourced by Uber. It is designed to help users quickly and intuitively explore and visualize large-scale geospatial datasets. \[1\]
+
+After importing basic data, interactive scatter plots, bar charts, and heat maps can be automatically generated, which helps to better present research data based on different geographical locations.
+
+## Reference
+
+\[1\] https://zhuanlan.zhihu.com/p/365767977
+
+\[2\] Wickham, H., & François, R. (2019). dplyr: A Grammar of Data Manipulation (Version 1.0.0). https://CRAN.R-project.org/package=dplyr
+
+\[3\] Gohel, D., & Skintzos, P. (2024). ggiraph: Make 'ggplot2' Graphics Interactive. https://CRAN.R-project.org/package=ggiraph
+
+\[4\] Wickham, H., Hester, J., Chang, W., & Bryan, J. (2024). devtools: Tools to Make Developing R Packages Easier. R package version 2.4.5.9000. https://github.com/r-lib/devtools.
+
+\[5\] Allaire, J. J., & Xie, Y. (2018). webshot: Save Web Content as an Image File [Computer software]. Retrieved from https://CRAN.R-project.org/package=webshot
+
+\[6\] Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., ... Yutani, H. (2019). tidyverse: Easily Install and Load the 'Tidyverse' (Version 1.2.1) [Computer software]. Retrieved from https://CRAN.R-project.org/package=tidyverse
+
+\[7\] Wickham, H., & Chang, W. (2016). ggplot2: Elegant Graphics for Data Visualization. Springer-Verlag New York.
+
+\[8\] Sievert, C. (2020). Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC. https://plotly-r.com
+
+\[9\] Bryan J (2023). gapminder: Data from Gapminder. https://github.com/jennybc/gapminder, https://www.gapminder.org/data/, https://doi.org/10.5281/zenodo.594018, https://jennybc.github.io/gapminder/.
+
+\[11\] Flor, M. (2018). chorddiag: Create a D3 Chord Diagram. https://rdrr.io/github/mattflor/chorddiag/
+
+\[12\] Hart, E., & Wickham, H. (2017). streamgraph: Create Streamgraph in R. https://CRAN.R-project.org/package=streamgraph
+
+\[13\] Vaidyanathan, R., Cheng, J., Allaire, J. J., Xie, Y., & Russell, K. (2018). htmlwidgets: HTML Widgets for R. https://github.com/ramnathv/htmlwidgets
+
+\[14\] anderkam, D., Shevtsov, P., Allaire, J. J., Owen, J., Gromer, D., & Thieurmel, B. (2011). dygraphs: Interface to 'Dygraphs' Interactive Time Series Charting Library. R package version 1.1.1.7. https://CRAN.R-project.org/package=dygraphs
+
+\[15\] Ryan, J. A., & Ulrich, J. M. (2024). xts: eXtensible Time Series. R package version 0.14.1. https://CRAN.R-project.org/package=xts
+
+\[16\] Grolemund, G., & Wickham, H. (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1–25. https://www.jstatsoft.org/v40/i03/
+
+\[17\] Cheng, J., Galili, T., RStudio, Inc., Bostock, M., & Palmer, J. (2019). d3heatmap: Interactive Heat Maps Using 'htmlwidgets' and 'D3.js'. https://rdrr.io/cran/d3heatmap/
+
+

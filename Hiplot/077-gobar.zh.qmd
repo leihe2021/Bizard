@@ -1,0 +1,92 @@
+---
+title: "GO 条形图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `GOBar Plot` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/gobar?lang=zh_cn>
+:::
+
+GO 条形图用于显示按 z-score 或 adjusted p-value 的负对数排序的 Z-score 彩色条形图。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `GOplot`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("GOplot", quietly = TRUE)) {
+  install.packages("GOplot")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(GOplot)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+加载的数据是具有七个列的GO富集的结果：category, GO id, GO term, gene count, gene name, logFC, adjust pvalue and zscore。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/gobar/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+colnames(data) <- c("category","ID","term","count","genes","logFC","adj_pval","zscore")
+data <- data[data$category %in% c("BP","CC","MF"),]
+data <- data[!is.na(data$adj_pval),]
+data$adj_pval <- as.numeric(data$adj_pval)
+data$zscore <- as.numeric(data$zscore)
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1gobar
+#| fig-cap: "GO 条形图"
+#| out.width: "95%"
+#| fig-height: 6
+#| fig-width: 10
+#| warning: false
+#| error: false
+#| message: false
+
+# GO 条形图
+p <- GOBar(data, display = "multiple", order.by.zscore = T,
+           title = "GO Enrichment Barplot ", 
+           zsc.col = c("#EF8A62","#F7F7F7","#67A9CF")) + 
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.text.x = element_text(size = 8))
+
+p
+```
+
+如示例图所示，x 轴表示每个 GO term，y 轴表示 -log(adj_pvalue)，每个条按 z-score 着色。如果显示分面，则面板的宽度将与 x 刻度的长度成正比。
+
+

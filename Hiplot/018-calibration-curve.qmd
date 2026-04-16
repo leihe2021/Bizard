@@ -1,0 +1,99 @@
+---
+title: "Calibration Curve"
+author:
+  - "**[Editor]** [Hu Zheng](https://github.com/ZhengTiger);"
+  - "**[Contributors]** "
+---
+
+::: callout-note
+**Hiplot website**
+
+This page is the tutorial for source code version of the Hiplot `Calibration Curve` plugin. You can also use the Hiplot website to achieve no code ploting. For more information please see the following link:
+
+<https://hiplot.cn/basic/calibration-curve?lang=en>
+:::
+
+The calibration curve is used to evaluate the consistency / calibration, i.e. the difference between the predicted value and the real value.
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming language: R
+
+-   Dependent packages: `data.table`; `jsonlite`; `survival`; `rms`; `ggplotify`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("survival", quietly = TRUE)) {
+  install.packages("survival")
+}
+if (!requireNamespace("rms", quietly = TRUE)) {
+  install.packages("rms")
+}
+if (!requireNamespace("ggplotify", quietly = TRUE)) {
+  install.packages("ggplotify")
+}
+
+# Load packages
+library(data.table)
+library(jsonlite)
+library(survival)
+library(rms)
+library(ggplotify)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+Data frame of multi columns data (Numeric allow NA). i.e the survival data (status with 0 and 1).
+
+```{r load data, message=FALSE, warning=FALSE}
+# Load data
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/calibration-curve/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# convert data structure
+res.lrm <- lrm(as.formula(paste(
+  "status ~ ", 
+  paste(colnames(data)[3:length(colnames(data))], collapse = "+"))),
+  data = data, x = TRUE, y = TRUE)
+
+lrm.cal <- calibrate(res.lrm, method = "boot", B = length(rownames(data)))
+
+# View data
+head(data)
+```
+
+## Visualization
+
+```{r}
+#| label: fig-1Calibration-curve
+#| fig-cap: "Calibration Curve"
+#| out.width: "95%"
+#| fig-height: 6
+#| fig-width: 6
+#| warning: false
+#| message: false
+
+# Calibration Curve
+p <- as.ggplot(function() {
+  plot(lrm.cal,
+       xlab = "Nomogram Predicted Survival",
+       ylab = "Actual Survival",
+       main = "Calibration Curve"
+       )
+})
+
+p
+```
+

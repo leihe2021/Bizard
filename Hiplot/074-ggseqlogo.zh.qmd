@@ -1,0 +1,97 @@
+---
+title: "序列 Logo"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Seqlogo` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/ggseqlogo?lang=zh_cn>
+:::
+
+序列 Logo 是一种用来描述结合位点序列模式的图形。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `ggseqlogo`; `ggplot2`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("ggseqlogo", quietly = TRUE)) {
+  install.packages("ggseqlogo")
+}
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  install.packages("ggplot2")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(ggseqlogo)
+library(ggplot2)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+载入数据为多个转录因子在多个基因上的结合位点的序列。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/ggseqlogo/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+data <- data[, !sapply(data, function(x) {all(is.na(x))})]
+data <- as.list(data)
+data <- lapply(data, function(x) {return(x[!is.na(x)])})
+
+# 查看数据
+str(data[1:5])
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1ggseqlogo
+#| fig-cap: "序列 Logo"
+#| out.width: "95%"
+#| fig-height: 6
+#| fig-width: 8
+#| warning: false
+#| error: false
+#| message: false
+
+# 序列 Logo
+p <- ggseqlogo(
+  data,
+  ncol = 4,
+  col_scheme = "nucleotide",
+  seq_type = "dna",
+  method = "bits") + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+p
+```
+
+采用 bits 计算的方式将一个结合位点序列展示在图表一列，可以清晰观测到不同序列占比较大的碱基。
+
+
+

@@ -1,0 +1,83 @@
+---
+title: "漏斗图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Funnel Plot` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/funnel-plot?lang=zh_cn>
+:::
+
+可以用于分析 Meta 分析结果中潜在偏倚因子。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `FunnelPlotR`; `gridExtra`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("FunnelPlotR", quietly = TRUE)) {
+  install.packages("FunnelPlotR")
+}
+if (!requireNamespace("gridExtra", quietly = TRUE)) {
+  install.packages("gridExtra")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(FunnelPlotR)
+library(gridExtra)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/funnel-plot/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Funnel-plot-metafor
+#| fig-cap: "漏斗图"
+#| out.width: "95%"
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
+#| message: false
+
+# 漏斗图
+p <- funnel_plot(
+  data, numerator = los, denominator = prds,  group = provnum, data_type = "SR",
+  limit = 99, label = "outlier", sr_method = "SHMI", trim_by=0.1, 
+  title = "Funnel Plot", x_range = "auto", y_range = "auto"
+  )
+
+p
+```
+

@@ -1,0 +1,108 @@
+---
+title: "弦图"
+author:
+  - "**[编辑]** [郑虎](https://github.com/ZhengTiger);"
+  - "**[审核]** ."
+---
+
+::: callout-note
+**Hiplot 网站**
+
+本页面为 Hiplot `Chord Plot` 插件的源码版本教程，您也可以使用 Hiplot 网站实现无代码绘图，更多信息请查看以下链接:
+
+<https://hiplot.cn/basic/chord?lang=zh_cn>
+:::
+
+复杂的数据关系交互作用以和弦图的形式表现出来。
+
+## 环境配置
+
+-   系统: Cross-platform (Linux/MacOS/Windows)
+
+-   编程语言: R
+
+-   依赖包: `data.table`; `jsonlite`; `circlize`; `ggplotify`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# 安装包
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  install.packages("data.table")
+}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+if (!requireNamespace("circlize", quietly = TRUE)) {
+  install.packages("circlize")
+}
+if (!requireNamespace("ggplotify", quietly = TRUE)) {
+  install.packages("ggplotify")
+}
+
+# 加载包
+library(data.table)
+library(jsonlite)
+library(circlize)
+library(ggplotify)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## 数据准备
+
+基因与通路或基因本体相互作用的数据框架或矩阵。
+
+```{r load data, message=FALSE, warning=FALSE}
+# 加载数据
+data <- data.table::fread(jsonlite::read_json("https://hiplot.cn/ui/basic/chord/data.json")$exampleData$textarea[[1]])
+data <- as.data.frame(data)
+
+# 整理数据格式
+row.names(data) <- data[, 1]
+data <- data[, -1]
+data <- as.matrix(data)
+
+# 查看数据
+head(data)
+```
+
+## 可视化
+
+```{r}
+#| label: fig-1Chord
+#| fig-cap: "弦图"
+#| out.width: "95%"
+#| warning: false
+#| message: false
+#| fig-height: 6
+#| fig-width: 6
+
+# 弦图
+Palette <- c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF",
+             "#8491B4FF","#91D1C2FF","#DC0000FF","#7E6148FF","#B09C85FF")
+grid.col <- c(Palette, Palette, Palette[1:5])
+p <- as.ggplot(function() {
+  chordDiagram(
+    data, grid.col = grid.col, grid.border = NULL, transparency = 0.5,
+    row.col = NULL, column.col = NULL,  order = NULL,
+    directional = 0, # 1, -1, 0, 2
+    direction.type = "diffHeight", # diffHeight and arrows
+    diffHeight = convert_height(2, "mm"), reduce = 1e-5, xmax = NULL, 
+    self.link = 2, symmetric = FALSE, keep.diagonal = FALSE, 
+    preAllocateTracks = NULL,
+    annotationTrack = c("name", "grid", "axis"),
+    annotationTrackHeight = convert_height(c(3, 3), "mm"),
+    link.border = NA, link.lwd = par("lwd"), link.lty = par("lty"), 
+    link.sort = FALSE, link.decreasing = TRUE, link.largest.ontop = FALSE,
+    link.visible = T, link.rank = NULL, link.overlap = FALSE,
+    scale = F, group = NULL, big.gap = 10, small.gap = 1
+    )
+  })
+
+p
+```
+
+
+
+

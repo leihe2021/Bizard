@@ -1,0 +1,240 @@
+---
+title: "Radar/Spider Plot"
+author:
+  - "**[Editor]** [KeXin Huang](https://github.com/Kathywongkx);"
+  - "**[Contributors]** [ShiXiang Wang](https://github.com/ShixiangWang), 
+  [Peng Luo](https://github.com/DrRobinLuo), 
+  [Hong Yang](https://github.com/MartinaHYang), 
+  [KeXin Li](https://github.com/Likexin0127), 
+  [Ying Shi](https://github.com/), 
+  [Hu Zheng](https://github.com/ZhengTiger)."
+---
+
+A radar chart, spider chart, or web chart is a two-dimensional chart type used to plot a series of values over one or more quantitative variables. The fmsb library is an excellent tool for building this type of chart in R.
+
+## Example
+
+![](../images/Radar_demo.png){fig-alt="Radar Plot DEMO" fig-align="center" width="60%"}
+
+## Setup
+
+-   System Requirements: Cross-platform (Linux/MacOS/Windows)
+
+-   Programming Language: R
+
+-   Dependencies: `fmsb`
+
+```{r packages setup, message=FALSE, warning=FALSE, output=FALSE}
+# Install packages
+if (!requireNamespace("fmsb", quietly = TRUE)) {
+  install.packages("fmsb")
+}
+
+# Load packages
+library(fmsb)
+```
+
+```{r}
+sessioninfo::session_info("attached")
+```
+
+## Data Preparation
+
+This paper primarily uses the built-in `iris` dataset in R, custom datasets, and the TCGA database.
+
+The input data format must be very specific. Each row must contain a single entity. Each column is a quantitative variable. The first two rows provide the minimum and maximum values to be used for each variable.
+
+```{r load data}
+#| message: false
+
+# 1.R built-in data - iris
+head(iris)
+
+# 2.Self-built dataset
+## Here we create a data set about the performance of three students in different subjects
+set.seed(99)                  
+data <- as.data.frame(matrix( sample( 0:20 , 15 , replace=F) , ncol=5))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding" )
+rownames(data) <- paste("mister" , letters[1:3] , sep="-")
+data <- rbind(rep(20,5) , rep(0,5) , data) 
+
+# 3.TCGA database (gene expression data of liver cancer)
+tcga_group_radar <- readr::read_csv(
+"https://bizard-1301043367.cos.ap-guangzhou.myqcloud.com/tcga_group_radar.csv")
+tcga_simple_bar <- data.frame(tcga_group_radar[3,])
+```
+
+## Visualization
+
+### 1. Basic Plot
+
+Take `iris` data as an example
+
+```{r}
+#| label: fig-BasicPlot
+#| fig-cap: "Basic Plot"
+#| out.width: "95%"
+#| warning: false
+
+# Data collation
+iris_setosa <- iris[c(1:50),]
+iris_setosa <- iris_setosa[,-5]
+iris_setosa_radar <- rbind(rep(6,4),rep(0,4),iris_setosa)
+# plot
+par(mar = c(1, 1, 1, 1))
+radarchart(iris_setosa_radar)
+```
+
+This radar chart depicts the distribution of four basic properties for a sample from the genus `setosa`.
+
+Using the TCGA database as an example
+
+```{r}
+#| label: fig-BasicPlotTCGA
+#| fig-cap: "Basic Plot"
+#| out.width: "95%"
+#| warning: false
+
+par(mar = c(1, 1, 1, 1))
+tcga_simple_bar <- rbind(rep(2.5,3),rep(0,3),tcga_simple_bar)
+radarchart(tcga_simple_bar)
+```
+
+This radar chart describes the expression levels of TIGAR, RNF44, and RAB4B genes in a sample.
+
+::: callout-tip
+**Key parameters:**
+
+Polygonal features:
+- `pcol`：Line color
+- `pfcol`：Fill color
+- `plwd`：Line width
+
+Grid features:
+- `cglcol`：Grid color
+- `cglty`：Grid line type
+- `axislabcol`：Axis line color
+- `caxislabels`：Axis labels to display
+- `cglwd`：Grid width
+
+Group Label:
+- `vlcex`：Group label size
+:::
+
+```{r}
+#| label: fig-parameter
+#| fig-cap: "Parameter Adjustment"
+#| out.width: "95%"
+#| warning: false
+#| fig-width: 10
+#| fig-height: 10
+
+radarchart(iris_setosa_radar,
+           axistype=1 ,  
+           pcol=rgb(0.2,0.5,0.5,0.9),
+           pfcol=rgb(0.2,0.5,0.5,0.1),
+           plwd=4,  
+           cglcol="grey",cglty=1,axislabcol="grey",
+           caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8)
+```
+
+This radar chart describes the distribution of four basic properties of a sample from the `setosa` species.
+
+### 2. Multi-group radar chart
+
+**Take self-built dataset as an example**
+
+```{r}
+#| label: fig-Multigroup
+#| fig-cap: "Multi-group radar chart"
+#| out.width: "95%"
+#| warning: false
+#| fig-width: 8
+#| fig-height: 8
+
+radarchart(data)
+```
+
+This radar chart describes the distribution of scores of three students in various subjects.
+
+**Adjust parameters**
+
+```{r}
+#| label: fig-Adjustpara
+#| fig-cap: "Adjust parameters"
+#| out.width: "95%"
+#| warning: false
+#| fig-width: 8
+#| fig-height: 8
+
+# Set color parameters
+colors_border=c(rgb(0.2,0.5,0.5,0.9),rgb(0.8,0.2,0.5,0.9),rgb(0.7,0.5,0.1,0.9) )
+colors_in=c(rgb(0.2,0.5,0.5,0.4),rgb(0.8,0.2,0.5,0.4) ,rgb(0.7,0.5,0.1,0.4) )
+
+# plot
+radarchart(data,
+           axistype=1 , 
+           pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
+           cglcol="grey", cglty=1, 
+           axislabcol="grey", caxislabels=seq(0,20,5), 
+           cglwd=0.8,
+           vlcex=0.8
+)
+
+# Add a legend
+legend(x=0.7, y=1, 
+       legend = rownames(data[-c(1,2),]), bty = "n",
+       pch=20,col=colors_in , text.col = "grey", 
+       cex=1.2, pt.cex=3)
+```
+
+This radar chart describes the distribution of scores of three students in various subjects.
+
+**Taking the TCGA database as an example**
+
+```{r}
+#| label: fig-AdjustparaTCGA
+#| fig-cap: "TCGA"
+#| out.width: "95%"
+#| warning: false
+#| fig-width: 8
+#| fig-height: 8
+
+par(mar = c(1, 1, 1, 1))
+tcga_group_radar <- rbind(rep(3,3),rep(0,3),tcga_group_radar)
+tcga_group_radar <- as.data.frame(tcga_group_radar) # It must be converted into a data frame before it can be drawn.
+radarchart(tcga_group_radar)
+```
+
+This radar chart describes the expression levels of TIGAR, RNF44, and RAB4B genes in a sample.
+
+## Applications
+
+### 1. Comprehensive comparison of multivariate data
+
+::: {#fig-RadarApplications}
+![](../images/Radar_app1.png){fig-alt="RadarApp1" fig-align="center" width="60%"}
+
+Comprehensive comparison of multivariate data
+:::
+
+This study used radar charts to analyze the role and prognostic value of the YIF1B gene in pan-cancer. \[1\]
+
+### 2. Applicable to comprehensive evaluation of multiple indicators
+
+::: {#fig-RadarApplications}
+![](../images/Radar_app2.png){fig-alt="RadarApp2" fig-align="center" width="60%"}
+
+Applicable to comprehensive evaluation of multiple indicators
+:::
+
+The study used radar charts to present various areas of frailty assessment in older adults. \[2\]
+
+## Reference
+
+\[1\] Liu J, Chen Z, Zhao P, Li W. Prognostic and immune regulating roles of YIF1B in Pan-Cancer: a potential target for both survival and therapy response evaluation. Biosci Rep. 2020 Jul 31;40(7):BSR20201384. doi: 10.1042/BSR20201384. PMID: 32648580; PMCID: PMC7378310.
+
+\[2\] Jung HW. Visualizing Domains of Comprehensive Geriatric Assessments to Grasp Frailty Spectrum in Older Adults with a Radar Chart. Ann Geriatr Med Res. 2020 Mar;24(1):55-56. doi: 10.4235/agmr.20.0013. Epub 2020 Mar 27. PMID: 32743323; PMCID: PMC7370779.
+
+\[3\] Nakazawa M (2024). fmsb: Functions for Medical Statistics Book with some Demographic Data. R package version 0.7.6, https://CRAN.R-project.org/package=fmsb.
+
